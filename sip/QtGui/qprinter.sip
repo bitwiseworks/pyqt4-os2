@@ -171,10 +171,10 @@ public:
     QRect pageRect() const;
     QRectF paperRect(QPrinter::Unit) const;
     QRectF pageRect(QPrinter::Unit) const;
-%If (WS_X11 || WS_MACX)
+%If (WS_X11 || WS_MACX || WS_OS2)
     QString printerSelectionOption() const;
 %End
-%If (WS_X11 || WS_MACX)
+%If (WS_X11 || WS_MACX || WS_OS2)
     void setPrinterSelectionOption(const QString &);
 %End
     virtual bool newPage();
@@ -388,10 +388,10 @@ public:
 %End
     QRect paperRect() const;
     QRect pageRect() const;
-%If (WS_X11 || WS_MACX)
+%If (WS_X11 || WS_MACX || WS_OS2)
     QString printerSelectionOption() const;
 %End
-%If (WS_X11 || WS_MACX)
+%If (WS_X11 || WS_MACX || WS_OS2)
     void setPrinterSelectionOption(const QString &);
 %End
     bool newPage();

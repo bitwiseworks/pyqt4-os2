@@ -1660,7 +1660,7 @@ namespace Qt
     typedef void *HANDLE;
 %End
 %If (- Qt_5_0_0)
-%If (WS_WIN || WS_MACX)
+%If (WS_WIN || WS_MACX || WS_OS2)
     typedef void *HANDLE;
 %End
 %End

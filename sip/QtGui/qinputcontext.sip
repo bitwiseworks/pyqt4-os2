@@ -22,6 +22,7 @@
 
 %If (- Qt_5_0_0)
 
+%If (!WS_OS2)
 class QInputContext : QObject
 {
 %TypeHeaderCode
@@ -57,4 +58,5 @@ private:
     QInputContext(const QInputContext &);
 };
 
+%End
 %End

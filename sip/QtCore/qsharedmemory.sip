@@ -21,6 +21,7 @@
 
 
 %If (Qt_4_4_0 -)
+%If (!WS_OS2)
 
 class QSharedMemory : QObject
 {
@@ -83,4 +84,5 @@ private:
     QSharedMemory(const QSharedMemory &);
 };
 
+%End
 %End

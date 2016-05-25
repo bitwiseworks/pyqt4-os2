@@ -241,7 +241,7 @@ static PyObject *qtcore_FindChildren(const QObject *parent, PyObject *types, con
         sipTypeDef **type;
         int yes, no;
     } graph[] = {
-    #if QT_VERSION >= 0x040400
+    #if (QT_VERSION >= 0x040400) && !defined(QT_NO_SHAREDMEMORY)
         {sipName_QSharedMemory, &sipType_QSharedMemory, -1, 1},
     #else
         {0, 0, -1, 1},

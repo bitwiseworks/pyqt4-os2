@@ -35,6 +35,12 @@ typedef struct HBITMAP__ *HBITMAP;
 typedef struct HICON__ *HICON;
 typedef HWND WId;
 %End
+%If (WS_OS2)
+// OS/2 specific definitions.
+// @todo_bww is this right defined?
+typedef unsigned long WId;
+typedef unsigned long HBITMAP;
+%End
 %End
 %If (- Qt_5_0_0)
 %If (WS_MACX)

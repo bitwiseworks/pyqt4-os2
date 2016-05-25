@@ -25,6 +25,10 @@
 %End
 
 %If (- Qt_5_0_0)
+%If (WS_OS2)
+typedef struct _QMSG QMSG;
+typedef void *MRESULT;
+%End
 %If (WS_WIN)
 // Windows specific definitions.
 // These would normally be in qwindowdefs.h but are needed by
@@ -282,6 +286,9 @@ public:
 %If (- Qt_5_0_0)
 %If (WS_WIN)
     virtual bool winEventFilter(MSG *message, long *result);
+%End
+%If (WS_OS2)
+    virtual bool pmEventFilter(QMSG *message, MRESULT *result);
 %End
 %End
 

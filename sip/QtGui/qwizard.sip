@@ -140,6 +140,9 @@ protected:
 %If (WS_WIN)
     bool winEvent(MSG *message, long *result);
 %End
+%If (WS_OS2)
+    bool pmEvent(QMSG *message, MRESULT *result);
+%End
 %End
     virtual void done(int result);
     virtual void initializePage(int id);

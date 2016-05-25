@@ -535,7 +535,9 @@ class QApplication : QCoreApplication
         {sipName_QAction, &sipType_QAction, 64, 22},
         {sipName_QStyle, &sipType_QStyle, 65, 23},
         {sipName_QButtonGroup, &sipType_QButtonGroup, -1, 24},
+    #ifndef QT_NO_IM
         {sipName_QInputContext, &sipType_QInputContext, -1, 25},
+    #endif
         {sipName_QMovie, &sipType_QMovie, -1, 26},
         {sipName_QTextDocument, &sipType_QTextDocument, -1, 27},
         {sipName_QWidget, &sipType_QWidget, 66, 28},
@@ -1101,8 +1103,10 @@ public:
 %If (PyQt_SessionManager)
     virtual void saveState(QSessionManager &sm);
 %End
+%If (!WS_OS2)
     void setInputContext(QInputContext * /Transfer/);
     QInputContext *inputContext() const;
+%End
     static int exec() /PostHook=__pyQtPostEventLoopHook__,PreHook=__pyQtPreEventLoopHook__,PyName=exec_,ReleaseGIL/;
 %If (Py_v3)
     static int exec() /PostHook=__pyQtPostEventLoopHook__,PreHook=__pyQtPreEventLoopHook__,ReleaseGIL/;

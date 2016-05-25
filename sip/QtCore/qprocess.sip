@@ -23,7 +23,7 @@
 %If (WS_WIN)
 typedef void *Q_PID;
 %End
-%If (WS_X11 || WS_MACX)
+%If (WS_X11 || WS_MACX || WS_OS2)
 typedef qint64 Q_PID;
 %End
 

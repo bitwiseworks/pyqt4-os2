@@ -85,6 +85,8 @@ def find_default_qmake():
 
     if sys.platform == 'win32':
         base_qmake = "qmake.exe"
+    elif sys.platform == 'os2knix':
+        base_qmake = "qmake.exe"
     else:
         base_qmake = "qmake"
 
@@ -951,10 +953,13 @@ include(%s)
 
             abi = getattr(sys, 'abiflags', '')
 
-            if sys.platform == 'win32':
+            if sys.platform in ('win32', 'os2knix'):
                 # Use abiflags in case it is supported in a future version.
                 lib_dir_flag = quote("-L%s" % sipcfg.py_lib_dir)
-                link = "%s -lpython%d%d%s" % (lib_dir_flag, py_major, py_minor, abi)
+                if sys.platform == 'os2knix':
+                    link = "%s -lpython%d.%d%s" % (lib_dir_flag, py_major, py_minor, abi)
+                else:
+                    link = "%s -lpython%d%d%s" % (lib_dir_flag, py_major, py_minor, abi)
                 pysh_lib = "python%d%d%s.dll" % (py_major, py_minor, abi)
             else:
                 # Use distutils to get the additional configuration.
@@ -1445,6 +1450,8 @@ def set_sip_flags(pyqt):
             plattag = "WS_X11"
         else:
             plattag = "WS_MACX"
+    elif sys.platform == "os2knix":
+        plattag = "WS_OS2"
     else:
         plattag = "WS_X11"
 
@@ -1946,6 +1953,8 @@ def get_qt_configuration():
         else:
             exe_file = os.path.join("release", app + ".exe")
             make_target = " release"
+    elif sys.platform == 'os2knix':
+        exe_file = os.path.join(app + ".exe")
     elif sys.platform == "darwin":
         exe_file = os.path.join(app + ".app", "Contents", "MacOS", app)
     else:
@@ -2120,7 +2129,7 @@ int main(int argc, char **argv)
         sipconfig.error("%s failed to create %s. Make sure your Qt installation is correct." % (exe_file, out_file))
 
     # Read the directories.
-    f = open(out_file, "r")
+    f = open(out_file, "rU")
     lines = f.read().strip().split("\n")
     f.close()
 

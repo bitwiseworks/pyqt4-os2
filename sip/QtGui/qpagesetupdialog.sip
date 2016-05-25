@@ -109,7 +109,7 @@ public:
     void open(SIP_RXOBJ_CON receiver, SIP_SLOT_CON() member) [void (QObject *receiver, const char *member)];
 %End
 // Public platform specific methods.
-%If (WS_WIN)
+%If (WS_WIN || WS_OS2)
 virtual void setVisible(bool visible);
 %End
 %If (WS_MACX)

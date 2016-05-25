@@ -337,10 +337,14 @@ public:
     virtual QPaintEngine *paintEngine() const;
     void ensurePolished() const;
 %If (- Qt_5_0_0)
+%If (!WS_OS2)
     QInputContext *inputContext();
 %End
+%End
 %If (- Qt_5_0_0)
+%If (!WS_OS2)
     void setInputContext(QInputContext * /Transfer/);
+%End
 %End
     bool isAncestorOf(const QWidget *child) const;
 
@@ -376,6 +380,9 @@ protected:
 %If (- Qt_5_0_0)
 %If (WS_WIN)
     virtual bool winEvent(MSG *message, long *result);
+%End
+%If (WS_OS2)
+    virtual bool pmEvent(QMSG *message, MRESULT *result);
 %End
 %End
     virtual void changeEvent(QEvent *);

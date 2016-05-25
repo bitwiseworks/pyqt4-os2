@@ -92,7 +92,8 @@ static bool event_filter(void *message)
 
     SIP_BLOCK_THREADS
 
-#if defined(Q_WS_WIN)
+// @todo_bww is sipConvertFromVoidPtr good for us? 
+#ifdef Q_WS_WIN
     PyObject *msg_obj = sipConvertFromType(reinterpret_cast<MSG *>(message),
             sipType_MSG, 0);
 #else

@@ -206,6 +206,30 @@ enum MacVersion {
 
 static const MacVersion MacintoshVersion;
 %End
+%If (WS_OS2)
+enum Os2Version {
+    OV_Unknown,
+    OV_2_0,
+    OV_2_1,
+    OV_2_11,
+    OV_3_0,
+    OV_4_0,
+    OV_4_5,
+    OV_4_52,
+
+    OV_MERLIN,
+    OV_AURORA,
+    OV_WSEB,
+
+    OV_ECS_Unknown,
+    OV_ECS_1_0,
+    OV_ECS_1_1,
+    OV_ECS_1_2,
+    OV_ECS_2_0,
+    OV_ECS_2_1,
+    OV_ECS_2_2,
+};
+%End
 };
 
 const char *qVersion();

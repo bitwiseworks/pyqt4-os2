@@ -47,6 +47,9 @@ protected:
 %If (WS_WIN)
     bool winEvent(MSG *m, long *result);
 %End
+%If (WS_OS2)
+    bool pmEvent(QMSG *message, MRESULT *result);
+%End
 %End
 %If (Qt_4_3_0 -)
     virtual void moveEvent(QMoveEvent *moveEvent);

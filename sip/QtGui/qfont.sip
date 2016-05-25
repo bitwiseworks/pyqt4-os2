@@ -162,7 +162,7 @@ public:
 %End
 %End
 %If (- Qt_5_0_0)
-%If (WS_X11 || WS_MACX)
+%If (WS_X11 || WS_MACX || WS_OS2)
     Qt::HANDLE handle() const;
 %End
 %End

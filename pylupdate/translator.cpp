@@ -326,7 +326,7 @@ bool Translator::load(const QString & filename, const QString & directory,
     QString prefix;
 
     if (filename[0] == QLatin1Char('/')
-#ifdef Q_WS_WIN
+#if defined(Q_WS_WIN) || defined(Q_WS_PM)
          || (filename[0].isLetter() && filename[1] == QLatin1Char(':')) || filename[0] == QLatin1Char('\\')
 #endif
         )

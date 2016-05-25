@@ -174,6 +174,10 @@ static QPixmap fromWinHICON(HICON icon);
 %End
 %End
 %End
+%If (WS_OS2)
+HBITMAP toPmHBITMAP(HBITMAP *mask = 0, bool embedRealAlpha = false) const;
+static QPixmap fromPmHBITMAP(HBITMAP hbm, HBITMAP hbmMask = NULLHANDLE);
+%End
     QPixmap copy(const QRect &rect = QRect()) const;
 %If (PyQt_Deprecated_5_0)
     int serialNumber() const;

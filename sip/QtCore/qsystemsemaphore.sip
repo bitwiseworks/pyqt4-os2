@@ -22,6 +22,7 @@
 
 %If (Qt_4_4_0 -)
 
+%If (!WS_OS2)
 class QSystemSemaphore
 {
 %TypeHeaderCode
@@ -59,4 +60,5 @@ private:
     QSystemSemaphore(const QSystemSemaphore &);
 };
 
+%End
 %End
