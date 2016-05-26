@@ -27,4 +27,6 @@ target.path = @QTPLUGINDIR@
 python.path = @QTPLUGINDIR@
 python.files = python
 
+!os2 {
 INSTALLS    += target python
+}

@@ -21,7 +21,11 @@
 #include <QObject>
 #include <QtDeclarative>
 
+#ifdef __OS2__
+#include "sipAPIQtDecl.h"
+#else
 #include "sipAPIQtDeclarative.h"
+#endif
 
 #include "qpydeclarativelistproperty.h"
 #include "qpydeclarative_listwrapper.h"

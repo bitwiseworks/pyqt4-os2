@@ -20,9 +20,13 @@
 // WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
 
-%Module(name=PyQt4.QtScript, keyword_arguments="Optional")
-
 %Import QtCore/QtCoremod.sip
+%If (!WS_OS2)
+%Module(name=PyQt4.QtScript, keyword_arguments="Optional")
+%End
+%If (WS_OS2)
+%Module(name=PyQt4.QtScri, keyword_arguments="Optional")
+%End
 
 %Copying
 Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>

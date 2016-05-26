@@ -20,7 +20,11 @@
 
 #include <Python.h>
 
+#ifdef __OS2__
+#include "sipAPIQtDecl.h"
+#else
 #include "sipAPIQtDeclarative.h"
+#endif
 
 #include "qpydeclarative_chimera_helpers.h"
 #include "qpydeclarativelistproperty.h"
