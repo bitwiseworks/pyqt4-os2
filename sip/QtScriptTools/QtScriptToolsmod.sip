@@ -20,14 +20,9 @@
 // WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
 
-%Import QtCore/QtCoremod.sip
-%If (!WS_OS2)
-%Module(name=PyQt4.QtScriptTools, keyword_arguments="Optional")
-%End
-%If (WS_OS2)
-%Module(name=PyQt4.QtScTl, keyword_arguments="Optional")
-%End
+%Module(name=PyQt4.QtScriptTools, keyword_arguments="Optional", nameshort=QtScTl)
 
+%Import QtCore/QtCoremod.sip
 %Import QtGui/QtGuimod.sip
 %Import QtScript/QtScriptmod.sip
 

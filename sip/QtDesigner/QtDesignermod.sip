@@ -20,15 +20,9 @@
 // WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
 
+%Module(name=PyQt4.QtDesigner, keyword_arguments="Optional", nameshort=QtDsgn)
+
 %Import QtCore/QtCoremod.sip
-
-%If (!WS_OS2)
-%Module(name=PyQt4.QtDesigner, keyword_arguments="Optional")
-%End
-%If (WS_OS2)
-%Module(name=PyQt4.QtDsgn, keyword_arguments="Optional")
-%End
-
 %Import QtGui/QtGuimod.sip
 
 %Copying

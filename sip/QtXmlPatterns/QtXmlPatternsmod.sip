@@ -20,14 +20,9 @@
 // WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
 
-%Import QtCore/QtCoremod.sip
-%If (!WS_OS2)
-%Module(name=PyQt4.QtXmlPatterns, keyword_arguments="Optional")
-%End
-%If (WS_OS2)
-%Module(name=PyQt4.QtXmlP, keyword_arguments="Optional")
-%End
+%Module(name=PyQt4.QtXmlPatterns, keyword_arguments="Optional", nameshort=QtXmlP)
 
+%Import QtCore/QtCoremod.sip
 %Import QtNetwork/QtNetworkmod.sip
 
 %Copying

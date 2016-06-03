@@ -19,15 +19,9 @@
 // This file is provided AS IS with NO WARRANTY OF ANY KIND, INCLUDING THE
 // WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
+%Module(name=PyQt4.QtDeclarative, keyword_arguments="Optional", nameshort=QtDecl)
+
 %Import QtCore/QtCoremod.sip
-
-%If (!WS_OS2)
-%Module(name=PyQt4.QtDeclarative, keyword_arguments="Optional")
-%End
-%If (WS_OS2)
-%Module(name=PyQt4.QtDecl, keyword_arguments="Optional")
-%End
-
 %Import QtGui/QtGuimod.sip
 %Import QtNetwork/QtNetworkmod.sip
 

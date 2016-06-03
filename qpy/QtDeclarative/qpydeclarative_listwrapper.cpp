@@ -18,11 +18,7 @@
 // WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
 
-#ifdef __OS2__
-#include "sipAPIQtDecl.h"
-#else 
 #include "sipAPIQtDeclarative.h"
-#endif
 
 #include "qpydeclarative_listwrapper.h"
 
