@@ -2150,6 +2150,17 @@ int main(int argc, char **argv)
     qt_shared = lines[10]
     qt_xfeatures = lines[11:]
 
+#   this is a not so nice workaround for the qt absolute path bug
+    if sys.platform == 'os2knix':
+        qt_dir = "/@unixroot" + qt_dir[2:].replace("\\", "/")
+        qt_incdir = "/@unixroot" + qt_incdir[2:].replace("\\", "/")
+        qt_libdir = "/@unixroot" + qt_libdir[2:].replace("\\", "/")
+        qt_bindir = "/@unixroot" + qt_bindir[2:].replace("\\", "/")
+        qt_datadir = "/@unixroot" + qt_datadir[2:].replace("\\", "/")
+        qt_archdatadir = "/@unixroot" + qt_archdatadir[2:].replace("\\", "/")
+        qt_pluginsdir = "/@unixroot" + qt_pluginsdir[2:].replace("\\", "/")
+
+
     if opts.assume_shared:
         qt_shared = 'shared'
     elif qt_shared == 'static':
