@@ -2,7 +2,7 @@
 //
 // This file is part of the QtCore Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt4.
 // 
@@ -69,7 +69,7 @@ class QCoreApplication : QObject
 %End
 
 public:
-    QCoreApplication(SIP_PYLIST argv /DocType="list-of-str"/) /PostHook=__pyQtQAppHook__/ [(int &argc, char **argv)];
+    QCoreApplication(SIP_PYLIST argv /TypeHint="List[str]"/) /PostHook=__pyQtQAppHook__/ [(int &argc, char **argv)];
 %MethodCode
         // The Python interface is a list of argument strings that is modified.
         
@@ -77,8 +77,10 @@ public:
         char **argv;
         
         // Convert the list.
-        if ((argv = qpycore_ArgvToC(a0, argc)) == NULL)
+        if ((argv = pyqt4_from_argv_list(a0, argc)) == NULL)
+        {
             sipIsErr = 1;
+        }
         else
         {
             // Create it now the arguments are right.
@@ -90,7 +92,7 @@ public:
             Py_END_ALLOW_THREADS
         
             // Now modify the original list.
-            qpycore_UpdatePyArgv(a0, argc, argv);
+            pyqt4_update_argv_list(a0, argc, argv);
         }
 %End
 
@@ -99,7 +101,7 @@ public:
     static int argc();
 %End
 %If (- Qt_5_0_0)
-    static SIP_PYLIST argv() /DocType="list-of-str"/;
+    static SIP_PYLIST argv() /TypeHint="List[str]"/;
 %MethodCode
         // The Python interface returns a list of strings.
         
@@ -219,7 +221,7 @@ public:
 %End
 %If (Qt_4_2_0 -)
 %If (PyQt_Deprecated_5_0)
-    static QString translate(const char *context, SIP_PYOBJECT sourceText /DocType="str"/, const char *disambiguation = 0, QCoreApplication::Encoding encoding = QCoreApplication::CodecForTr);
+    static QString translate(const char *context, SIP_PYOBJECT sourceText /TypeHint="str"/, const char *disambiguation = 0, QCoreApplication::Encoding encoding = QCoreApplication::CodecForTr);
 %MethodCode
         const char *source = qpycore_encode(&a1, a3);
         
@@ -238,7 +240,7 @@ public:
 %End
 %If (Qt_4_2_0 -)
 %If (PyQt_Deprecated_5_0)
-    static QString translate(const char *context, SIP_PYOBJECT sourceText /DocType="str"/, const char *disambiguation, QCoreApplication::Encoding encoding, int n);
+    static QString translate(const char *context, SIP_PYOBJECT sourceText /TypeHint="str"/, const char *disambiguation, QCoreApplication::Encoding encoding, int n);
 %MethodCode
         const char *source = qpycore_encode(&a1, a3);
         
@@ -256,7 +258,7 @@ public:
 %End
 %End
 %If (- Qt_4_2_0)
-    static QString translate(const char *context, SIP_PYOBJECT sourceText /DocType="str"/, const char *disambiguation = 0, QCoreApplication::Encoding encoding = QCoreApplication::DefaultCodec);
+    static QString translate(const char *context, SIP_PYOBJECT sourceText /TypeHint="str"/, const char *disambiguation = 0, QCoreApplication::Encoding encoding = QCoreApplication::DefaultCodec);
 %MethodCode
         const char *source = qpycore_encode(&a1, a3);
         
@@ -461,4 +463,37 @@ static int qtcore_input_hook()
 %PostInitialisationCode
 // Process events from the input hook.
 PyOS_InputHook = qtcore_input_hook;
+%End
+
+%ExportedTypeHintCode
+# Support for QDate, QDateTime and QTime.
+import datetime
+
+# Convenient type aliases.
+PYQT_SIGNAL = typing.Union[QtCore.pyqtSignal, QtCore.pyqtBoundSignal]
+PYQT_SLOT = typing.Union[typing.Callable[..., None], QtCore.pyqtBoundSignal]
+
+# Support for old-style signals and slots.
+QT_SIGNAL = str
+QT_SLOT = str
+%End
+
+%TypeHintCode
+# Support for QDate, QDateTime and QTime.
+import datetime
+
+# Support for new-style signals and slots.
+class pyqtSignal:
+    def __init__(self, *types, name: str = ...) -> None: ...
+
+class pyqtBoundSignal:
+    def emit(self, *args) -> None: ...
+
+# Convenient type aliases.
+PYQT_SIGNAL = typing.Union[pyqtSignal, pyqtBoundSignal]
+PYQT_SLOT = typing.Union[typing.Callable[..., None], pyqtBoundSignal]
+
+# Support for old-style signals and slots.
+QT_SIGNAL = str
+QT_SLOT = str
 %End

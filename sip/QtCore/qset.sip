@@ -2,7 +2,7 @@
 //
 // This file is part of the QtCore Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt4.
 // 
@@ -22,7 +22,7 @@
 
 %If (Py_v3)
 // QSet<int> is implemented as a Python set in Python v3.
-%MappedType QSet<int> /DocType="set-of-int"/
+%MappedType QSet<int> /TypeHintIn="Iterable[int]", TypeHintOut="Set[int]", TypeHintValue="set()"/
 {
 %TypeHeaderCode
 #include <qset.h>
@@ -94,7 +94,7 @@
 %End
 %If (!Py_v3)
 // QSet<int> is implemented as a Python list in Python v2.
-%MappedType QSet<int> /DocType="list-of-int"/
+%MappedType QSet<int> /TypeHintIn="Iterable[int]", TypeHintOut="List[int]", TypeHintValue="set()"/
 {
 %TypeHeaderCode
 #include <qset.h>
@@ -165,7 +165,7 @@
 %End
 %If (Py_v3)
 // QSet<unsigned> is implemented as a Python set in Python v3.
-%MappedType QSet<unsigned> /DocType="set-of-int"/
+%MappedType QSet<unsigned> /TypeHintIn="Iterable[int]", TypeHintOut="Set[int]", TypeHintValue="set()"/
 {
 %TypeHeaderCode
 #include <qset.h>
@@ -237,7 +237,7 @@
 %End
 %If (!Py_v3)
 // QSet<unsigned> is implemented as a Python list in Python v2.
-%MappedType QSet<unsigned> /DocType="list-of-int"/
+%MappedType QSet<unsigned> /TypeHintIn="Iterable[int]", TypeHintOut="List[int]", TypeHintValue="set()"/
 {
 %TypeHeaderCode
 #include <qset.h>
@@ -309,7 +309,7 @@
 %If (Py_v3)
 // QSet<TYPE *> is implemented as a Python set in Python v3.
 template<TYPE>
-%MappedType QSet<TYPE *> /DocType="set-of-TYPE"/
+%MappedType QSet<TYPE *> /TypeHintIn="Iterable[TYPE]", TypeHintOut="Set[TYPE]", TypeHintValue="set()"/
 {
 %TypeHeaderCode
 #include <qset.h>
@@ -406,7 +406,7 @@ template<TYPE>
 %If (!Py_v3)
 // QSet<TYPE *> is implemented as a Python list in Python v2.
 template<TYPE>
-%MappedType QSet<TYPE *> /DocType="list-of-TYPE"/
+%MappedType QSet<TYPE *> /TypeHintIn="Iterable[TYPE]", TypeHintOut="List[TYPE]", TypeHintValue="set()"/
 {
 %TypeHeaderCode
 #include <qset.h>
@@ -502,7 +502,7 @@ template<TYPE>
 %If (Py_v3)
 // QSet<TYPE> is implemented as a Python set in Python v3.
 template<TYPE>
-%MappedType QSet<TYPE> /DocType="set-of-TYPE"/
+%MappedType QSet<TYPE> /TypeHintIn="Iterable[TYPE]", TypeHintOut="Set[Type]", TypeHintValue="set()"/
 {
 %TypeHeaderCode
 #include <qset.h>
@@ -606,7 +606,7 @@ template<TYPE>
 %If (!Py_v3)
 // QSet<TYPE> is implemented as a Python list in Python v2.
 template<TYPE>
-%MappedType QSet<TYPE> /DocType="list-of-TYPE"/
+%MappedType QSet<TYPE> /TypeHintIn="Iterable[TYPE]", TypeHintOut="List[TYPE]", TypeHintValue="set()"/
 {
 %TypeHeaderCode
 #include <qset.h>

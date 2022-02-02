@@ -1,6 +1,6 @@
 // This is the implementation of the QPyDBusReply class.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt4.
 // 
@@ -23,9 +23,9 @@
 #include <QDBusMessage>
 #include <QDBusPendingCall>
 
-#include "sipAPIQtDBus.h"
-
 #include "qpydbusreply.h"
+
+#include "sipAPIQtDBus.h"
 
 
 // Extract a reply from a message.  The GIL should be held.
@@ -101,7 +101,7 @@ PyObject *QPyDBusReply::value(PyObject *type) const
 
     QVariant val(_q_value_variant);
 
-    return qpycore_qvariant_value(val, type);
+    return pyqt4_qtdbus_from_qvariant_by_type(val, type);
 }
 
 

@@ -1,6 +1,6 @@
 // This implements the helpers for QMetaObject.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt4.
 // 
@@ -131,8 +131,6 @@ static void connect(QObject *qobj, PyObject *slot_obj,
     const QMetaObject *mo = eobj->metaObject();
 
     // Got through the methods looking for a matching signal.
-    PyObject *epyobj = 0;
-
     for (int m = 0; m < mo->methodCount(); ++m)
     {
         QMetaMethod mm = mo->method(m);
@@ -153,22 +151,16 @@ static void connect(QObject *qobj, PyObject *slot_obj,
         if (!args.isEmpty() && Chimera::Signature::arguments(sig) != args)
             continue;
 
+        QObject *receiver;
+        QByteArray slot_sig;
+
+        if (pyqt4_get_connection_parts(slot_obj, eobj, sig.constData(), false, &receiver, slot_sig) != sipErrorNone)
+            continue;
+
         // Add the type character.
         sig.prepend('2');
 
-        // Get the wrapper now we know it is needed.
-        if (!epyobj)
-        {
-            epyobj = sipConvertFromType(eobj, sipType_QObject, 0);
-
-            if (!epyobj)
-                break;
-        }
-
         // Connect the signal.
-        PyObject *res = sipConnectRx(epyobj, sig.constData(), slot_obj, 0, 0);
-        Py_XDECREF(res);
+        QObject::connect(eobj, sig.constData(), receiver, slot_sig.constData());
     }
-
-    Py_XDECREF(epyobj);
 }

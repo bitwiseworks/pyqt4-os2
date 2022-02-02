@@ -2,7 +2,7 @@
 //
 // This file is part of the QtDBus Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt4.
 // 
@@ -72,13 +72,67 @@ protected:
     virtual void connectNotify(const QMetaMethod &);
 %End
 %If (- Qt_5_0_0)
-    virtual void connectNotify(SIP_SIGNAL);
+    virtual void connectNotify(SIP_PYOBJECT /TypeHint="QT_SIGNAL"/) [void (const char *)];
+%MethodCode
+        typedef const char *(*pyqt4_get_signal_t)(PyObject *);
+        
+        static pyqt4_get_signal_t pyqt4_get_signal = 0;
+        
+        if (!pyqt4_get_signal)
+        {
+            pyqt4_get_signal = (pyqt4_get_signal_t)sipImportSymbol("pyqt4_get_signal");
+            Q_ASSERT(pyqt4_get_signal);
+        }
+        
+        const char *sig = pyqt4_get_signal(a0);
+            
+        if (sig)
+        {
+        #if defined(SIP_PROTECTED_IS_PUBLIC)
+            (sipSelfWasArg ? sipCpp->QDBusConnectionInterface::connectNotify(sig) : sipCpp->connectNotify(sig));
+        #else
+            sipCpp->sipProtectVirt_connectNotify(sipSelfWasArg, sig);
+        #endif
+        }
+        else
+        {
+            sipError = sipBadCallableArg(0, a0);
+        }
+%End
+
 %End
 %If (Qt_5_0_0 -)
     virtual void disconnectNotify(const QMetaMethod &);
 %End
 %If (- Qt_5_0_0)
-    virtual void disconnectNotify(SIP_SIGNAL);
+    virtual void disconnectNotify(SIP_PYOBJECT /TypeHint="QT_SIGNAL"/) [void (const char *)];
+%MethodCode
+        typedef const char *(*pyqt4_get_signal_t)(PyObject *);
+        
+        static pyqt4_get_signal_t pyqt4_get_signal = 0;
+        
+        if (!pyqt4_get_signal)
+        {
+            pyqt4_get_signal = (pyqt4_get_signal_t)sipImportSymbol("pyqt4_get_signal");
+            Q_ASSERT(pyqt4_get_signal);
+        }
+        
+        const char *sig = pyqt4_get_signal(a0);
+            
+        if (sig)
+        {
+        #if defined(SIP_PROTECTED_IS_PUBLIC)
+            (sipSelfWasArg ? sipCpp->QDBusConnectionInterface::disconnectNotify(sig) : sipCpp->disconnectNotify(sig));
+        #else
+            sipCpp->sipProtectVirt_disconnectNotify(sipSelfWasArg, sig);
+        #endif
+        }
+        else
+        {
+            sipError = sipBadCallableArg(0, a0);
+        }
+%End
+
 %End
 };
 

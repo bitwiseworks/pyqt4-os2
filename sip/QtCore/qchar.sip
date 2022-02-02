@@ -2,7 +2,7 @@
 //
 // This file is part of the QtCore Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt4.
 // 
@@ -20,10 +20,6 @@
 // WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
 
-%ModuleCode
-#include <qchar.h>
-%End
-
 struct QLatin1Char /API=QString: - 2/
 {
 %TypeHeaderCode
@@ -37,7 +33,7 @@ struct QLatin1Char /API=QString: - 2/
 %End
 
     explicit QLatin1Char(char c /Encoding="Latin-1"/);
-    SIP_PYOBJECT __repr__() const /DocType="str"/;
+    SIP_PYOBJECT __repr__() const /TypeHint="str"/;
 %MethodCode
         char ch = sipCpp->toLatin1();
         PyObject *str = SIPBytes_FromStringAndSize(&ch, 1);
@@ -60,8 +56,8 @@ struct QLatin1Char /API=QString: - 2/
     ushort unicode() const;
 };
 
-// class QChar /API=QString:2 - ,DocType="str"/
-%MappedType QChar /API=QString:2 -,DocType="str"/
+// class QChar /API=QString:2 - ,TypeHint="str"/
+%MappedType QChar /API=QString:2 -,TypeHint="str",TypeHintValue="''"/
 {
 %TypeHeaderCode
 #include <qchar.h>
@@ -137,7 +133,7 @@ public:
     QChar(uchar c, uchar r);
     QChar(int rc);
     QChar(QChar::SpecialCharacter s /Constrained/);
-    SIP_PYOBJECT __repr__() const /DocType="str"/;
+    SIP_PYOBJECT __repr__() const /TypeHint="str"/;
 %MethodCode
         sipRes =
         #if PY_MAJOR_VERSION >= 3
@@ -148,7 +144,7 @@ public:
                 ("PyQt4.QtCore.QChar(0x%04x)", sipCpp->unicode());
 %End
 
-    SIP_PYOBJECT __str__() const /DocType="str"/;
+    SIP_PYOBJECT __str__() const /TypeHint="str"/;
 %MethodCode
         sipRes = qpycore_PyObject_FromQString(QString(*sipCpp));
 %End

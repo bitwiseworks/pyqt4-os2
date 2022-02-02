@@ -1,6 +1,6 @@
 // This contains the meta-type used by PyQt.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt4.
 // 
@@ -87,7 +87,11 @@ static const QMetaObject *get_qmetaobject(pyqtWrapperType *pyqt_wt);
 // The meta-type for PyQt classes.
 PyTypeObject qpycore_pyqtWrapperType_Type = {
     PyVarObject_HEAD_INIT(NULL, 0)
-    SIP_TPNAME_CAST("PyQt4.QtCore.pyqtWrapperType"),    /* tp_name */
+#if PY_VERSION_HEX >= 0x02050000
+    "PyQt4.QtCore.pyqtWrapperType", /* tp_name */
+#else
+    const_cast<char *>("PyQt4.QtCore.pyqtWrapperType"), /* tp_name */
+#endif
     sizeof (pyqtWrapperType),   /* tp_basicsize */
     0,                      /* tp_itemsize */
     0,                      /* tp_dealloc */
@@ -153,14 +157,22 @@ static int pyqtWrapperType_init(pyqtWrapperType *self, PyObject *args,
     if (sipWrapperType_Type->tp_init((PyObject *)self, args, kwds) < 0)
         return -1;
 
-    pyqt4ClassTypeDef *pyqt_td = (pyqt4ClassTypeDef *)((sipWrapperType *)self)->type;
+    const sipTypeDef *td = ((sipWrapperType *)self)->wt_td;
 
-    if (pyqt_td && !sipIsExactWrappedType((sipWrapperType *)self))
+    // It's possible that there is no generated type definition if the
+    // meta-type is being used for a class that is not sub-classed from
+    // sip.simplewrapper.
+    if (td)
     {
-        // Create a dynamic meta-object as its base wrapped type has a static
-        // Qt meta-object.
-        if (pyqt_td->static_metaobject && create_dynamic_metaobject(self) < 0)
-            return -1;
+        const pyqt4ClassPluginDef *pyqt_td = reinterpret_cast<const pyqt4ClassPluginDef *>(sipTypePluginData(td));
+
+        if (pyqt_td && !sipIsExactWrappedType((sipWrapperType *)self))
+        {
+            // Create a dynamic meta-object as its base wrapped type has a
+            // static Qt meta-object.
+            if (pyqt_td->static_metaobject && create_dynamic_metaobject(self) < 0)
+                return -1;
+        }
     }
 
     return 0;
@@ -817,7 +829,9 @@ static const QMetaObject *get_qmetaobject(pyqtWrapperType *pyqt_wt)
         return QPYCORE_QMETAOBJECT(pyqt_wt->metaobject);
 
     // It's a wrapped type.
-    return reinterpret_cast<const QMetaObject *>(((pyqt4ClassTypeDef *)((sipWrapperType *)pyqt_wt)->type)->static_metaobject);
+    const pyqt4ClassPluginDef *cpd = reinterpret_cast<const pyqt4ClassPluginDef *>(sipTypePluginData(((sipWrapperType *)pyqt_wt)->wt_td));
+
+    return reinterpret_cast<const QMetaObject *>(cpd->static_metaobject);
 }
 
 

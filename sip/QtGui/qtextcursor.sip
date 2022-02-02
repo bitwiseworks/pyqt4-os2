@@ -2,7 +2,7 @@
 //
 // This file is part of the QtGui Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt4.
 // 
@@ -145,7 +145,7 @@ public:
 %End
     void insertImage(const QString &name);
 %If (Qt_4_5_0 -)
-    void insertImage(const QImage &image, const QString &name /DocValue="Py_v3:''"/ = QString());
+    void insertImage(const QImage &image, const QString &name = QString());
 %End
     void beginEditBlock();
     void joinPreviousEditBlock();

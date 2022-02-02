@@ -2,7 +2,7 @@
 //
 // This file is part of the QtCore Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt4.
 // 
@@ -22,7 +22,7 @@
 
 // QList<TYPE> is implemented as a Python list.
 template<TYPE>
-%MappedType QList<TYPE> /DocType="list-of-TYPE"/
+%MappedType QList<TYPE> /TypeHintIn="Sequence[TYPE]", TypeHintOut="List[TYPE]", TypeHintValue="[]"/
 {
 %TypeHeaderCode
 #include <qlist.h>
@@ -109,7 +109,7 @@ template<TYPE>
 };
 // QList<TYPE *> is implemented as a Python list.
 template<TYPE>
-%MappedType QList<TYPE *> /DocType="list-of-TYPE"/
+%MappedType QList<TYPE *> /TypeHintIn="Sequence[TYPE]", TypeHintOut="List[TYPE]", TypeHintValue="[]"/
 {
 %TypeHeaderCode
 #include <qlist.h>
@@ -190,7 +190,7 @@ template<TYPE>
 };
 // QList<QPair<TYPE1, TYPE2> > is implemented as a Python list of 2-element tuples.
 template<TYPE1, TYPE2>
-%MappedType QList<QPair<TYPE1, TYPE2> > /DocType="list-of-tuple-of-TYPE1-TYPE2"/
+%MappedType QList<QPair<TYPE1, TYPE2> > /TypeHintIn="Sequence[Tuple[TYPE1, TYPE2]]", TypeHintOut="List[Tuple[TYPE1, TYPE2]]", TypeHintValue="[]"/
 {
 %TypeHeaderCode
 #include <qlist.h>
@@ -308,7 +308,7 @@ template<TYPE1, TYPE2>
 %End
 };
 // QList<QPair<int, int> > is implemented as a Python list of 2-element tuples.
-%MappedType QList<QPair<int, int> > /DocType="list-of-tuple-of-int-int"/
+%MappedType QList<QPair<int, int> > /TypeHintIn="Sequence[Tuple[int, int]]", TypeHintOut="List[Tuple[int, int]]", TypeHintValue="[]"/
 {
 %TypeHeaderCode
 #include <qlist.h>
@@ -404,7 +404,7 @@ template<TYPE1, TYPE2>
 };
 %If (Qt_4_3_0 -)
 // QList<QPair<qreal, qreal> > is implemented as a Python list of 2-element tuples.
-%MappedType QList<QPair<qreal, qreal> > /DocType="list-of-tuple-of-float-float"/
+%MappedType QList<QPair<qreal, qreal> > /TypeHintIn="Sequence[Tuple[float, float]]", TypeHintOut="List[Tuple[float, float]]", TypeHintValue="[]"/
 {
 %TypeHeaderCode
 #include <qlist.h>
@@ -500,7 +500,7 @@ template<TYPE1, TYPE2>
 %If (Qt_4_3_0 -)
 // QList<QPair<qreal, TYPE> > is implemented as a Python list of 2-element tuples.
 template<qreal, TYPE>
-%MappedType QList<QPair<qreal, TYPE> > /DocType="list-of-tuple-of-float-TYPE"/
+%MappedType QList<QPair<qreal, TYPE> > /TypeHintIn="Sequence[Tuple[float, TYPE]]", TypeHintOut="List[Tuple[float, TYPE]]", TypeHintValue="[]"/
 {
 %TypeHeaderCode
 #include <qlist.h>
@@ -617,7 +617,7 @@ template<qreal, TYPE>
 };
 %End
 // QList<int> is implemented as a Python list of integers.
-%MappedType QList<int> /DocType="list-of-int"/
+%MappedType QList<int> /TypeHintIn="Sequence[int]", TypeHintOut="List[int]", TypeHintValue="[]"/
 {
 %TypeHeaderCode
 #include <qlist.h>
@@ -683,7 +683,7 @@ template<qreal, TYPE>
 %End
 };
 // QList<unsigned> is implemented as a Python list of unsigned longs.
-%MappedType QList<unsigned> /DocType="list-of-int"/
+%MappedType QList<unsigned> /TypeHintIn="Sequence[int]", TypeHintOut="List[int]", TypeHintValue="[]"/
 {
 %TypeHeaderCode
 #include <qlist.h>
@@ -749,7 +749,7 @@ template<qreal, TYPE>
 %End
 };
 // QList<qreal> is implemented as a Python list of floats.
-%MappedType QList<qreal> /DocType="list-of-float"/
+%MappedType QList<qreal> /TypeHintIn="Sequence[float]", TypeHintOut="List[float]", TypeHintValue="[]"/
 {
 %TypeHeaderCode
 #include <qlist.h>

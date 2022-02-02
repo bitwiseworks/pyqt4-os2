@@ -2,7 +2,7 @@
 //
 // This file is part of the QtCore Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt4.
 // 
@@ -20,12 +20,8 @@
 // WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
 
-%ModuleCode
-#include <qstring.h>
-%End
-
-// class QString /AllowNone,API=QString:2 -,DocType="str"/
-%MappedType QString /AllowNone,API=QString:2 -,DocType="str"/
+// class QString /AllowNone,API=QString:2 -,TypeHint="str"/
+%MappedType QString /AllowNone,API=QString:2 -,TypeHint="str",TypeHintValue="''"/
 {
 %TypeHeaderCode
 #include <qstring.h>
@@ -66,7 +62,7 @@ return sipGetState(sipTransferObj);
 %End
 };
 
-class QString /API=QString: - 2/
+class QString /API=QString: - 2,TypeHintIn="Union[QString, QLatin1String, QChar, str]"/
 {
 %TypeHeaderCode
 #include <qstring.h>
@@ -247,7 +243,7 @@ public:
     QString(const QString &s);
     QString(const QByteArray &a);
     ~QString();
-    SIP_PYOBJECT __repr__() const /DocType="str"/;
+    SIP_PYOBJECT __repr__() const /TypeHint="str"/;
 %MethodCode
         PyObject *uni = qpycore_PyObject_FromQString(*sipCpp);
         
@@ -612,11 +608,7 @@ public:
         
         len = sipCpp->length();
         
-        #if PY_VERSION_HEX >= 0x03020000
-        if (PySlice_GetIndicesEx(a0, len, &start, &stop, &step, &slicelength) < 0)
-        #else
-        if (PySlice_GetIndicesEx((PySliceObject *)a0, len, &start, &stop, &step, &slicelength) < 0)
-        #endif
+        if (sipConvertFromSliceObject(a0, len, &start, &stop, &step, &slicelength) < 0)
             sipIsErr = 1;
         else
         {
@@ -636,7 +628,7 @@ public:
         sipRes = bool(sipCpp->contains(*a0));
 %End
 
-    SIP_PYOBJECT __str__() const /DocType="str"/;
+    SIP_PYOBJECT __str__() const /TypeHint="str"/;
 %MethodCode
         sipRes = qpycore_PyObject_FromQString(*sipCpp);
 %End
@@ -712,7 +704,7 @@ class QLatin1String /API=QString: - 2/
 
 public:
     explicit QLatin1String(const char *s /Encoding="Latin-1",KeepReference/);
-    SIP_PYOBJECT __repr__() const /DocType="str"/;
+    SIP_PYOBJECT __repr__() const /TypeHint="str"/;
 %MethodCode
         PyObject *str = SIPBytes_FromString(sipCpp->latin1());
         
@@ -786,11 +778,8 @@ bool operator>=(QLatin1String s1, QLatin1String s2);
 bool operator>=(const QLatin1String &s1, const QLatin1String &s2);
 %End
 %If (Qt_4_3_0 -)
-void qSwap(QString &value1, QString &value2) /API=QString: - 2/;
-%End
-%If (Qt_4_3_0 -)
-// class QStringRef /API=QString:2 - /
-%MappedType QStringRef /API=QString:2 - /
+// class QStringRef /API=QString:2 -,TypeHint="str"/
+%MappedType QStringRef /API=QString:2 -,TypeHint="str",TypeHintValue="''"/
 {
 %TypeHeaderCode
 #include <qstring.h>
@@ -864,7 +853,7 @@ public:
 %If (Qt_4_5_0 -)
     static int localeAwareCompare(const QStringRef &s1, const QStringRef &s2);
 %End
-    SIP_PYOBJECT __str__() const /DocType="str"/;
+    SIP_PYOBJECT __str__() const /TypeHint="str"/;
 %MethodCode
         sipRes = qpycore_PyObject_FromQString(sipCpp->toString());
 %End

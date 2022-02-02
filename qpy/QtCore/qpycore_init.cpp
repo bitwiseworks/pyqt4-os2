@@ -1,6 +1,6 @@
 // This is the initialisation support code for the QtCore module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt4.
 // 
@@ -21,8 +21,8 @@
 #include <Python.h>
 
 #include "qpycore_chimera.h"
+#include "qpycore_public_api.h"
 #include "qpycore_qobject_helpers.h"
-#include "qpycore_shared.h"
 #include "qpycore_sip.h"
 #include "qpycore_types.h"
 
@@ -40,7 +40,7 @@ void qpycore_init()
     if (sipRegisterPyType((PyTypeObject *)&qpycore_pyqtWrapperType_Type) < 0)
         Py_FatalError("PyQt4.QtCore: Failed to register pyqtWrapperType type");
 
-    // Export the helpers.
+    // Export the private helpers.
     sipExportSymbol("qtcore_qt_metaobject",
             (void *)qpycore_qobject_metaobject);
     sipExportSymbol("qtcore_qt_metacall", (void *)qpycore_qobject_qt_metacall);
@@ -49,20 +49,23 @@ void qpycore_init()
     sipExportSymbol("qpycore_qobject_receivers",
             (void *)qpycore_qobject_receivers);
 
-    sipExportSymbol("qpycore_ArgvToC", (void *)qpycore_ArgvToC);
-    sipExportSymbol("qpycore_UpdatePyArgv", (void *)qpycore_UpdatePyArgv);
-
-    sipExportSymbol("qpycore_pyqtsignal_get_parts",
-            (void *)qpycore_pyqtsignal_get_parts);
-    sipExportSymbol("qpycore_pyqtslot_get_parts",
-            (void *)qpycore_pyqtslot_get_parts);
-
-    sipExportSymbol("qpycore_qvariant_value", (void *)qpycore_qvariant_value);
-
-    sipExportSymbol("qpycore_register_to_pyobject",
+    // Export the public API.
+    sipExportSymbol("pyqt4_from_argv_list", (void *)pyqt4_from_argv_list);
+    sipExportSymbol("pyqt4_from_qvariant_by_type",
+            (void *)pyqt4_from_qvariant_by_type);
+    sipExportSymbol("pyqt4_get_connection_parts",
+            (void *)pyqt4_get_connection_parts);
+    sipExportSymbol("pyqt4_get_pyqtsignal_parts",
+            (void *)pyqt4_get_pyqtsignal_parts);
+    sipExportSymbol("pyqt4_get_pyqtslot_parts",
+            (void *)pyqt4_get_pyqtslot_parts);
+    sipExportSymbol("pyqt4_get_signal", (void *)pyqt4_get_signal);
+    sipExportSymbol("pyqt4_get_slot", (void *)pyqt4_get_slot);
+    sipExportSymbol("pyqt4_register_from_qvariant_convertor",
             (void *)Chimera::registerToPyObject);
-    sipExportSymbol("qpycore_register_to_qvariant",
+    sipExportSymbol("pyqt4_register_to_qvariant_convertor",
             (void *)Chimera::registerToQVariant);
-    sipExportSymbol("qpycore_register_to_qvariant_data",
+    sipExportSymbol("pyqt4_register_to_qvariant_data_convertor",
             (void *)Chimera::registerToQVariantData);
+    sipExportSymbol("pyqt4_update_argv_list", (void *)pyqt4_update_argv_list);
 }

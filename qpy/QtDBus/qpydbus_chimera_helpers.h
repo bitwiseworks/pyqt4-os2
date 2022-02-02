@@ -1,6 +1,6 @@
 // This is the definition of the various Chimera helpers.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt4.
 // 
@@ -28,10 +28,10 @@
 
 
 // Keep this in sync. with that defined in the Chimera class.
-typedef bool (*ToPyObjectFn)(const QVariant *, PyObject **);
+typedef bool (*FromQVariantFn)(const QVariant *, PyObject **);
 
 
-bool qpydbus_to_pyobject(const QVariant *varp, PyObject **objp);
+bool qpydbus_from_qvariant(const QVariant *varp, PyObject **objp);
 
 
 #endif

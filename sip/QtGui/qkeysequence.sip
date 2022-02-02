@@ -2,7 +2,7 @@
 //
 // This file is part of the QtGui Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt4.
 // 
@@ -20,11 +20,7 @@
 // WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
 
-%ModuleCode
-#include <qkeysequence.h>
-%End
-
-class QKeySequence
+class QKeySequence /TypeHintIn="Union[QKeySequence, QKeySequence.StandardKey, QString, int]"/
 {
 %TypeHeaderCode
 #include <qkeysequence.h>
@@ -266,6 +262,3 @@ public:
 
 QDataStream &operator<<(QDataStream &in, const QKeySequence &ks /Constrained/);
 QDataStream &operator>>(QDataStream &out, QKeySequence &ks /Constrained/);
-%If (Qt_4_3_0 -)
-void qSwap(QKeySequence &value1, QKeySequence &value2);
-%End

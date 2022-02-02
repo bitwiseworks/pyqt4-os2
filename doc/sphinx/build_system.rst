@@ -78,6 +78,13 @@ Note that the :mod:`~PyQt4.pyqtconfig` module is only created if you use
         used to build the PyQt4 modules.  These should also be used when
         building bindings that ``%Import`` any PyQt4 modules.
 
+    .. attribute:: pyqt_stubs_dir
+
+        .. versionadded:: 4.12
+
+        The name of the base directory where PyQt4's PEP 484 stub files are
+        installed.
+
     .. attribute:: pyqt_version
 
         The PyQt4 version as a 3 part hexadecimal number (e.g. v4.0.1 is

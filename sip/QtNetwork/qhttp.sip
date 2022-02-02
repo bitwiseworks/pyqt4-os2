@@ -2,7 +2,7 @@
 //
 // This file is part of the QtNetwork Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt4.
 // 
@@ -73,8 +73,8 @@ public:
     QHttpResponseHeader();
     QHttpResponseHeader(const QHttpResponseHeader &header);
     QHttpResponseHeader(const QString &str);
-    QHttpResponseHeader(int code, const QString &text /DocValue="Py_v3:''"/ = QString(), int major = 1, int minor = 1);
-    void setStatusLine(int code, const QString &text /DocValue="Py_v3:''"/ = QString(), int major = 1, int minor = 1);
+    QHttpResponseHeader(int code, const QString &text = QString(), int major = 1, int minor = 1);
+    void setStatusLine(int code, const QString &text = QString(), int major = 1, int minor = 1);
     int statusCode() const;
     QString reasonPhrase() const;
     virtual int majorVersion() const;
@@ -170,8 +170,8 @@ public:
     int setHost(const QString &hostname, QHttp::ConnectionMode mode, quint16 port = 0);
 %End
     int setSocket(QTcpSocket *socket /KeepReference/);
-    int setUser(const QString &userName, const QString &password /DocValue="Py_v3:''"/ = QString());
-    int setProxy(const QString &host, int port, const QString &user /DocValue="Py_v3:''"/ = QString(), const QString &password /DocValue="Py_v3:''"/ = QString());
+    int setUser(const QString &userName, const QString &password = QString());
+    int setProxy(const QString &host, int port, const QString &user = QString(), const QString &password = QString());
 %If (Qt_4_3_0 -)
     int setProxy(const QNetworkProxy &proxy);
 %End
@@ -183,7 +183,7 @@ public:
     int request(const QHttpRequestHeader &header, const QByteArray &data, QIODevice *to = 0);
     int close();
     qint64 bytesAvailable() const;
-    SIP_PYOBJECT read(qint64 maxlen) /DocType="Py_v3:bytes;str",ReleaseGIL/;
+    SIP_PYOBJECT read(qint64 maxlen) /TypeHint="Py_v3:bytes;str",ReleaseGIL/;
 %MethodCode
         // Return the data read or None if there was an error.
         if (a0 < 0)

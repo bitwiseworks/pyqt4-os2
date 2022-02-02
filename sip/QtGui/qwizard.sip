@@ -2,7 +2,7 @@
 //
 // This file is part of the QtGui Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt4.
 // 
@@ -19,12 +19,6 @@
 // This file is provided AS IS with NO WARRANTY OF ANY KIND, INCLUDING THE
 // WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
-
-%If (Qt_4_3_0 -)
-%ModuleCode
-#include <qwizard.h>
-%End
-%End
 
 %If (Qt_4_3_0 -)
 
@@ -118,7 +112,31 @@ public:
     Qt::TextFormat subTitleFormat() const;
     void setPixmap(QWizard::WizardPixmap which, const QPixmap &pixmap);
     QPixmap pixmap(QWizard::WizardPixmap which) const;
-    void setDefaultProperty(const char *className, const char *property, const char *changedSignal);
+    void setDefaultProperty(const char *className, const char *property, SIP_PYOBJECT changedSignal /TypeHint="QT_SIGNAL"/);
+%MethodCode
+        typedef const char *(*pyqt4_get_signal_t)(PyObject *);
+        
+        static pyqt4_get_signal_t pyqt4_get_signal = 0;
+        
+        if (!pyqt4_get_signal)
+        {
+            pyqt4_get_signal = (pyqt4_get_signal_t)sipImportSymbol("pyqt4_get_signal");
+            Q_ASSERT(pyqt4_get_signal);
+        }
+        
+        const char *sig = pyqt4_get_signal(a2);
+            
+        // Finish converting the arguments.
+        if (sig)
+        {
+            sipCpp->setDefaultProperty(a0, a1, sig);
+        }
+        else
+        {
+            sipError = sipBadCallableArg(2, a2);
+        }
+%End
+
     virtual void setVisible(bool visible);
     virtual QSize sizeHint() const;
 
@@ -217,45 +235,38 @@ signals:
 protected:
     void setField(const QString &name, const QVariant &value);
     QVariant field(const QString &name) const;
-
-public:
-    void registerField(const QString &name, QWidget *widget, const char *property = 0, SIP_PYOBJECT changedSignal /DocType="signal"/ = 0);
+    void registerField(const QString &name, QWidget *widget, const char *property = 0, SIP_PYOBJECT changedSignal /TypeHint="QT_SIGNAL"/ = 0) [void (const QString &name, QWidget *widget, const char *property = 0, const char *changedSignal = 0)];
 %MethodCode
-        const char *signal;
+        typedef const char *(*pyqt4_get_signal_t)(PyObject *);
+        
+        static pyqt4_get_signal_t pyqt4_get_signal = 0;
+        
+        if (!pyqt4_get_signal)
+        {
+            pyqt4_get_signal = (pyqt4_get_signal_t)sipImportSymbol("pyqt4_get_signal");
+            Q_ASSERT(pyqt4_get_signal);
+        }
+        
+        const char *sig = 0;
         
         if (a3 && a3 != Py_None)
         {
-            signal = qpycore_pyqtsignal_get_parts(a3, 0);
+            sig = pyqt4_get_signal(a3);
         
-            if (!signal)
-            {
-                PyErr_Format(PyExc_TypeError,
-                        "argument 'changedSignal' has unexpected type '%s'",
-                        Py_TYPE(a3)->tp_name);
-                sipError = sipErrorContinue;
-            }
-        }
-        else
-        {
-            signal = 0;
+            if (!sig)
+                sipError = sipBadCallableArg(3, a3);
         }
         
         if (sipError == sipErrorNone)
         {
-            Py_BEGIN_ALLOW_THREADS
         #if defined(SIP_PROTECTED_IS_PUBLIC)
-            sipCpp->registerField(*a0, a1, a2, signal);
+            sipCpp->registerField(*a0, a1, a2, sig);
         #else
-            // We should really change SIP to implement /NoDerived/ for protected
-            // methods rather than do this (possibly unsafe) cast.
-            static_cast<sipQWizardPage *>(sipCpp)->sipProtect_registerField(*a0, a1, a2, signal);
+            sipCpp->sipProtect_registerField(*a0, a1, a2, sig);
         #endif
-            Py_END_ALLOW_THREADS
         }
 %End
 
-protected:
-    void registerField(const QString &name, QWidget *widget, const char *property = 0, SIP_SIGNAL changedSignal = 0);
     QWizard *wizard() const;
 
 private:
@@ -265,7 +276,7 @@ private:
 %End
 %If (Qt_4_3_0 -)
 // Mapped type for QList<QWizard::WizardButton>.
-%MappedType QList<QWizard::WizardButton> /DocType="list-of-QWizard.WizardButton"/
+%MappedType QList<QWizard::WizardButton> /TypeHint="List[QWizard.WizardButton]", TypeHintValue="[]"/
 {
 %TypeHeaderCode
 #include <qwizard.h>

@@ -2,7 +2,7 @@
 //
 // This file is part of the QtDeclarative Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt4.
 // 
@@ -73,7 +73,39 @@ public:
     bool reset() const;
     bool hasNotifySignal() const;
     bool needsNotifySignal() const;
-    bool connectNotifySignal(SIP_RXOBJ_CON dest, SIP_SLOT_CON() slot) const [bool (QObject *dest, const char *slot)];
+    bool connectNotifySignal(QObject *dest, SIP_PYOBJECT slot /TypeHint="QT_SLOT"/) const;
+%MethodCode
+        const char *slot = pyqt4_qtdeclarative_get_slot(a1);
+        
+        if (slot)
+        {
+            Py_BEGIN_ALLOW_THREADS
+            sipCpp->connectNotifySignal(a0, slot);
+            Py_END_ALLOW_THREADS
+        }
+        else
+        {
+            sipError = sipBadCallableArg(1, a1);
+        }
+%End
+
+    bool connectNotifySignal(SIP_PYOBJECT slot /TypeHint="PYQT_SLOT"/) const;
+%MethodCode
+        QObject *receiver;
+        QByteArray slot_signature;
+        
+        if ((sipError = pyqt4_qtdeclarative_get_connection_parts(a0, 0, "()", false, &receiver, slot_signature)) == sipErrorNone)
+        {
+            Py_BEGIN_ALLOW_THREADS
+            sipCpp->connectNotifySignal(receiver, slot_signature.constData());
+            Py_END_ALLOW_THREADS
+        }
+        else if (sipError == sipErrorContinue)
+        {
+            sipError = sipBadCallableArg(0, a0);
+        }
+%End
+
     bool connectNotifySignal(QObject *dest, int method) const;
     bool isWritable() const;
     bool isDesignable() const;
@@ -88,4 +120,28 @@ public:
 %End
 };
 
+%End
+
+%ModuleHeaderCode
+// Imports from QtCore.
+typedef sipErrorState (*pyqt4_qtdeclarative_get_connection_parts_t)(PyObject *, QObject *, const char *, bool, QObject **, QByteArray &);
+extern pyqt4_qtdeclarative_get_connection_parts_t pyqt4_qtdeclarative_get_connection_parts;
+
+typedef const char *(*pyqt4_qtdeclarative_get_slot_t)(PyObject *);
+extern pyqt4_qtdeclarative_get_slot_t pyqt4_qtdeclarative_get_slot;
+%End
+
+%ModuleCode
+// Imports from QtCore.
+pyqt4_qtdeclarative_get_connection_parts_t pyqt4_qtdeclarative_get_connection_parts;
+pyqt4_qtdeclarative_get_slot_t pyqt4_qtdeclarative_get_slot;
+%End
+
+%PostInitialisationCode
+// Imports from QtCore.
+pyqt4_qtdeclarative_get_connection_parts = (pyqt4_qtdeclarative_get_connection_parts_t)sipImportSymbol("pyqt4_get_connection_parts");
+Q_ASSERT(pyqt4_qtdeclarative_get_connection_parts);
+
+pyqt4_qtdeclarative_get_slot = (pyqt4_qtdeclarative_get_slot_t)sipImportSymbol("pyqt4_get_slot");
+Q_ASSERT(pyqt4_qtdeclarative_get_slot);
 %End

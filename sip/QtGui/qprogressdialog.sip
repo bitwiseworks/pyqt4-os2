@@ -2,7 +2,7 @@
 //
 // This file is part of the QtGui Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt4.
 // 
@@ -81,7 +81,41 @@ public:
     void open();
 %End
 %If (Qt_4_5_0 -)
-    void open(SIP_RXOBJ_CON receiver, SIP_SLOT_CON() member) [void (QObject *receiver, const char *member)];
+    void open(QObject *receiver, SIP_PYOBJECT member /TypeHint="QT_SLOT"/);
+%MethodCode
+        const char *slot = pyqt4_qtgui_get_slot(a1);
+        
+        if (slot)
+        {
+            Py_BEGIN_ALLOW_THREADS
+            sipCpp->open(a0, slot);
+            Py_END_ALLOW_THREADS
+        }
+        else
+        {
+            sipError = sipBadCallableArg(1, a1);
+        }
+%End
+
+%End
+%If (Qt_4_5_0 -)
+    void open(SIP_PYOBJECT slot /TypeHint="PYQT_SLOT"/);
+%MethodCode
+        QObject *receiver;
+        QByteArray slot_signature;
+        
+        if ((sipError = pyqt4_qtgui_get_connection_parts(a0, 0, "()", false, &receiver, slot_signature)) == sipErrorNone)
+        {
+            Py_BEGIN_ALLOW_THREADS
+            sipCpp->open(receiver, slot_signature.constData());
+            Py_END_ALLOW_THREADS
+        }
+        else if (sipError == sipErrorContinue)
+        {
+            sipError = sipBadCallableArg(0, a0);
+        }
+%End
+
 %End
 
 private:

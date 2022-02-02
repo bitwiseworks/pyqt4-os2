@@ -2,7 +2,7 @@
 //
 // This file is part of the QtCore Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt4.
 // 
@@ -19,10 +19,6 @@
 // This file is provided AS IS with NO WARRANTY OF ANY KIND, INCLUDING THE
 // WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
-
-%ModuleCode
-#include <qiodevice.h>
-%End
 
 class QIODevice : QObject
 {
@@ -63,7 +59,7 @@ public:
     virtual bool reset();
     virtual qint64 bytesAvailable() const;
     virtual qint64 bytesToWrite() const;
-    SIP_PYOBJECT read(qint64 maxlen) /DocType="Py_v3:bytes;str",ReleaseGIL/;
+    SIP_PYOBJECT read(qint64 maxlen) /TypeHint="Py_v3:bytes;str",ReleaseGIL/;
 %MethodCode
         // Return the data read or None if there was an error.
         if (a0 < 0)
@@ -98,7 +94,7 @@ public:
 %End
 
     QByteArray readAll() /ReleaseGIL/;
-    SIP_PYOBJECT readLine(qint64 maxlen=0) /DocType="Py_v3:bytes;str",ReleaseGIL/;
+    SIP_PYOBJECT readLine(qint64 maxlen=0) /TypeHint="Py_v3:bytes;str",ReleaseGIL/;
 %MethodCode
         // The two C++ overloads would have the same Python signature so we get most of
         // the combined functionality by treating an argument of 0 (the default) as
@@ -164,7 +160,7 @@ signals:
 %End
 
 protected:
-    virtual SIP_PYOBJECT readData(qint64 maxlen) = 0 /DocType="Py_v3:bytes;str",ReleaseGIL/ [qint64 (char *data, qint64 maxlen)];
+    virtual SIP_PYOBJECT readData(qint64 maxlen) = 0 /TypeHint="Py_v3:bytes;str",ReleaseGIL/ [qint64 (char *data, qint64 maxlen)];
 %MethodCode
         // Return the data read or None if there was an error.
         if (a0 < 0)
@@ -229,7 +225,7 @@ protected:
         }
 %End
 
-    virtual SIP_PYOBJECT readLineData(qint64 maxlen) /DocType="Py_v3:bytes;str",ReleaseGIL/ [qint64 (char *data, qint64 maxlen)];
+    virtual SIP_PYOBJECT readLineData(qint64 maxlen) /TypeHint="Py_v3:bytes;str",ReleaseGIL/ [qint64 (char *data, qint64 maxlen)];
 %MethodCode
         // Return the data read or None if there was an error.
         if (a0 < 0)
@@ -294,7 +290,7 @@ protected:
         }
 %End
 
-    virtual qint64 writeData(const char *data /Array/, qint64 len /ArraySize/) = 0;
+    virtual qint64 writeData(const char *data /Array, TypeHint="Py_v3:bytes;str"/, qint64 len /ArraySize/) = 0;
     void setOpenMode(QFlags<QIODevice::OpenModeFlag> openMode);
     void setErrorString(const QString &errorString);
 

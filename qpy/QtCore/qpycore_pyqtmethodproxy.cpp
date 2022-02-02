@@ -1,6 +1,6 @@
 // This contains the implementation of the pyqtMethodProxy type.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt4.
 // 
@@ -19,8 +19,6 @@
 
 
 #include <Python.h>
-
-#include <sip.h>
 
 #include <QGenericArgument>
 #include <QGenericReturnArgument>
@@ -46,7 +44,11 @@ static void parse_arg(PyObject *args, int arg_nr,
 // The pyqtMethodProxy type object.
 PyTypeObject qpycore_pyqtMethodProxy_Type = {
     PyVarObject_HEAD_INIT(NULL, 0)
-    SIP_TPNAME_CAST("PyQt4.QtCore.pyqtMethodProxy"),    /* tp_name */
+#if PY_VERSION_HEX >= 0x02050000
+    "PyQt4.QtCore.pyqtMethodProxy", /* tp_name */
+#else
+    const_cast<char *>("PyQt4.QtCore.pyqtMethodProxy"), /* tp_name */
+#endif
     sizeof (qpycore_pyqtMethodProxy),   /* tp_basicsize */
     0,                      /* tp_itemsize */
     pyqtMethodProxy_dealloc,    /* tp_dealloc */

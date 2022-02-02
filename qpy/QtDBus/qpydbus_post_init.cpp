@@ -1,6 +1,6 @@
 // This is the initialisation support code for the QtDBus module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt4.
 // 
@@ -29,8 +29,9 @@
 void qpydbus_post_init()
 {
     // Get the Chimera helper registration function.
-    void (*register_to_pyobject)(ToPyObjectFn);
-    register_to_pyobject = (void (*)(ToPyObjectFn))sipImportSymbol(
-            "qpycore_register_to_pyobject");
-    register_to_pyobject(qpydbus_to_pyobject);
+    void (*register_from_qvariant)(FromQVariantFn);
+    register_from_qvariant = (void (*)(FromQVariantFn))sipImportSymbol(
+            "pyqt4_register_from_qvariant_convertor");
+    Q_ASSERT(register_from_qvariant);
+    register_from_qvariant(qpydbus_from_qvariant);
 }

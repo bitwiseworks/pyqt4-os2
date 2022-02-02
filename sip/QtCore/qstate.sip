@@ -2,7 +2,7 @@
 //
 // This file is part of the QtCore Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt4.
 // 
@@ -51,15 +51,45 @@ public:
     void setErrorState(QAbstractState *state /KeepReference/);
     void addTransition(QAbstractTransition *transition /Transfer/);
 %If (Qt_5_0_0 -)
-    QSignalTransition *addTransition(const QObject *sender, SIP_SIGNAL signal, QAbstractState *target);
+    QSignalTransition *addTransition(const QObject *sender, SIP_PYOBJECT signal /TypeHint="QT_SIGNAL"/, QAbstractState *target);
+%MethodCode
+        const char *signal = pyqt4_get_signal(a1);
+        
+        if (signal)
+        {
+            Py_BEGIN_ALLOW_THREADS
+            sipRes = sipCpp->addTransition(a0, signal, a2);
+            Py_END_ALLOW_THREADS
+        }
+        else
+        {
+            sipError = sipBadCallableArg(1, a1);
+        }
+%End
+
 %End
 %If (- Qt_5_0_0)
-    QSignalTransition *addTransition(QObject *sender, SIP_SIGNAL signal, QAbstractState *target);
+    QSignalTransition *addTransition(QObject *sender, SIP_PYOBJECT signal /TypeHint="QT_SIGNAL"/, QAbstractState *target);
+%MethodCode
+        const char *signal = pyqt4_get_signal(a1);
+        
+        if (signal)
+        {
+            Py_BEGIN_ALLOW_THREADS
+            sipRes = sipCpp->addTransition(a0, signal, a2);
+            Py_END_ALLOW_THREADS
+        }
+        else
+        {
+            sipError = sipBadCallableArg(1, a1);
+        }
 %End
-    QSignalTransition *addTransition(SIP_PYOBJECT signal /DocType="signal"/, QAbstractState *target);
+
+%End
+    QSignalTransition *addTransition(SIP_PYOBJECT signal /TypeHint="PYQT_SIGNAL"/, QAbstractState *target);
 %MethodCode
         QObject *sender;
-        const char *signal = qpycore_pyqtsignal_get_parts(a0, &sender);
+        const char *signal = pyqt4_get_pyqtsignal_parts(a0, &sender);
         
         if (signal)
         {

@@ -1,7 +1,7 @@
 # This script generates the Makefiles for building PyQt.  It has no dependency
 # on the sipconfig module.
 #
-# Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+# Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 # 
 # This file is part of PyQt4.
 # 
@@ -29,9 +29,13 @@ import sys
 
 
 # Initialise the constants.
-PYQT_VERSION_STR = "4.11.4"
+PYQT_VERSION_STR = "4.12.3"
 
-SIP_MIN_VERSION = '4.16.4'
+SIP_MIN_VERSION = '4.19.12'
+
+# The different values QLibraryInfo::licensee() can return for the LGPL version
+# of Qt.
+OPEN_SOURCE_LICENSEES = ('Open Source', 'Builder Qt', 'Nokia')
 
 
 class ModuleMetadata:
@@ -430,12 +434,15 @@ class TargetConfiguration:
         self.py_version = py_config.version
         self.pyqt_bin_dir = py_config.bin_dir
         self.pyqt_module_dir = py_config.module_dir
+        self.pyqt_stubs_dir = os.path.join(py_config.module_dir, 'PyQt4')
         self.pyqt_sip_dir = os.path.join(py_config.data_dir, 'sip', 'PyQt4')
         self.pyuic_interpreter = py_config.pyuic_interpreter
 
         # The qmake spec we want to use.
         if self.py_platform == 'win32':
-            if self.py_version >= 0x030300:
+            if self.py_version >= 0x030500:
+                self.qmake_spec = 'win32-msvc2015'
+            elif self.py_version >= 0x030300:
                 self.qmake_spec = 'win32-msvc2010'
             elif self.py_version >= 0x020600:
                 self.qmake_spec = 'win32-msvc2008'
@@ -552,6 +559,8 @@ class TargetConfiguration:
                 self.pyqt_module_dir)
         self.pyqt_bin_dir = parser.get(section, 'pyqt_bin_dir',
                 self.pyqt_bin_dir)
+        self.pyqt_stubs_dir = parser.get(section, 'pyqt_stubs_dir',
+                self.pyqt_stubs_dir)
         self.pyqt_sip_dir = parser.get(section, 'pyqt_sip_dir',
                 self.pyqt_sip_dir)
         self.pyuic_interpreter = parser.get(section, 'pyuic_interpreter',
@@ -654,6 +663,10 @@ int main(int argc, char **argv)
     out << "PyQt_qreal_double\\n";
 #endif
 
+#if defined(QT_NO_PROCESS)
+    out << "PyQt_Process\\n";
+#endif
+
     return 0;
 }
 ''' % out_file
@@ -729,6 +742,7 @@ int main(int argc, char **argv)
             self.py_pylib_dir = self._apply_sysroot(self.py_pylib_dir)
             self.pyqt_bin_dir = self._apply_sysroot(self.pyqt_bin_dir)
             self.pyqt_module_dir = self._apply_sysroot(self.pyqt_module_dir)
+            self.pyqt_stubs_dir = self._apply_sysroot(self.pyqt_stubs_dir)
             self.pyqt_sip_dir = self._apply_sysroot(self.pyqt_sip_dir)
 
     def _apply_sysroot(self, dir_name):
@@ -825,10 +839,6 @@ int main(int argc, char **argv)
         # The platform may have changed so update the default.
         if self.py_platform.startswith('linux') or self.py_platform == 'darwin':
             self.prot_is_public = True
-
-        # 'Nokia' is the value that is used by Maemo's version of Qt.
-        if self.qt_licensee == 'Nokia':
-            self.qt_licensee = 'Open Source'
 
         self.sip_inc_dir = self.py_venv_inc_dir
         self.vend_inc_dir = self.py_venv_inc_dir
@@ -934,6 +944,11 @@ int main(int argc, char **argv)
         if opts.qsciapidir is not None:
             self.qsci_api_dir = opts.qsciapidir
 
+        if opts.stubsdir is not None:
+            self.pyqt_stubs_dir = opts.stubsdir
+        elif not opts.install_stubs:
+            self.pyqt_stubs_dir = ''
+
         if opts.sip is not None:
             self.sip = opts.sip
 
@@ -992,6 +1007,10 @@ int main(int argc, char **argv)
         path_dirs = os.environ.get('PATH', '').split(os.pathsep)
 
         for exe in exes:
+            # Strip any surrounding quotes.
+            if exe.startswith('"') and exe.endswith('"'):
+                exe = exe[1:-1]
+
             if sys.platform == 'win32':
                 exe = exe + '.exe'
 
@@ -1180,6 +1199,13 @@ def create_optparser(target_config):
             action='callback', callback=store_abspath, metavar="DIR",
             help="install the PyQt4 .sip files in DIR [default: %s]" %
                     target_config.pyqt_sip_dir)
+    g.add_option("--no-stubs", action="store_false", default=True,
+            dest="install_stubs", help="disable the installation of the PEP "
+            "484 stub files [default: enabled]")
+    g.add_option("--stubsdir", dest='stubsdir', type='string', default=None,
+            action='callback', callback=store_abspath, metavar="DIR",
+            help="install the PEP 484 stub files in DIR [default: "
+                    "%s]" % target_config.pyqt_stubs_dir)
     g.add_option("--no-tools", action="store_true", default=False,
             dest="notools",
             help="disable the building of pyuic5, pyrcc5 and pylupdate5 "
@@ -1248,8 +1274,6 @@ def check_modules(target_config, verbose):
                 'new QScriptEngine()')
         check_module(target_config, verbose, 'QtScriptTools',
                 'qscriptenginedebugger.h', 'new QScriptEngineDebugger()')
-        check_module(target_config, verbose, 'QtXml', 'qdom.h',
-                'new QDomDocument()')
 
     check_module(target_config, verbose, 'QtOpenGL', 'qgl.h',
             'new QGLWidget()')
@@ -1261,6 +1285,8 @@ def check_modules(target_config, verbose):
             'QTest::qSleep(0)')
     check_module(target_config, verbose, 'QtWebKit', 'qwebpage.h',
             'new QWebPage()')
+    check_module(target_config, verbose, 'QtXml', 'qdom.h',
+            'new QDomDocument()')
     check_module(target_config, verbose, 'QtXmlPatterns', 'qxmlname.h',
             'new QXmlName()')
 
@@ -1422,6 +1448,15 @@ pyuic4.files = %s
 pyuic4.path = %s
 INSTALLS += pyuic4
 ''' % (pyuic_wrapper, target_config.pyqt_bin_dir))
+
+    # Install the stub files.
+    if target_config.py_version >= 0x030500 and target_config.pyqt_stubs_dir:
+        out_f.write('''
+pep484_stubs.files = %s Qt.pyi
+pep484_stubs.path = %s
+INSTALLS += pep484_stubs
+''' % (' '.join([mname + '.pyi' for mname in target_config.pyqt_modules]),
+            target_config.pyqt_stubs_dir))
 
     # Install the QScintilla .api file.
     if target_config.qsci_api:
@@ -1645,7 +1680,7 @@ def inform_user(target_config, sip_version):
 
     if target_config.qt_licensee == '':
         detail = ''
-    elif target_config.qt_licensee == 'Open Source':
+    elif target_config.qt_licensee in OPEN_SOURCE_LICENSEES:
         detail = " (Open Source)"
     else:
         detail = " licensed to %s" % target_config.qt_licensee
@@ -1693,6 +1728,10 @@ def inform_user(target_config, sip_version):
                 "The QScintilla API file will be installed in %s." %
                         os.path.join(
                                 target_config.qsci_api_dir, 'api', 'python'))
+
+    if target_config.py_version >= 0x030500 and target_config.pyqt_stubs_dir:
+        inform("The PyQt4 PEP 484 stub files will be installed in %s." %
+                target_config.pyqt_stubs_dir)
 
     if target_config.pydbus_module_dir:
         inform(
@@ -2086,7 +2125,7 @@ def get_sip_flags(target_config):
     the target configuration.
     """
 
-    sip_flags = []
+    sip_flags = ['-n', 'PyQt4.sip']
 
     # If we don't check for signed interpreters, we exclude the 'VendorID'
     # feature
@@ -2126,6 +2165,10 @@ def get_sip_flags(target_config):
     if target_config.py_version < 0x030000:
         sip_flags.append('-x')
         sip_flags.append('Py_v3')
+
+    # Generate code for a debug build of Python if needed.
+    if hasattr(sys, 'gettotalrefcount'):
+        sip_flags.append('-D')
 
     return ' '.join(sip_flags)
 
@@ -2174,7 +2217,7 @@ def generate_sip_module_code(target_config, verbose, no_timestamp, parts, tracin
     mk_clean_dir(mname)
 
     # Build the SIP command line.
-    argv = [quote(target_config.sip), '-w', sip_flags]
+    argv = [quote(target_config.sip), '-w', '-n', 'PyQt4.sip', '-f', sip_flags]
 
     # Make sure any unknown Qt version gets treated as the latest Qt v4.
     argv.append('-B')
@@ -2200,9 +2243,14 @@ def generate_sip_module_code(target_config, verbose, no_timestamp, parts, tracin
         argv.append('-a')
         argv.append(mname + '.api')
 
-    # There is an issue creating QObjects while the GIL is held causing
-    # deadlocks in multi-threaded applications.  We don't fully understand this
-    # yet so we make sure we avoid the problem by always releasing the GIL.
+    if target_config.py_version >= 0x030500 and target_config.pyqt_stubs_dir:
+        argv.append('-y')
+        argv.append(mname + '.pyi')
+
+    # There is a historical issue creating QObjects while the GIL is held
+    # causing deadlocks in multi-threaded applications.  We don't fully
+    # understand this yet so we make sure we avoid the problem by always
+    # releasing the GIL.
     argv.append('-g')
 
     # Pass the absolute pathname so that #line files are absolute.
@@ -2215,7 +2263,7 @@ def generate_sip_module_code(target_config, verbose, no_timestamp, parts, tracin
     sp_sip_dir = source_path('sip')
     if sp_sip_dir != 'sip':
         # SIP assumes POSIX style separators.
-        sp_sip_dir = sp_sip_dir.replace(os.pathsep, '/')
+        sp_sip_dir = sp_sip_dir.replace('\\', '/')
         argv.append('-I')
         argv.append(sp_sip_dir)
 
@@ -2493,7 +2541,7 @@ def check_license(target_config, license_confirmed, introspecting):
                             sys.platform))
 
     # Common checks.
-    if introspecting and target_config.qt_licensee != 'Open Source' and ltype == 'GPL':
+    if introspecting and target_config.qt_licensee not in OPEN_SOURCE_LICENSEES and ltype == 'GPL':
         error(
                 "This version of PyQt4 and the commercial version of Qt have "
                 "incompatible licenses.")
@@ -2580,12 +2628,15 @@ def check_sip(target_config):
 
     pipe.close()
 
-    if 'preview' not in version_str and 'snapshot' not in version_str:
+    if '.dev' not in version_str and 'snapshot' not in version_str:
         version = version_from_string(version_str)
         if version is None:
             error(
                     "'%s -V' generated unexpected output: '%s'." % (
                             target_config.sip, version_str))
+
+        if version >= 0x050000:
+            error("PyQt4 cannot be built with sip v5 (or later).")
 
         min_version = version_from_string(SIP_MIN_VERSION)
         if version < min_version:

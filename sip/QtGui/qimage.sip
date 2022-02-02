@@ -2,7 +2,7 @@
 //
 // This file is part of the QtGui Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt4.
 // 
@@ -19,10 +19,6 @@
 // This file is provided AS IS with NO WARRANTY OF ANY KIND, INCLUDING THE
 // WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
-
-%ModuleCode
-#include <qimage.h>
-%End
 
 class QImage : QPaintDevice
 {
@@ -93,7 +89,7 @@ public:
 %If (Qt_4_3_0 -)
     QImage(void *data, int width, int height, int bytesPerLine, QImage::Format format) [(uchar *data, int width, int height, int bytesPerLine, QImage::Format format)];
 %End
-    explicit QImage(SIP_PYLIST xpm /DocType="list-of-str"/) [(const char **xpm)];
+    explicit QImage(SIP_PYLIST xpm /TypeHint="List[str]"/) [(const char **xpm)];
 %MethodCode
         // The Python interface is a list of strings that make up the image.
         
@@ -203,7 +199,7 @@ public:
     void invertPixels(QImage::InvertMode mode = QImage::InvertRgb);
     bool load(QIODevice *device, const char *format);
     bool load(const QString &fileName, const char *format = 0);
-    bool loadFromData(const uchar *data /Array/, int len /ArraySize/, const char *format = 0);
+    bool loadFromData(const uchar *data /Array, TypeHint="Py_v3:bytes;str"/, int len /ArraySize/, const char *format = 0);
     bool loadFromData(const QByteArray &data, const char *format = 0);
 %If (Qt_4_2_0 -)
     bool save(const QString &fileName, const char *format = 0, int quality = -1) const;
@@ -217,7 +213,7 @@ public:
 %If (- Qt_4_2_0)
     bool save(QIODevice *device, const char *format, int quality = -1) const;
 %End
-    static QImage fromData(const uchar *data /Array/, int size /ArraySize/, const char *format = 0);
+    static QImage fromData(const uchar *data /Array, TypeHint="Py_v3:bytes;str"/, int size /ArraySize/, const char *format = 0);
     static QImage fromData(const QByteArray &data, const char *format = 0);
 %If (PyQt_Deprecated_5_0)
     int serialNumber() const;
@@ -230,7 +226,7 @@ public:
     QPoint offset() const;
     void setOffset(const QPoint &);
     QStringList textKeys() const;
-    QString text(const QString &key /DocValue="Py_v3:''"/ = QString()) const;
+    QString text(const QString &key = QString()) const;
     void setText(const QString &key, const QString &value);
 
 protected:
@@ -274,9 +270,6 @@ public:
 
 QDataStream &operator<<(QDataStream &, const QImage & /Constrained/);
 QDataStream &operator>>(QDataStream &, QImage & /Constrained/);
-%If (Qt_4_3_0 -)
-void qSwap(QImage &value1, QImage &value2);
-%End
 
 %ModuleHeaderCode
 const char **QtGui_ListToArray(PyObject *lst);

@@ -2,7 +2,7 @@
 //
 // This file is part of the QtCore Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt4.
 // 
@@ -151,11 +151,7 @@ SIP_SSIZE_T len, start, stop, step, slicelength, i;
 
 len = sipCpp->count();
 
-#if PY_VERSION_HEX >= 0x03020000
-if (PySlice_GetIndicesEx(a0, len, &start, &stop, &step, &slicelength) < 0)
-#else
-if (PySlice_GetIndicesEx((PySliceObject *)a0, len, &start, &stop, &step, &slicelength) < 0)
-#endif
+if (sipConvertFromSliceObject(a0, len, &start, &stop, &step, &slicelength) < 0)
     sipIsErr = 1;
 else
 {
@@ -198,11 +194,7 @@ SIP_SSIZE_T len, start, stop, step, slicelength, i;
 
 len = sipCpp->count();
 
-#if PY_VERSION_HEX >= 0x03020000
-if (PySlice_GetIndicesEx(a0, len, &start, &stop, &step, &slicelength) < 0)
-#else
-if (PySlice_GetIndicesEx((PySliceObject *)a0, len, &start, &stop, &step, &slicelength) < 0)
-#endif
+if (sipConvertFromSliceObject(a0, len, &start, &stop, &step, &slicelength) < 0)
     sipIsErr = 1;
 else
     for (i = 0; i < slicelength; ++i)
@@ -218,11 +210,7 @@ SIP_SSIZE_T len, start, stop, step, slicelength, i;
 
 len = sipCpp->count();
 
-#if PY_VERSION_HEX >= 0x03020000
-if (PySlice_GetIndicesEx(a0, len, &start, &stop, &step, &slicelength) < 0)
-#else
-if (PySlice_GetIndicesEx((PySliceObject *)a0, len, &start, &stop, &step, &slicelength) < 0)
-#endif
+if (sipConvertFromSliceObject(a0, len, &start, &stop, &step, &slicelength) < 0)
     sipIsErr = 1;
 else
 {
@@ -446,7 +434,7 @@ public:
         PrematureEndOfDocumentError,
     };
 
-    void raiseError(const QString &message /DocValue="Py_v3:''"/ = QString());
+    void raiseError(const QString &message = QString());
     QString errorString() const;
     QXmlStreamReader::Error error() const;
     bool hasError() const;
@@ -517,9 +505,9 @@ public:
     void writeEndDocument();
     void writeEndElement();
     void writeEntityReference(const QString &name);
-    void writeNamespace(const QString &namespaceUri, const QString &prefix /DocValue="Py_v3:''"/ = QString());
+    void writeNamespace(const QString &namespaceUri, const QString &prefix = QString());
     void writeDefaultNamespace(const QString &namespaceUri);
-    void writeProcessingInstruction(const QString &target, const QString &data /DocValue="Py_v3:''"/ = QString());
+    void writeProcessingInstruction(const QString &target, const QString &data = QString());
     void writeStartDocument();
     void writeStartDocument(const QString &version);
 %If (Qt_4_5_0 -)

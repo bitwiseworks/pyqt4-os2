@@ -1,6 +1,6 @@
 // This is the definition of the various Chimera helpers.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt4.
 // 
@@ -28,12 +28,12 @@
 
 
 // Keep these in sync. with those defined in the Chimera class.
-typedef bool (*ToPyObjectFn)(const QVariant *, PyObject **);
+typedef bool (*FromQVariantFn)(const QVariant *, PyObject **);
 typedef bool (*ToQVariantFn)(PyObject *, QVariant *, bool *);
 typedef bool (*ToQVariantDataFn)(PyObject *, void *, int, bool *);
 
 
-bool qpydeclarative_to_pyobject(const QVariant *varp, PyObject **objp);
+bool qpydeclarative_from_qvariant(const QVariant *varp, PyObject **objp);
 bool qpydeclarative_to_qvariant(PyObject *obj, QVariant *varp, bool *okp);
 bool qpydeclarative_to_qvariant_data(PyObject *obj, void *data, int metatype,
         bool *okp);

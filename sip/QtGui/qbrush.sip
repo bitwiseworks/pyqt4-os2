@@ -2,7 +2,7 @@
 //
 // This file is part of the QtGui Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt4.
 // 
@@ -20,11 +20,7 @@
 // WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
 
-%ModuleCode
-#include <qbrush.h>
-%End
-
-class QBrush
+class QBrush /TypeHintIn="Union[QBrush, QColor, QGradient]"/
 {
 %TypeHeaderCode
 #include <qbrush.h>
@@ -86,9 +82,7 @@ public:
     QBrush();
     QBrush(Qt::BrushStyle bs);
     QBrush(const QColor &color, Qt::BrushStyle style = Qt::SolidPattern);
-    QBrush(Qt::GlobalColor color, Qt::BrushStyle style = Qt::SolidPattern);
     QBrush(const QColor &color, const QPixmap &pixmap);
-    QBrush(Qt::GlobalColor color, const QPixmap &pixmap);
     QBrush(const QPixmap &pixmap);
 %If (Qt_4_2_0 -)
     QBrush(const QImage &image);
@@ -317,7 +311,3 @@ public:
     void setAngle(qreal angle);
 %End
 };
-
-%If (Qt_4_3_0 -)
-void qSwap(QBrush &value1, QBrush &value2);
-%End

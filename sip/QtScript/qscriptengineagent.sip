@@ -2,7 +2,7 @@
 //
 // This file is part of the QtScript Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt4.
 // 
@@ -48,7 +48,7 @@ public:
     virtual void exceptionThrow(qint64 scriptId, const QScriptValue &exception, bool hasHandler);
     virtual void exceptionCatch(qint64 scriptId, const QScriptValue &exception);
     virtual bool supportsExtension(QScriptEngineAgent::Extension extension) const;
-    virtual QVariant extension(QScriptEngineAgent::Extension extension, const QVariant &argument /DocValue="Py_v3:None"/ = QVariant());
+    virtual QVariant extension(QScriptEngineAgent::Extension extension, const QVariant &argument = QVariant());
     QScriptEngine *engine() const;
 
 private:

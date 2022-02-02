@@ -2,7 +2,7 @@
 //
 // This file is part of the QtNetwork Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt4.
 // 
@@ -52,7 +52,39 @@ public:
     void setErrorString(const QString &errorString);
     void setLookupId(int id);
     int lookupId() const;
-    static int lookupHost(const QString &name, SIP_RXOBJ_CON receiver, SIP_SLOT_CON(QHostInfo) member) /ReleaseGIL/ [int (const QString &name, QObject *receiver, const char *member)];
+    static int lookupHost(const QString &name, QObject *receiver, SIP_PYOBJECT member /TypeHint="QT_SLOT"/);
+%MethodCode
+        const char *slot = pyqt4_qtnetwork_get_slot(a2);
+        
+        if (slot)
+        {
+            Py_BEGIN_ALLOW_THREADS
+            QHostInfo::lookupHost(*a0, a1, slot);
+            Py_END_ALLOW_THREADS
+        }
+        else
+        {
+            sipError = sipBadCallableArg(2, a2);
+        }
+%End
+
+    static int lookupHost(const QString &name, SIP_PYOBJECT slot /TypeHint="PYQT_SLOT"/);
+%MethodCode
+        QObject *receiver;
+        QByteArray slot_signature;
+        
+        if ((sipError = pyqt4_qtnetwork_get_connection_parts(a1, 0, "(QHostInfo)", true, &receiver, slot_signature)) == sipErrorNone)
+        {
+            Py_BEGIN_ALLOW_THREADS
+            QHostInfo::lookupHost(*a0, receiver, slot_signature.constData());
+            Py_END_ALLOW_THREADS
+        }
+        else if (sipError == sipErrorContinue)
+        {
+            sipError = sipBadCallableArg(1, a1);
+        }
+%End
+
     static void abortHostLookup(int lookupId);
     static QHostInfo fromName(const QString &name);
     static QString localHostName();
@@ -60,3 +92,27 @@ public:
     static QString localDomainName();
 %End
 };
+
+%ModuleHeaderCode
+// Imports from QtCore.
+typedef sipErrorState (*pyqt4_qtnetwork_get_connection_parts_t)(PyObject *, QObject *, const char *, bool, QObject **, QByteArray &);
+extern pyqt4_qtnetwork_get_connection_parts_t pyqt4_qtnetwork_get_connection_parts;
+
+typedef const char *(*pyqt4_qtnetwork_get_slot_t)(PyObject *);
+extern pyqt4_qtnetwork_get_slot_t pyqt4_qtnetwork_get_slot;
+%End
+
+%ModuleCode
+// Imports from QtCore.
+pyqt4_qtnetwork_get_connection_parts_t pyqt4_qtnetwork_get_connection_parts;
+pyqt4_qtnetwork_get_slot_t pyqt4_qtnetwork_get_slot;
+%End
+
+%PostInitialisationCode
+// Imports from QtCore.
+pyqt4_qtnetwork_get_connection_parts = (pyqt4_qtnetwork_get_connection_parts_t)sipImportSymbol("pyqt4_get_connection_parts");
+Q_ASSERT(pyqt4_qtnetwork_get_connection_parts);
+
+pyqt4_qtnetwork_get_slot = (pyqt4_qtnetwork_get_slot_t)sipImportSymbol("pyqt4_get_slot");
+Q_ASSERT(pyqt4_qtnetwork_get_slot);
+%End

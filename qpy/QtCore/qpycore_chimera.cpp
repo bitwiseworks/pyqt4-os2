@@ -1,6 +1,6 @@
 // This is the implementation of the Chimera class.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt4.
 // 
@@ -549,7 +549,7 @@ bool Chimera::parse_py_type(PyTypeObject *type_obj)
 void Chimera::set_flag()
 {
     if (qpycore_is_pyqt4_class(_type))
-        _is_flag = ((pyqt4ClassTypeDef *)_type)->flags & 0x01;
+        _is_flag = ((pyqt4ClassPluginDef *)sipTypePluginData(_type))->flags & 0x01;
 }
 
 

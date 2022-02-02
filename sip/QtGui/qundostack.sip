@@ -2,7 +2,7 @@
 //
 // This file is part of the QtGui Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt4.
 // 
@@ -73,8 +73,8 @@ public:
     int count() const /__len__/;
     int index() const;
     QString text(int idx) const;
-    QAction *createUndoAction(QObject *parent /TransferThis/, const QString &prefix /DocValue="Py_v3:''"/ = QString()) const /Factory/;
-    QAction *createRedoAction(QObject *parent /TransferThis/, const QString &prefix /DocValue="Py_v3:''"/ = QString()) const /Factory/;
+    QAction *createUndoAction(QObject *parent /TransferThis/, const QString &prefix = QString()) const /Factory/;
+    QAction *createRedoAction(QObject *parent /TransferThis/, const QString &prefix = QString()) const /Factory/;
     bool isActive() const;
     bool isClean() const;
     int cleanIndex() const;

@@ -2,7 +2,7 @@
 //
 // This file is part of the QtNetwork Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt4.
 // 
@@ -110,7 +110,7 @@ protected:
 %If (- Qt_5_0_0)
     QNetworkReply(QObject *parent /TransferThis/ = 0);
 %End
-    virtual qint64 writeData(const char *data /Array/, qint64 len /ArraySize/) /ReleaseGIL/;
+    virtual qint64 writeData(const char *data /Array, TypeHint="Py_v3:bytes;str"/, qint64 len /ArraySize/) /ReleaseGIL/;
     void setOperation(QNetworkAccessManager::Operation operation);
     void setRequest(const QNetworkRequest &request);
     void setError(QNetworkReply::NetworkError errorCode, const QString &errorString);

@@ -1,6 +1,33 @@
 Potential Incompatibilities with Earlier Versions
 =================================================
 
+PyQt v4.12.2
+------------
+
+Importing the :mod:`~PyQt4.sip` Module
+**************************************
+
+In previous versions :mod:`PyQt4` used the copy of the :mod:`~PyQt4.sip` module
+usually installed in the ``site-packages`` directory and applications accessed
+it using as follows::
+
+    import sip
+
+This version includes a private copy of the module.  Applications should access
+it as follows::
+
+    from PyQt4 import sip
+
+As an aid to backwards compatibility the module can still be imported as before
+but this will only work if another :mod:`PyQt4` module is imported first.  For
+example the following will work::
+
+    from PyQt4 import QtCore
+    import sip
+
+However it will not work if the order of the ``import`` statements is reversed.
+
+
 PyQt4 v4.11
 -----------
 
@@ -24,6 +51,17 @@ code that relies on the v4.9.4 behaviour.  As a workaround for this the
 ``no_receiver_check`` argument has been added to
 :func:`~PyQt4.QtCore.QObject.connect` which allows the check to be suppressed
 on a per connection basis.
+
+
+PyQt4 v4.12
+-----------
+
+qSwap()
+*******
+
+The support for ``qSwap()`` has been removed from all modules.  Classes that
+are supported by this function have a ``swap()`` method which can be used
+instead.
 
 
 PyQt4 v4.9.2

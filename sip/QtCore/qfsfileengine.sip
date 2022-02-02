@@ -2,7 +2,7 @@
 //
 // This file is part of the QtCore Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt4.
 // 
@@ -60,7 +60,7 @@ public:
     virtual QDateTime fileTime(QAbstractFileEngine::FileTime time) const;
     virtual void setFileName(const QString &file);
     virtual int handle() const;
-    virtual SIP_PYOBJECT read(qint64 maxlen) /DocType="Py_v3:bytes;str",ReleaseGIL/ [qint64 (char *data, qint64 maxlen)];
+    virtual SIP_PYOBJECT read(qint64 maxlen) /TypeHint="Py_v3:bytes;str",ReleaseGIL/ [qint64 (char *data, qint64 maxlen)];
 %MethodCode
         // Return the data read or None if there was an error.
         if (a0 < 0)
@@ -95,7 +95,7 @@ public:
         }
 %End
 
-    virtual SIP_PYOBJECT readLine(qint64 maxlen) /DocType="Py_v3:bytes;str",ReleaseGIL/ [qint64 (char *data, qint64 maxlen)];
+    virtual SIP_PYOBJECT readLine(qint64 maxlen) /TypeHint="Py_v3:bytes;str",ReleaseGIL/ [qint64 (char *data, qint64 maxlen)];
 %MethodCode
         // Return the data read or None if there was an error.
         if (a0 < 0)
@@ -130,10 +130,10 @@ public:
         }
 %End
 
-    virtual qint64 write(const char *data /Array/, qint64 len /ArraySize/) /ReleaseGIL/;
+    virtual qint64 write(const char *data /Array, TypeHint="Py_v3:bytes;str"/, qint64 len /ArraySize/) /ReleaseGIL/;
     bool open(QFlags<QIODevice::OpenModeFlag> flags, int fd) /ReleaseGIL/;
     static bool setCurrentPath(const QString &path);
-    static QString currentPath(const QString &fileName /DocValue="Py_v3:''"/ = QString());
+    static QString currentPath(const QString &fileName = QString());
     static QString homePath();
     static QString rootPath();
     static QString tempPath();

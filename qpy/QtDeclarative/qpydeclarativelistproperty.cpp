@@ -1,6 +1,6 @@
 // This is the implementation of the QPyDeclarativeListProperty class.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt4.
 // 
@@ -48,7 +48,11 @@ PyDoc_STRVAR(QPyDeclarativeListProperty_doc,
 // sub-type of the standard string type that is callable.
 PyTypeObject qpydeclarative_QPyDeclarativeListProperty_Type = {
     PyVarObject_HEAD_INIT(NULL, 0)
-    SIP_TPNAME_CAST("PyQt4.QtDeclarative.QPyDeclarativeListProperty"),
+#if PY_VERSION_HEX >= 0x02050000
+    "PyQt4.QtDeclarative.QPyDeclarativeListProperty",
+#else
+    const_cast<char *>("PyQt4.QtDeclarative.QPyDeclarativeListProperty"),
+#endif
     0,
     0,
     0,

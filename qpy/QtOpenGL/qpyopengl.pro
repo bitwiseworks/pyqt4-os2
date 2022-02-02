@@ -1,7 +1,7 @@
 # This is the qmake project file for the QPy support code for the QtOpenGL
 # module.  Note that it is not required by configure-ng.py.
 #
-# Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+# Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 # 
 # This file is part of PyQt4.
 # 

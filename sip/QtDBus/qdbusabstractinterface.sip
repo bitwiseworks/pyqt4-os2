@@ -2,7 +2,7 @@
 //
 // This file is part of the QtDBus Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt4.
 // 
@@ -78,53 +78,97 @@ public:
     QDBusMessage call(const QString &method, const QVariant &arg1 = QVariant(), const QVariant &arg2 = QVariant(), const QVariant &arg3 = QVariant(), const QVariant &arg4 = QVariant(), const QVariant &arg5 = QVariant(), const QVariant &arg6 = QVariant(), const QVariant &arg7 = QVariant(), const QVariant &arg8 = QVariant()) /ReleaseGIL/;
     QDBusMessage call(QDBus::CallMode mode, const QString &method, const QVariant &arg1 = QVariant(), const QVariant &arg2 = QVariant(), const QVariant &arg3 = QVariant(), const QVariant &arg4 = QVariant(), const QVariant &arg5 = QVariant(), const QVariant &arg6 = QVariant(), const QVariant &arg7 = QVariant(), const QVariant &arg8 = QVariant()) /ReleaseGIL/;
     QDBusMessage callWithArgumentList(QDBus::CallMode mode, const QString &method, const QList<QVariant> &args) /ReleaseGIL/;
-    bool callWithCallback(const QString &method, const QList<QVariant> &args, QObject *receiver, SIP_SLOT returnMethod, SIP_SLOT errorMethod);
-    SIP_PYOBJECT callWithCallback(const QString &method, const QList<QVariant> &args, SIP_PYCALLABLE returnMethod, SIP_PYCALLABLE errorMethod);
+    bool callWithCallback(const QString &method, const QList<QVariant> &args, QObject *receiver, SIP_PYOBJECT returnMethod /TypeHint="QT_SLOT"/, SIP_PYOBJECT errorMethod /TypeHint="QT_SLOT"/);
 %MethodCode
-        QObject *qrx;
-        QByteArray return_slot = qpycore_pyqtslot_get_parts(a2, &qrx);
+        const char *ret_slot = pyqt4_qtdbus_get_slot(a3);
         
-        if (!return_slot.isNull())
+        if (ret_slot)
         {
-            QObject *error_qrx;
-            QByteArray error_slot = qpycore_pyqtslot_get_parts(a3, &error_qrx);
+            const char *err_slot = pyqt4_qtdbus_get_slot(a4);
         
-            if (!error_slot.isNull())
+            if (err_slot)
             {
-                if (qrx == error_qrx)
-                {
-                    bool ok;
-            
-                    Py_BEGIN_ALLOW_THREADS
-                    ok = sipCpp->callWithCallback(*a0, *a1, qrx, return_slot.constData(), error_slot.constData());
-                    Py_END_ALLOW_THREADS
+                Py_BEGIN_ALLOW_THREADS
+                sipRes = sipCpp->callWithCallback(*a0, *a1, a2, ret_slot, err_slot);
+                Py_END_ALLOW_THREADS
+            }
+            else
+            {
+                sipError = sipBadCallableArg(4, a4);
+            }
+        }
+        else
+        {
+            sipError = sipBadCallableArg(3, a3);
+        }
+%End
+
+    bool callWithCallback(const QString &method, const QList<QVariant> &args, SIP_PYCALLABLE returnMethod, SIP_PYCALLABLE errorMethod);
+%MethodCode
+        QObject *receiver;
+        QByteArray retslot_signature;
         
-                    sipRes = PyBool_FromLong(ok);
+        if ((sipError = pyqt4_qtdbus_get_pyqtslot_parts(a2, &receiver, retslot_signature)) == sipErrorNone)
+        {
+            QObject *error_receiver;
+            QByteArray errslot_signature;
+        
+            if ((sipError = pyqt4_qtdbus_get_pyqtslot_parts(a3, &error_receiver, errslot_signature)) == sipErrorNone)
+            {
+                if (receiver == error_receiver)
+                {
+                    Py_BEGIN_ALLOW_THREADS
+                    sipRes = sipCpp->callWithCallback(*a0, *a1, receiver, retslot_signature.constData(), errslot_signature.constData());
+                    Py_END_ALLOW_THREADS
                 }
                 else
                 {
                     PyErr_SetString(PyExc_ValueError,
                             "the return and error methods must be bound to the same QObject instance");
+                    sipError = sipErrorFail;
                 }
             }
+            else if (sipError == sipErrorContinue)
+            {
+                sipError = sipBadCallableArg(3, a3);
+            }
+        }
+        else if (sipError == sipErrorContinue)
+        {
+            sipError = sipBadCallableArg(2, a2);
         }
 %End
 
-    bool callWithCallback(const QString &method, const QList<QVariant> &args, QObject *receiver, SIP_SLOT slot);
-    SIP_PYOBJECT callWithCallback(const QString &method, const QList<QVariant> &args, SIP_PYCALLABLE slot);
+    bool callWithCallback(const QString &method, const QList<QVariant> &args, QObject *receiver, SIP_PYOBJECT slot /TypeHint="QT_SLOT"/);
 %MethodCode
-        QObject *qrx;
-        QByteArray slot = qpycore_pyqtslot_get_parts(a2, &qrx);
+        const char *slot = pyqt4_qtdbus_get_slot(a3);
         
-        if (!slot.isNull())
+        if (slot)
         {
-            bool ok;
-            
             Py_BEGIN_ALLOW_THREADS
-            ok = sipCpp->callWithCallback(*a0, *a1, qrx, slot.constData());
+            sipRes = sipCpp->callWithCallback(*a0, *a1, a2, slot);
             Py_END_ALLOW_THREADS
+        }
+        else
+        {
+            sipError = sipBadCallableArg(3, a3);
+        }
+%End
+
+    bool callWithCallback(const QString &method, const QList<QVariant> &args, SIP_PYCALLABLE callable);
+%MethodCode
+        QObject *receiver;
+        QByteArray slot_signature;
         
-            sipRes = PyBool_FromLong(ok);
+        if ((sipError = pyqt4_qtdbus_get_pyqtslot_parts(a2, &receiver, slot_signature)) == sipErrorNone)
+        {
+            Py_BEGIN_ALLOW_THREADS
+            sipRes = sipCpp->callWithCallback(*a0, *a1, receiver, slot_signature.constData());
+            Py_END_ALLOW_THREADS
+        }
+        else if (sipError == sipErrorContinue)
+        {
+            sipError = sipBadCallableArg(2, a2);
         }
 %End
 
@@ -137,22 +181,103 @@ protected:
     virtual void connectNotify(const QMetaMethod &signal);
 %End
 %If (- Qt_5_0_0)
-    virtual void connectNotify(SIP_SIGNAL signal);
+    virtual void connectNotify(SIP_PYOBJECT signal /TypeHint="QT_SIGNAL"/) [void (const char *signal)];
+%MethodCode
+        typedef const char *(*pyqt4_get_signal_t)(PyObject *);
+        
+        static pyqt4_get_signal_t pyqt4_get_signal = 0;
+        
+        if (!pyqt4_get_signal)
+        {
+            pyqt4_get_signal = (pyqt4_get_signal_t)sipImportSymbol("pyqt4_get_signal");
+            Q_ASSERT(pyqt4_get_signal);
+        }
+        
+        const char *sig = pyqt4_get_signal(a0);
+            
+        if (sig)
+        {
+        #if defined(SIP_PROTECTED_IS_PUBLIC)
+            (sipSelfWasArg ? sipCpp->QDBusAbstractInterface::connectNotify(sig) : sipCpp->connectNotify(sig));
+        #else
+            sipCpp->sipProtectVirt_connectNotify(sipSelfWasArg, sig);
+        #endif
+        }
+        else
+        {
+            sipError = sipBadCallableArg(0, a0);
+        }
+%End
+
 %End
 %If (Qt_5_0_0 -)
     virtual void disconnectNotify(const QMetaMethod &signal);
 %End
 %If (- Qt_5_0_0)
-    virtual void disconnectNotify(SIP_SIGNAL signal);
+    virtual void disconnectNotify(SIP_PYOBJECT signal /TypeHint="QT_SIGNAL"/) [void (const char *signal)];
+%MethodCode
+        typedef const char *(*pyqt4_get_signal_t)(PyObject *);
+        
+        static pyqt4_get_signal_t pyqt4_get_signal = 0;
+        
+        if (!pyqt4_get_signal)
+        {
+            pyqt4_get_signal = (pyqt4_get_signal_t)sipImportSymbol("pyqt4_get_signal");
+            Q_ASSERT(pyqt4_get_signal);
+        }
+        
+        const char *sig = pyqt4_get_signal(a0);
+            
+        if (sig)
+        {
+        #if defined(SIP_PROTECTED_IS_PUBLIC)
+            (sipSelfWasArg ? sipCpp->QDBusAbstractInterface::disconnectNotify(sig) : sipCpp->disconnectNotify(sig));
+        #else
+            sipCpp->sipProtectVirt_disconnectNotify(sipSelfWasArg, sig);
+        #endif
+        }
+        else
+        {
+            sipError = sipBadCallableArg(0, a0);
+        }
+%End
+
 %End
 };
 
 %End
 
 %ModuleHeaderCode
+// Imports from QtCore.
+typedef PyObject *(*pyqt4_qtdbus_from_qvariant_by_type_t)(QVariant &, PyObject *);
+extern pyqt4_qtdbus_from_qvariant_by_type_t pyqt4_qtdbus_from_qvariant_by_type;
+
+typedef sipErrorState (*pyqt4_qtdbus_get_pyqtslot_parts_t)(PyObject *, QObject **, QByteArray &);
+extern pyqt4_qtdbus_get_pyqtslot_parts_t pyqt4_qtdbus_get_pyqtslot_parts;
+
+typedef const char *(*pyqt4_qtdbus_get_slot_t)(PyObject *);
+extern pyqt4_qtdbus_get_slot_t pyqt4_qtdbus_get_slot;
+
 #include <qpydbus_api.h>
 %End
 
+%ModuleCode
+// Imports from QtCore.
+pyqt4_qtdbus_from_qvariant_by_type_t pyqt4_qtdbus_from_qvariant_by_type;
+pyqt4_qtdbus_get_pyqtslot_parts_t pyqt4_qtdbus_get_pyqtslot_parts;
+pyqt4_qtdbus_get_slot_t pyqt4_qtdbus_get_slot;
+%End
+
 %PostInitialisationCode
+// Imports from QtCore.
+pyqt4_qtdbus_from_qvariant_by_type = (pyqt4_qtdbus_from_qvariant_by_type_t)sipImportSymbol("pyqt4_from_qvariant_by_type");
+Q_ASSERT(pyqt4_qtdbus_from_qvariant_by_type);
+
+pyqt4_qtdbus_get_pyqtslot_parts = (pyqt4_qtdbus_get_pyqtslot_parts_t)sipImportSymbol("pyqt4_get_pyqtslot_parts");
+Q_ASSERT(pyqt4_qtdbus_get_pyqtslot_parts);
+
+pyqt4_qtdbus_get_slot = (pyqt4_qtdbus_get_slot_t)sipImportSymbol("pyqt4_get_slot");
+Q_ASSERT(pyqt4_qtdbus_get_slot);
+
 qpydbus_post_init();
 %End

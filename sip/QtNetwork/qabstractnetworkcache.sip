@@ -2,7 +2,7 @@
 //
 // This file is part of the QtNetwork Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt4.
 // 
@@ -21,14 +21,8 @@
 
 
 %If (Qt_4_5_0 -)
-%ModuleCode
-#include <qabstractnetworkcache.h>
-%End
-%End
-
-%If (Qt_4_5_0 -)
 // QHash<QNetworkRequest::Attribute, QVariant> is implemented as a Python dict.
-%MappedType QHash<QNetworkRequest::Attribute, QVariant> /DocType="Py_v3:dict-of-QNetworkRequest.Attribute-object;dict-of-QNetworkRequest.Attribute-QVariant"/
+%MappedType QHash<QNetworkRequest::Attribute, QVariant> /TypeHint="Dict[QNetworkRequest.Attribute, QVariant]", TypeHintValue="{}"/
 {
 %TypeHeaderCode
 #include <qhash.h>

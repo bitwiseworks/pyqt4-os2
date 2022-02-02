@@ -2,7 +2,7 @@
 //
 // This file is part of the QtOpenGL Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt4.
 // 
@@ -19,12 +19,6 @@
 // This file is provided AS IS with NO WARRANTY OF ANY KIND, INCLUDING THE
 // WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
-
-%If (Qt_4_6_0 -)
-%ModuleCode
-#include <qglshaderprogram.h>
-%End
-%End
 
 %If (Qt_4_6_0 -)
 %If (PyQt_Deprecated_5_0)
@@ -102,7 +96,7 @@ public:
     void bindAttributeLocation(const QString &name, int location);
     int attributeLocation(const QByteArray &name) const;
     int attributeLocation(const QString &name) const;
-    void setAttributeArray(int location, SIP_PYOBJECT values /DocType="sequence"/);
+    void setAttributeArray(int location, SIP_PYOBJECT values /TypeHint="PYQT_SHADER_ATTRIBUTE_ARRAY"/);
 %MethodCode
         const GLfloat *values;
         int tsize;
@@ -114,7 +108,7 @@ public:
             sipCpp->setAttributeArray(a0, values, tsize);
 %End
 
-    void setAttributeArray(const char *name, SIP_PYOBJECT values /DocType="sequence"/);
+    void setAttributeArray(const char *name, SIP_PYOBJECT values /TypeHint="PYQT_SHADER_ATTRIBUTE_ARRAY"/);
 %MethodCode
         const GLfloat *values;
         int tsize;
@@ -148,7 +142,7 @@ public:
     void disableAttributeArray(const char *name);
     int uniformLocation(const QByteArray &name) const;
     int uniformLocation(const QString &name) const;
-    void setUniformValueArray(int location, SIP_PYOBJECT values /DocType="sequence"/);
+    void setUniformValueArray(int location, SIP_PYOBJECT values /TypeHint="PYQT_SHADER_UNIFORM_VALUE_ARRAY"/);
 %MethodCode
         const void *values;
         const sipTypeDef *array_type;
@@ -201,7 +195,7 @@ public:
         }
 %End
 
-    void setUniformValueArray(const char *name, SIP_PYOBJECT values /DocType="sequence"/);
+    void setUniformValueArray(const char *name, SIP_PYOBJECT values /TypeHint="PYQT_SHADER_UNIFORM_VALUE_ARRAY"/);
 %MethodCode
         const void *values;
         const sipTypeDef *array_type;
@@ -331,4 +325,15 @@ private:
 };
 
 %End
+%End
+
+%ExportedTypeHintCode
+# Convenient aliases for complicated OpenGL types.
+PYQT_SHADER_ATTRIBUTE_ARRAY = Union[Sequence[QVector2D], Sequence[QVector3D],
+        Sequence[QVector4D], Sequence[Sequence[float]]]
+PYQT_SHADER_UNIFORM_VALUE_ARRAY = Union[Sequence[QVector2D],
+        Sequence[QVector3D], Sequence[QVector4D], Sequence[QMatrix2x2],
+        Sequence[QMatrix2x3], Sequence[QMatrix2x4], Sequence[QMatrix3x2],
+        Sequence[QMatrix3x3], Sequence[QMatrix3x4], Sequence[QMatrix4x2],
+        Sequence[QMatrix4x3], Sequence[QMatrix4x4], Sequence[Sequence[float]]]
 %End

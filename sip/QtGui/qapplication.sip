@@ -2,7 +2,7 @@
 //
 // This file is part of the QtGui Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt4.
 // 
@@ -25,7 +25,7 @@
 // Mapped type for XEvent.
 // Map XEvent onto sip.voidptr so that Python code can use the struct module to
 // read and/or update it.
-%MappedType XEvent /NoRelease, DocType="sip.voidptr"/
+%MappedType XEvent /NoRelease, TypeHint="sip.voidptr"/
 {
 %TypeHeaderCode
 #include <qapplication.h>
@@ -328,7 +328,7 @@ class QApplication : QGuiApplication
 %End
 
 public:
-    QApplication(SIP_PYLIST argv /DocType="list-of-str"/) /PostHook=__pyQtQAppHook__/ [(int &argc, char **argv, int = ApplicationFlags)];
+    QApplication(SIP_PYLIST argv /TypeHint="List[str]"/) /PostHook=__pyQtQAppHook__/ [(int &argc, char **argv, int = ApplicationFlags)];
 %MethodCode
         // The Python interface is a list of argument strings that is modified.
         
@@ -336,8 +336,10 @@ public:
         char **argv;
         
         // Convert the list.
-        if ((argv = qpycore_ArgvToC(a0, argc)) == NULL)
+        if ((argv = pyqt4_qtgui_from_argv_list(a0, argc)) == NULL)
+        {
             sipIsErr = 1;
+        }
         else
         {
             // Create it now the arguments are right.
@@ -349,7 +351,7 @@ public:
             Py_END_ALLOW_THREADS
         
             // Now modify the original list.
-            qpycore_UpdatePyArgv(a0, argc, argv);
+            pyqt4_qtgui_update_argv_list(a0, argc, argv);
         }
 %End
 
@@ -881,7 +883,7 @@ class QApplication : QCoreApplication
 %End
 
 public:
-    QApplication(SIP_PYLIST argv /DocType="list-of-str"/) /PostHook=__pyQtQAppHook__/ [(int &argc, char **argv)];
+    QApplication(SIP_PYLIST argv /TypeHint="List[str]"/) /PostHook=__pyQtQAppHook__/ [(int &argc, char **argv)];
 %MethodCode
         // The Python interface is a list of argument strings that is modified.
         
@@ -889,8 +891,10 @@ public:
         char **argv;
         
         // Convert the list.
-        if ((argv = qpycore_ArgvToC(a0, argc)) == NULL)
+        if ((argv = pyqt4_qtgui_from_argv_list(a0, argc)) == NULL)
+        {
             sipIsErr = 1;
+        }
         else
         {
             // Create it now the arguments are right.
@@ -902,11 +906,11 @@ public:
             Py_END_ALLOW_THREADS
         
             // Now modify the original list.
-            qpycore_UpdatePyArgv(a0, argc, argv);
+            pyqt4_qtgui_update_argv_list(a0, argc, argv);
         }
 %End
 
-    QApplication(SIP_PYLIST argv /DocType="list-of-str"/, bool GUIenabled) /PostHook=__pyQtQAppHook__/ [(int &argc, char **argv, bool GUIenabled)];
+    QApplication(SIP_PYLIST argv /TypeHint="List[str]"/, bool GUIenabled) /PostHook=__pyQtQAppHook__/ [(int &argc, char **argv, bool GUIenabled)];
 %MethodCode
         // The Python interface is a list of argument strings that is modified.
         
@@ -914,8 +918,10 @@ public:
         char **argv;
         
         // Convert the list.
-        if ((argv = qpycore_ArgvToC(a0, argc)) == NULL)
+        if ((argv = pyqt4_qtgui_from_argv_list(a0, argc)) == NULL)
+        {
             sipIsErr = 1;
+        }
         else
         {
             // Create it now the arguments are right.
@@ -927,7 +933,7 @@ public:
             Py_END_ALLOW_THREADS
         
             // Now modify the original list.
-            qpycore_UpdatePyArgv(a0, argc, argv);
+            pyqt4_qtgui_update_argv_list(a0, argc, argv);
         }
 %End
 
@@ -938,7 +944,7 @@ public:
         GuiServer,
     };
 
-    QApplication(SIP_PYLIST argv /DocType="list-of-str"/, QApplication::Type /Constrained/) /PostHook=__pyQtQAppHook__/ [(int &argc, char **argv, QApplication::Type)];
+    QApplication(SIP_PYLIST argv /TypeHint="List[str]"/, QApplication::Type /Constrained/) /PostHook=__pyQtQAppHook__/ [(int &argc, char **argv, QApplication::Type)];
 %MethodCode
         // The Python interface is a list of argument strings that is modified.
         
@@ -946,8 +952,10 @@ public:
         char **argv;
         
         // Convert the list.
-        if ((argv = qpycore_ArgvToC(a0, argc)) == NULL)
+        if ((argv = pyqt4_qtgui_from_argv_list(a0, argc)) == NULL)
+        {
             sipIsErr = 1;
+        }
         else
         {
             // Create it now the arguments are right.
@@ -959,7 +967,7 @@ public:
             Py_END_ALLOW_THREADS
         
             // Now modify the original list.
-            qpycore_UpdatePyArgv(a0, argc, argv);
+            pyqt4_qtgui_update_argv_list(a0, argc, argv);
         }
 %End
 
@@ -967,7 +975,7 @@ public:
     QApplication(Display *display, Qt::HANDLE visual = 0, Qt::HANDLE colormap = 0) /PostHook=__pyQtQAppHook__/;
 %End
 %If (WS_X11)
-    QApplication(Display *dpy, SIP_PYLIST argv /DocType="list-of-str"/, Qt::HANDLE visual = 0, Qt::HANDLE cmap = 0) /PostHook=__pyQtQAppHook__/ [(Display *display, int &argc, char **argv, Qt::HANDLE visual = 0, Qt::HANDLE colormap = 0)];
+    QApplication(Display *dpy, SIP_PYLIST argv /TypeHint="List[str]"/, Qt::HANDLE visual = 0, Qt::HANDLE cmap = 0) /PostHook=__pyQtQAppHook__/ [(Display *display, int &argc, char **argv, Qt::HANDLE visual = 0, Qt::HANDLE colormap = 0)];
 %MethodCode
         // The Python interface is a list of argument strings that is modified.
         
@@ -975,8 +983,10 @@ public:
         char **argv;
         
         // Convert the list.
-        if ((argv = qpycore_ArgvToC(a1, argc)) == NULL)
+        if ((argv = pyqt4_qtgui_from_argv_list(a1, argc)) == NULL)
+        {
             sipIsErr = 1;
+        }
         else
         {
             // Create it now the arguments are right.
@@ -988,7 +998,7 @@ public:
             Py_END_ALLOW_THREADS
         
             // Now modify the original list.
-            qpycore_UpdatePyArgv(a1, argc, argv);
+            pyqt4_qtgui_update_argv_list(a1, argc, argv);
         }
 %End
 
@@ -1184,16 +1194,26 @@ private:
 %End
 
 %ModuleHeaderCode
+// Imports from QtCore.
+typedef char **(*pyqt4_qtgui_from_argv_list_t)(PyObject *, int &);
+extern pyqt4_qtgui_from_argv_list_t pyqt4_qtgui_from_argv_list;
+
+typedef sipErrorState (*pyqt4_qtgui_get_connection_parts_t)(PyObject *, QObject *, const char *, bool, QObject **, QByteArray &);
+extern pyqt4_qtgui_get_connection_parts_t pyqt4_qtgui_get_connection_parts;
+
+typedef const char *(*pyqt4_qtgui_get_slot_t)(PyObject *);
+extern pyqt4_qtgui_get_slot_t pyqt4_qtgui_get_slot;
+
+typedef char **(*pyqt4_qtgui_update_argv_list_t)(PyObject *, int, char **);
+extern pyqt4_qtgui_update_argv_list_t pyqt4_qtgui_update_argv_list;
+
+
 // Used to track QObject instances that must be explicitly destroyed before the
 // QApplication instance is destroyed.  Typically these are instances that
 // sometimes don't have a parent (and are not QWidgets).
 void qtgui_track(QObject *o);
 void qtgui_untrack(QObject *o);
 void qtgui_delete_tracked();
-
-extern char **(*qpycore_ArgvToC)(PyObject *, int &);
-extern void (*qpycore_UpdatePyArgv)(PyObject *, int, char **);
-extern const char *(*qpycore_pyqtsignal_get_parts)(PyObject *, QObject **);
 
 // This is needed for Qt v5.0.0.
 #if defined(B0)
@@ -1202,10 +1222,11 @@ extern const char *(*qpycore_pyqtsignal_get_parts)(PyObject *, QObject **);
 %End
 
 %ModuleCode
-// Symbols imported from the QtCore module.
-char **(*qpycore_ArgvToC)(PyObject *, int &);
-void (*qpycore_UpdatePyArgv)(PyObject *, int, char **);
-const char *(*qpycore_pyqtsignal_get_parts)(PyObject *, QObject **);
+// Imports from QtCore.
+pyqt4_qtgui_from_argv_list_t pyqt4_qtgui_from_argv_list;
+pyqt4_qtgui_get_connection_parts_t pyqt4_qtgui_get_connection_parts;
+pyqt4_qtgui_get_slot_t pyqt4_qtgui_get_slot;
+pyqt4_qtgui_update_argv_list_t pyqt4_qtgui_update_argv_list;
 
 // Forward declarations of the low level exported functions.
 #if defined(Q_WS_X11) && QT_VERSION < 0x050000
@@ -1261,10 +1282,18 @@ void qtgui_delete_tracked()
 %End
 
 %PostInitialisationCode
-// Import helpers from the QtCore module.
-qpycore_ArgvToC = (char **(*)(PyObject *, int &))sipImportSymbol("qpycore_ArgvToC");
-qpycore_UpdatePyArgv = (void (*)(PyObject *, int, char **))sipImportSymbol("qpycore_UpdatePyArgv");
-qpycore_pyqtsignal_get_parts = (const char *(*)(PyObject *, QObject **))sipImportSymbol("qpycore_pyqtsignal_get_parts");
+// Imports from QtCore.
+pyqt4_qtgui_from_argv_list = (pyqt4_qtgui_from_argv_list_t)sipImportSymbol("pyqt4_from_argv_list");
+Q_ASSERT(pyqt4_qtgui_from_argv_list);
+
+pyqt4_qtgui_get_connection_parts = (pyqt4_qtgui_get_connection_parts_t)sipImportSymbol("pyqt4_get_connection_parts");
+Q_ASSERT(pyqt4_qtgui_get_connection_parts);
+
+pyqt4_qtgui_get_slot = (pyqt4_qtgui_get_slot_t)sipImportSymbol("pyqt4_get_slot");
+Q_ASSERT(pyqt4_qtgui_get_slot);
+
+pyqt4_qtgui_update_argv_list = (pyqt4_qtgui_update_argv_list_t)sipImportSymbol("pyqt4_update_argv_list");
+Q_ASSERT(pyqt4_qtgui_update_argv_list);
 
 // Export our own helpers.
 sipExportSymbol("qtgui_wrap_ancestors", (void *)qtgui_wrap_ancestors);

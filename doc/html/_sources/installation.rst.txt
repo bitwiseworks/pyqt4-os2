@@ -4,18 +4,27 @@ Installing PyQt4
 Downloading SIP
 ---------------
 
-SIP must be installed before building and using PyQt4.  You can get the latest
-release of the SIP source code from
-http://www.riverbankcomputing.com/software/sip/download.
+SIP v4 must be installed before building and using PyQt4.  You can get the
+latest release of the SIP source code from
+https://www.riverbankcomputing.com/software/sip/download.
 
-The SIP documentation can be found at http://pyqt.sourceforge.net/Docs/sip4/.
+The SIP installation instructions can be found at
+http://pyqt.sourceforge.net/Docs/sip4/installation.html.
+
+.. note::
+
+    When building PyQt4 v4.12.2 or later you must configure SIP to create a
+    private copy of the ``sip`` module using a command line similar to the
+    following::
+
+        python configure.py --sip-module PyQt4.sip --no-dist-info --no-tools
 
 
 Downloading PyQt4
 -----------------
 
 You can get the latest release of the GPL version of the PyQt4 source code from
-http://www.riverbankcomputing.com/software/pyqt/download.
+https://www.riverbankcomputing.com/software/pyqt/download.
 
 If you are using the commercial version of PyQt4 then you should use the
 download instructions which were sent to you when you made your purchase.  You
@@ -31,7 +40,8 @@ that relate to your platform.
 
 If you are using the commercial version of PyQt4 then you must copy your
 license file to the :file:`sip` directory, or to the directory specified by the
-:option:`--license-dir` option of :program:`configure-ng.py`.
+:option:`--license-dir <configure-ng.py --license-dir>` option of
+:program:`configure-ng.py`.
 
 You need to make sure your environment variables are set properly for your
 development environment.
@@ -179,6 +189,14 @@ The full set of command line options is:
 
     The ``.sip`` files for the PyQt4 modules will not be installed.
 
+.. cmdoption:: --no-stubs
+
+    .. versionadded:: 4.12
+
+    The PEP 484 type hint stub files for the PyQt4 modules will not be
+    installed.  This option is ignored (and the stub files are not installed)
+    for versions of Python earlier than v3.5.
+
 .. cmdoption:: --no-tools
 
     .. versionadded:: 4.11
@@ -262,6 +280,16 @@ The full set of command line options is:
     The PyQt4 modules will be built as static libraries.  This is useful when
     building a custom interpreter with the PyQt4 modules built in to the
     interpreter.
+
+.. cmdoption:: --stubdir <DIR>
+
+    .. versionadded:: 4.12
+
+    The PEP 484 type hint stub files for the PyQt4 modules will be installed in
+    the directory ``<DIR>``.  By default they will be stored in the same
+    directory as the corresponding extension modules.  This option is ignored
+    (and the stub files are not installed) for versions of Python earlier than
+    v3.5.
 
 .. cmdoption:: --sysroot <DIR>
 
@@ -564,12 +592,13 @@ This will install the various PyQt4 components.
 Configuring with Configuration Files
 ------------------------------------
 
-The :program:`configure.py` script normally introspects the Python installation
-of the interpreter running it in order to determine the names of the various
-files and directories it needs.  This is fine for a native build of PyQt4 but
-isn't appropriate when cross-compiling.  In this case it is possible to supply
-a configuration file, specified using the :option:`--configuration` option,
-which contains definitions of all the required values.
+The :program:`configure-ng.py` script normally introspects the Python
+installation of the interpreter running it in order to determine the names of
+the various files and directories it needs.  This is fine for a native build of
+PyQt4 but isn't appropriate when cross-compiling.  In this case it is possible
+to supply a configuration file, specified using the
+:option:`--configuration <configure-ng.py --configuration>` option, which
+contains definitions of all the required values.
 
 A configuration file is made up of a number of named sections each of which
 contains a number of configuration items.  The format of a configuration file
@@ -595,12 +624,12 @@ Those configuration items that appear before the first section name are
 automatically added to all sections.
 
 A configuration file defines a section for each version of Qt that requires a
-different configuration.  :program:`configure.py` will choose the most
+different configuration.  :program:`configure-ng.py` will choose the most
 appropriate section according to the version of Qt you are actually using.  For
 example, if a configuration file contains sections for Qt v5.3 and Qt v5.1 and
 you are using Qt v5.2.1 then the section for Qt v5.1 will be chosen.
 
-:program:`configure.py` provides the following preset values for a
+:program:`configure-ng.py` provides the following preset values for a
 configuration:
 
 ``py_major``
@@ -611,7 +640,7 @@ configuration:
 
 ``sysroot``
     is the name of the system root directory.  This is specified with the
-    :option:`--sysroot` option.
+    :option:`--sysroot <configure-ng.py --sysroot>` option.
 
 The following is an example configuration file::
 
@@ -668,21 +697,26 @@ The following values can be specified in the configuration file:
 
 ``pyqt_module_dir``
     is the target directory where the PyQt4 modules will be installed.  It can
-    be overridden by the :option:`--destdir` option.
+    be overridden by the :option:`--destdir <configure-ng.py --destdir>`
+    option.
 
 ``pyqt_modules``
     is the space separated list of PyQt4 modules that will be built.  It can be
-    overridden by the :option:`--enable` option.
+    overridden by the :option:`--enable <configure-ng.py --enable>` option.
 
 ``pyqt_bin_dir``
     is the name of the target directory where the PyQt4 related executables
-    will be installed.  It can be overridden by the :option:`--bindir` option.
+    will be installed.  It can be overridden by the
+    :option:`--bindir <configure-ng.py --bindir>` option.
 
 ``pyqt_sip_dir``
     is the name of the target directory where the PyQt4 ``.sip`` files will be
-    installed.  It can be overridden by the :option:`--sipdir` option.
+    installed.  It can be overridden by the
+    :option:`--sipdir <configure-ng.py --sipdir>` option.
 
 ``pyuic_interpreter``
     is the name of the Python interpreter (as it would be called from the
     target system) that will be used to run :program:`pyuic4`.  It can be
-    overridden by the :option:`--pyuic4-interpreter` option.
+    overridden by the
+    :option:`--pyuic4-interpreter <configure-ng.py --pyuic4-interpreter>`
+    option.

@@ -2,7 +2,7 @@
 //
 // This file is part of the QtCore Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt4.
 // 
@@ -63,7 +63,7 @@ class QEvent /Supertype=sip.wrapper/
 public:
     enum Type
     {
-        None,
+        None /PyName=None_/,
         Timer,
         MouseButtonPress,
         MouseButtonRelease,

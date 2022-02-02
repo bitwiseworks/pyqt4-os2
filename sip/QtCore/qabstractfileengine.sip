@@ -2,7 +2,7 @@
 //
 // This file is part of the QtCore Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt4.
 // 
@@ -19,12 +19,6 @@
 // This file is provided AS IS with NO WARRANTY OF ANY KIND, INCLUDING THE
 // WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
-
-%If (- Qt_5_0_0)
-%ModuleCode
-#include <qabstractfileengine.h>
-%End
-%End
 
 %If (- Qt_5_0_0)
 
@@ -133,7 +127,7 @@ public:
 %If (Qt_4_3_0 -)
     virtual QAbstractFileEngineIterator *beginEntryList(QFlags<QDir::Filter> filters, const QStringList &filterNames) /Factory/;
 %End
-    virtual SIP_PYOBJECT read(qint64 maxlen) /DocType="Py_v3:bytes;str",ReleaseGIL/ [qint64 (char *data, qint64 maxlen)];
+    virtual SIP_PYOBJECT read(qint64 maxlen) /TypeHint="Py_v3:bytes;str",ReleaseGIL/ [qint64 (char *data, qint64 maxlen)];
 %MethodCode
         // Return the data read or None if there was an error.
         if (a0 < 0)
@@ -195,7 +189,7 @@ public:
         }
 %End
 
-    virtual SIP_PYOBJECT readLine(qint64 maxlen) /DocType="Py_v3:bytes;str",ReleaseGIL/ [qint64 (char *data, qint64 maxlen)];
+    virtual SIP_PYOBJECT readLine(qint64 maxlen) /TypeHint="Py_v3:bytes;str",ReleaseGIL/ [qint64 (char *data, qint64 maxlen)];
 %MethodCode
         // Return the data read or None if there was an error.
         if (a0 < 0)
@@ -257,7 +251,7 @@ public:
         }
 %End
 
-    virtual qint64 write(const char *data /Array/, qint64 len /ArraySize/) /ReleaseGIL/;
+    virtual qint64 write(const char *data /Array, TypeHint="Py_v3:bytes;str"/, qint64 len /ArraySize/) /ReleaseGIL/;
     QFile::FileError error() const;
     QString errorString() const;
     static QAbstractFileEngine *create(const QString &fileName) /Factory/;

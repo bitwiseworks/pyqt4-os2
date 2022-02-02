@@ -2,7 +2,7 @@
 //
 // This file is part of the QtGui Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt4.
 // 
@@ -20,10 +20,6 @@
 // WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
 
-%ModuleCode
-#include <qpixmap.h>
-%End
-
 class QPixmap : QPaintDevice
 {
 %TypeHeaderCode
@@ -40,7 +36,7 @@ public:
     QPixmap(const QSize &);
 %End
     QPixmap(const QString &fileName, const char *format = 0, Qt::ImageConversionFlags flags = Qt::AutoColor);
-    QPixmap(SIP_PYLIST xpm /DocType="list-of-str"/) [(const char **xpm)];
+    QPixmap(SIP_PYLIST xpm /TypeHint="List[str]"/) [(const char **xpm)];
 %MethodCode
         // The Python interface is a list of strings that make up the image.
         
@@ -139,7 +135,7 @@ public:
     bool convertFromImage(const QImage &img, Qt::ImageConversionFlags flags = Qt::AutoColor);
 %End
     bool load(const QString &fileName, const char *format = 0, Qt::ImageConversionFlags flags = Qt::AutoColor);
-    bool loadFromData(const uchar *buf /Array/, uint len /ArraySize/, const char *format = 0, Qt::ImageConversionFlags flags = Qt::AutoColor);
+    bool loadFromData(const uchar *buf /Array, TypeHint="Py_v3:bytes;str"/, uint len /ArraySize/, const char *format = 0, Qt::ImageConversionFlags flags = Qt::AutoColor);
     bool loadFromData(const QByteArray &buf, const char *format = 0, Qt::ImageConversionFlags flags = Qt::AutoColor);
 %If (Qt_4_2_0 -)
     bool save(const QString &fileName, const char *format = 0, int quality = -1) const;
@@ -246,6 +242,3 @@ public:
 
 QDataStream &operator<<(QDataStream &, const QPixmap & /Constrained/);
 QDataStream &operator>>(QDataStream &, QPixmap & /Constrained/);
-%If (Qt_4_3_0 -)
-void qSwap(QPixmap &value1, QPixmap &value2);
-%End

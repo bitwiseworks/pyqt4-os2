@@ -2,7 +2,7 @@
 //
 // This file is part of the QtCore Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt4.
 // 
@@ -19,10 +19,6 @@
 // This file is provided AS IS with NO WARRANTY OF ANY KIND, INCLUDING THE
 // WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
-
-%ModuleCode
-#include <qdir.h>
-%End
 
 class QDir
 {
@@ -79,8 +75,8 @@ public:
 
     typedef QFlags<QDir::SortFlag> SortFlags;
     QDir(const QDir &);
-    QDir(const QString &path /DocValue="Py_v3:''"/ = QString());
-    QDir(const QString &path, const QString &nameFilter, QFlags<QDir::SortFlag> sort /DocValue="QDir.Name|QDir.IgnoreCase"/ = QDir::SortFlags(QDir::Name|QDir::IgnoreCase), QFlags<QDir::Filter> filters = AllEntries);
+    QDir(const QString &path = QString());
+    QDir(const QString &path, const QString &nameFilter, QFlags<QDir::SortFlag> sort /TypeHintValue="QDir.Name|QDir.IgnoreCase"/ = QDir::SortFlags(QDir::Name|QDir::IgnoreCase), QFlags<QDir::Filter> filters = AllEntries);
     ~QDir();
     void setPath(const QString &path);
     QString path() const;
@@ -119,11 +115,7 @@ public:
         
         len = sipCpp->count();
         
-        #if PY_VERSION_HEX >= 0x03020000
-        if (PySlice_GetIndicesEx(a0, len, &start, &stop, &step, &slicelength) < 0)
-        #else
-        if (PySlice_GetIndicesEx((PySliceObject *)a0, len, &start, &stop, &step, &slicelength) < 0)
-        #endif
+        if (sipConvertFromSliceObject(a0, len, &start, &stop, &step, &slicelength) < 0)
             sipIsErr = 1;
         else
         {

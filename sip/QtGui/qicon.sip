@@ -2,7 +2,7 @@
 //
 // This file is part of the QtGui Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt4.
 // 
@@ -19,10 +19,6 @@
 // This file is provided AS IS with NO WARRANTY OF ANY KIND, INCLUDING THE
 // WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
-
-%ModuleCode
-#include <qicon.h>
-%End
 
 class QIcon /Supertype=sip.wrapper/
 {
@@ -119,7 +115,4 @@ QDataStream &operator<<(QDataStream &, const QIcon & /Constrained/);
 %End
 %If (Qt_4_2_0 -)
 QDataStream &operator>>(QDataStream &, QIcon & /Constrained/);
-%End
-%If (Qt_4_3_0 -)
-void qSwap(QIcon &value1, QIcon &value2);
 %End

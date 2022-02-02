@@ -2,7 +2,7 @@
 //
 // This file is part of the QtGui Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt4.
 // 
@@ -19,10 +19,6 @@
 // This file is provided AS IS with NO WARRANTY OF ANY KIND, INCLUDING THE
 // WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
-
-%ModuleCode
-#include <qfiledialog.h>
-%End
 
 class QFileDialog : QDialog
 {
@@ -86,7 +82,7 @@ public:
 %If (Qt_4_2_0 -)
     QFileDialog(QWidget *parent /TransferThis/, Qt::WindowFlags f);
 %End
-    QFileDialog(QWidget *parent /TransferThis/ = 0, const QString &caption /DocValue="Py_v3:''"/ = QString(), const QString &directory /DocValue="Py_v3:''"/ = QString(), const QString &filter /DocValue="Py_v3:''"/ = QString());
+    QFileDialog(QWidget *parent /TransferThis/ = 0, const QString &caption = QString(), const QString &directory = QString(), const QString &filter = QString());
     virtual ~QFileDialog();
     void setDirectory(const QString &directory);
     void setDirectory(const QDir &adirectory);
@@ -145,8 +141,8 @@ signals:
 %End
 
 public:
-    static QString getExistingDirectory(QWidget *parent = 0, const QString &caption /DocValue="Py_v3:''"/ = QString(), const QString &directory /DocValue="Py_v3:''"/ = QString(), QFlags<QFileDialog::Option> options = ShowDirsOnly) /ReleaseGIL/;
-    static QString getOpenFileName(QWidget *parent = 0, const QString &caption /DocValue="Py_v3:''"/ = QString(), const QString &directory /DocValue="Py_v3:''"/ = QString(), const QString &filter /DocValue="Py_v3:''"/ = QString(), Options options = 0) /API=QString:2 - , ReleaseGIL/;
+    static QString getExistingDirectory(QWidget *parent = 0, const QString &caption = QString(), const QString &directory = QString(), QFlags<QFileDialog::Option> options = ShowDirsOnly) /ReleaseGIL/;
+    static QString getOpenFileName(QWidget *parent = 0, const QString &caption = QString(), const QString &directory = QString(), const QString &filter = QString(), Options options = 0) /API=QString:2 - , ReleaseGIL/;
 %MethodCode
         Py_BEGIN_ALLOW_THREADS
         
@@ -156,8 +152,8 @@ public:
         Py_END_ALLOW_THREADS
 %End
 
-    static QString getOpenFileName(QWidget *parent = 0, const QString &caption /DocValue="Py_v3:''"/ = QString(), const QString &directory /DocValue="Py_v3:''"/ = QString(), const QString &filter /DocValue="Py_v3:''"/ = QString(), QString *selectedFilter = 0, QFlags<QFileDialog::Option> options = 0) /API=QString: - 2,ReleaseGIL/;
-    static SIP_PYTUPLE getOpenFileNameAndFilter(QWidget *parent = 0, const QString &caption /DocValue="Py_v3:''"/ = QString(), const QString &directory /DocValue="Py_v3:''"/ = QString(), const QString &filter /DocValue="Py_v3:''"/ = QString(), const QString &initialFilter /DocValue="Py_v3:''"/ = QString(), Options options = 0) /DocType="Py_v3:(str, str);(QString, QString)", ReleaseGIL/;
+    static QString getOpenFileName(QWidget *parent = 0, const QString &caption = QString(), const QString &directory = QString(), const QString &filter = QString(), QString *selectedFilter = 0, QFlags<QFileDialog::Option> options = 0) /API=QString: - 2,ReleaseGIL/;
+    static SIP_PYTUPLE getOpenFileNameAndFilter(QWidget *parent = 0, const QString &caption = QString(), const QString &directory = QString(), const QString &filter = QString(), const QString &initialFilter = QString(), Options options = 0) /TypeHint="Tuple[QString, QString]", ReleaseGIL/;
 %MethodCode
         QString *name;
         QString *filter = new QString(*a4);
@@ -184,7 +180,7 @@ public:
         Py_XDECREF(filter_obj);
 %End
 
-    static QStringList getOpenFileNames(QWidget *parent = 0, const QString &caption /DocValue="Py_v3:''"/ = QString(), const QString &directory /DocValue="Py_v3:''"/ = QString(), const QString &filter /DocValue="Py_v3:''"/ = QString(), Options options = 0) /API=QString:2 - , ReleaseGIL/;
+    static QStringList getOpenFileNames(QWidget *parent = 0, const QString &caption = QString(), const QString &directory = QString(), const QString &filter = QString(), Options options = 0) /API=QString:2 - , ReleaseGIL/;
 %MethodCode
         Py_BEGIN_ALLOW_THREADS
         
@@ -194,8 +190,8 @@ public:
         Py_END_ALLOW_THREADS
 %End
 
-    static QStringList getOpenFileNames(QWidget *parent = 0, const QString &caption /DocValue="Py_v3:''"/ = QString(), const QString &directory /DocValue="Py_v3:''"/ = QString(), const QString &filter /DocValue="Py_v3:''"/ = QString(), QString *selectedFilter = 0, QFlags<QFileDialog::Option> options = 0) /API=QString: - 2,ReleaseGIL/;
-    static SIP_PYTUPLE getOpenFileNamesAndFilter(QWidget *parent = 0, const QString &caption /DocValue="Py_v3:''"/ = QString(), const QString &directory /DocValue="Py_v3:''"/ = QString(), const QString &filter /DocValue="Py_v3:''"/ = QString(), const QString &initialFilter /DocValue="Py_v3:''"/ = QString(), Options options = 0) /DocType="Py_v3:(str, str);(QString, QString)", ReleaseGIL/;
+    static QStringList getOpenFileNames(QWidget *parent = 0, const QString &caption = QString(), const QString &directory = QString(), const QString &filter = QString(), QString *selectedFilter = 0, QFlags<QFileDialog::Option> options = 0) /API=QString: - 2,ReleaseGIL/;
+    static SIP_PYTUPLE getOpenFileNamesAndFilter(QWidget *parent = 0, const QString &caption = QString(), const QString &directory = QString(), const QString &filter = QString(), const QString &initialFilter = QString(), Options options = 0) /TypeHint="Tuple[QString, QString]", ReleaseGIL/;
 %MethodCode
         QStringList *names;
         QString *filter = new QString(*a4);
@@ -222,7 +218,7 @@ public:
         Py_XDECREF(filter_obj);
 %End
 
-    static QString getSaveFileName(QWidget *parent = 0, const QString &caption /DocValue="Py_v3:''"/ = QString(), const QString &directory /DocValue="Py_v3:''"/ = QString(), const QString &filter /DocValue="Py_v3:''"/ = QString(), Options options = 0) /API=QString:2 - , ReleaseGIL/;
+    static QString getSaveFileName(QWidget *parent = 0, const QString &caption = QString(), const QString &directory = QString(), const QString &filter = QString(), Options options = 0) /API=QString:2 - , ReleaseGIL/;
 %MethodCode
         Py_BEGIN_ALLOW_THREADS
         
@@ -232,8 +228,8 @@ public:
         Py_END_ALLOW_THREADS
 %End
 
-    static QString getSaveFileName(QWidget *parent = 0, const QString &caption /DocValue="Py_v3:''"/ = QString(), const QString &directory /DocValue="Py_v3:''"/ = QString(), const QString &filter /DocValue="Py_v3:''"/ = QString(), QString *selectedFilter = 0, QFlags<QFileDialog::Option> options = 0) /API=QString: - 2,ReleaseGIL/;
-    static SIP_PYTUPLE getSaveFileNameAndFilter(QWidget *parent = 0, const QString &caption /DocValue="Py_v3:''"/ = QString(), const QString &directory /DocValue="Py_v3:''"/ = QString(), const QString &filter /DocValue="Py_v3:''"/ = QString(), const QString &initialFilter /DocValue="Py_v3:''"/ = QString(), Options options = 0) /DocType="Py_v3:(str, str);(QString, QString)", ReleaseGIL/;
+    static QString getSaveFileName(QWidget *parent = 0, const QString &caption = QString(), const QString &directory = QString(), const QString &filter = QString(), QString *selectedFilter = 0, QFlags<QFileDialog::Option> options = 0) /API=QString: - 2,ReleaseGIL/;
+    static SIP_PYTUPLE getSaveFileNameAndFilter(QWidget *parent = 0, const QString &caption = QString(), const QString &directory = QString(), const QString &filter = QString(), const QString &initialFilter = QString(), Options options = 0) /TypeHint="Tuple[QString, QString]", ReleaseGIL/;
 %MethodCode
         QString *name;
         QString *filter = new QString(*a4);
@@ -332,7 +328,41 @@ public:
     void open();
 %End
 %If (Qt_4_5_0 -)
-    void open(SIP_RXOBJ_CON receiver, SIP_SLOT_CON() member) [void (QObject *receiver, const char *member)];
+    void open(QObject *receiver, SIP_PYOBJECT member /TypeHint="QT_SLOT"/);
+%MethodCode
+        const char *slot = pyqt4_qtgui_get_slot(a1);
+        
+        if (slot)
+        {
+            Py_BEGIN_ALLOW_THREADS
+            sipCpp->open(a0, slot);
+            Py_END_ALLOW_THREADS
+        }
+        else
+        {
+            sipError = sipBadCallableArg(1, a1);
+        }
+%End
+
+%End
+%If (Qt_4_5_0 -)
+    void open(SIP_PYOBJECT slot /TypeHint="PYQT_SLOT"/);
+%MethodCode
+        QObject *receiver;
+        QByteArray slot_signature;
+        
+        if ((sipError = pyqt4_qtgui_get_connection_parts(a0, 0, "()", false, &receiver, slot_signature)) == sipErrorNone)
+        {
+            Py_BEGIN_ALLOW_THREADS
+            sipCpp->open(receiver, slot_signature.constData());
+            Py_END_ALLOW_THREADS
+        }
+        else if (sipError == sipErrorContinue)
+        {
+            sipError = sipBadCallableArg(0, a0);
+        }
+%End
+
 %End
 %If (Qt_4_5_0 -)
     virtual void setVisible(bool visible);

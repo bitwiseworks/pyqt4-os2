@@ -2,7 +2,7 @@
 //
 // This file is part of the QtGui Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt4.
 // 
@@ -54,7 +54,7 @@ public:
     QQuaternion(qreal aScalar, const QVector3D &aVector);
 %End
     explicit QQuaternion(const QVector4D &aVector);
-    SIP_PYOBJECT __repr__() const /DocType="str"/;
+    SIP_PYOBJECT __repr__() const /TypeHint="str"/;
 %MethodCode
         PyObject *scalar = PyFloat_FromDouble(sipCpp->scalar());
         PyObject *x = PyFloat_FromDouble(sipCpp->x());

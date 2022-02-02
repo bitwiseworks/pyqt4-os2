@@ -1,6 +1,6 @@
 // This implements the helper for QSettings.value().
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt4.
 // 
@@ -37,8 +37,8 @@ static int add_variant_to_dict(const Chimera *ct, PyObject *dict,
         const QString &key, const QVariant &value);
 
 
-// Convert a QVariant to a Python object with an optional specific type.
-PyObject *qpycore_qvariant_value(QVariant &value, PyObject *type)
+// Convert a QVariant to a Python object according to an optional type.
+PyObject *pyqt4_from_qvariant_by_type(QVariant &value, PyObject *type)
 {
     PyObject *value_obj;
 

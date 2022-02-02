@@ -2,7 +2,7 @@
 //
 // This file is part of the phonon Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt4.
 // 
@@ -49,7 +49,7 @@ namespace Phonon
 
         MediaSource(const QString &fileName);
         MediaSource(const QUrl &url);
-        MediaSource(Phonon::DiscType discType, const QString &deviceName /DocValue="Py_v3:''"/ = QString());
+        MediaSource(Phonon::DiscType discType, const QString &deviceName = QString());
         MediaSource(QIODevice *ioDevice);
         MediaSource(const Phonon::MediaSource &rhs);
         ~MediaSource();

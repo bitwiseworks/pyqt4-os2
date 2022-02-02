@@ -2,7 +2,7 @@
 //
 // This file is part of the QtWebKit Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt4.
 // 
@@ -19,12 +19,6 @@
 // This file is provided AS IS with NO WARRANTY OF ANY KIND, INCLUDING THE
 // WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
-
-%If (Qt_4_4_0 -)
-%ModuleCode
-#include <qwebframe.h>
-%End
-%End
 
 %If (Qt_4_4_0 -)
 
@@ -81,7 +75,7 @@ public:
     void load(const QUrl &url);
     void load(const QNetworkRequest &request, QNetworkAccessManager::Operation operation = QNetworkAccessManager::GetOperation, const QByteArray &body = QByteArray());
     void setHtml(const QString &html, const QUrl &baseUrl = QUrl());
-    void setContent(const QByteArray &data, const QString &mimeType /DocValue="Py_v3:''"/ = QString(), const QUrl &baseUrl = QUrl());
+    void setContent(const QByteArray &data, const QString &mimeType = QString(), const QUrl &baseUrl = QUrl());
 %If (Qt_5_0_0 -)
 
     enum ValueOwnership

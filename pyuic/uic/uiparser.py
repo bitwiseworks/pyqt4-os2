@@ -89,7 +89,7 @@ def _parse_alignment(alignment):
 
 
 def _layout_position(elem):
-    """ Return either (), (alignment), (row, column, rowspan, colspan) or
+    """ Return either (), (0, alignment), (row, column, rowspan, colspan) or
     (row, column, rowspan, colspan, alignment) depending on the type of layout
     and its configuration.  The result will be suitable to use as arguments to
     the layout.
@@ -104,7 +104,7 @@ def _layout_position(elem):
         if alignment is None:
             return ()
 
-        return (_parse_alignment(alignment), )
+        return (0, _parse_alignment(alignment))
 
     # It must be a grid or a form layout.
     row = int(row)
@@ -152,6 +152,19 @@ class WidgetStack(list):
 
     def topIsLayout(self):
         return isinstance(self[-1], QtGui.QLayout)
+
+    def topIsLayoutWidget(self):
+        # A plain QWidget is a layout widget unless it's parent is a
+        # QMainWindow.  Note that the corresponding uic test is a little more
+        # complicated as it involves features not supported by pyuic.
+
+        if type(self[-1]) is not QtGui.QWidget:
+            return False
+
+        if len(self) < 2:
+            return False
+
+        return type(self[-2]) is not QtGui.QMainWindow
 
 
 class ButtonGroup(object):
@@ -284,9 +297,19 @@ class UIParser(object):
                     bg_name = bg_i18n.string
                 except AttributeError:
                     # We are loading the .ui file.
-                    bg_name = bg_i18n
+                    bg_name = str(bg_i18n)
 
-                bg = self.button_groups[bg_name]
+                # Designer allows the creation of .ui files without explicit
+                # button groups, even though uic then issues warnings.  We
+                # handle it in two stages by first making sure it has a name
+                # and then making sure one exists with that name.
+                if not bg_name:
+                    bg_name = 'buttonGroup'
+
+                try:
+                    bg = self.button_groups[bg_name]
+                except KeyError:
+                    bg = self.button_groups[bg_name] = ButtonGroup()
 
                 if bg.object is None:
                     bg.object = self.factory.createQObject("QButtonGroup",
@@ -436,12 +459,19 @@ class UIParser(object):
         # different.  The following will select, in order of preference,
         # separate margins, the same margin in all directions, and the default
         # margin.
-        margin = self.wprops.getProperty(elem, 'margin',
-                self.defaults['margin'])
+        margin = -1 if self.stack.topIsLayout() else self.defaults['margin']
+        margin = self.wprops.getProperty(elem, 'margin', margin)
         left = self.wprops.getProperty(elem, 'leftMargin', margin)
         top = self.wprops.getProperty(elem, 'topMargin', margin)
         right = self.wprops.getProperty(elem, 'rightMargin', margin)
         bottom = self.wprops.getProperty(elem, 'bottomMargin', margin)
+
+        # A layout widget should, by default, have no margins.
+        if self.stack.topIsLayoutWidget():
+            if left < 0: left = 0
+            if top < 0: top = 0
+            if right < 0: right = 0
+            if bottom < 0: bottom = 0
 
         if left >= 0 or top >= 0 or right >= 0 or bottom >= 0:
             # We inject the new internal property.

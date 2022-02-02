@@ -2,7 +2,7 @@
 //
 // This file is part of the phonon Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt4.
 // 
@@ -19,12 +19,6 @@
 // This file is provided AS IS with NO WARRANTY OF ANY KIND, INCLUDING THE
 // WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
-
-%If (Qt_4_4_0 -)
-%ModuleCode
-#include <effectparameter.h>
-%End
-%End
 
 %If (Qt_4_4_0 -)
 
@@ -49,7 +43,7 @@ namespace Phonon
         };
 
         typedef QFlags<Phonon::EffectParameter::Hint> Hints;
-        EffectParameter(int parameterId, const QString &name, QFlags<Phonon::EffectParameter::Hint> hints, const QVariant &defaultValue, const QVariant &min /DocValue="Py_v3:None"/ = QVariant(), const QVariant &max /DocValue="Py_v3:None"/ = QVariant(), const QVariantList &values /DocValue="[]"/ = QVariantList(), const QString &description /DocValue="Py_v3:''"/ = QString());
+        EffectParameter(int parameterId, const QString &name, QFlags<Phonon::EffectParameter::Hint> hints, const QVariant &defaultValue, const QVariant &min = QVariant(), const QVariant &max = QVariant(), const QVariantList &values = QVariantList(), const QString &description = QString());
         EffectParameter(const Phonon::EffectParameter &rhs);
         ~EffectParameter();
         const QString &name() const;

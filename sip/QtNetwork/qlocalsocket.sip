@@ -2,7 +2,7 @@
 //
 // This file is part of the QtNetwork Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt4.
 // 
@@ -101,7 +101,7 @@ signals:
     void stateChanged(QLocalSocket::LocalSocketState socketState);
 
 protected:
-    virtual SIP_PYOBJECT readData(qint64 maxlen) /DocType="Py_v3:bytes;str",ReleaseGIL/ [qint64 (char *, qint64)];
+    virtual SIP_PYOBJECT readData(qint64 maxlen) /TypeHint="Py_v3:bytes;str",ReleaseGIL/ [qint64 (char *, qint64)];
 %MethodCode
         // Return the data read or None if there was an error.
         if (a0 < 0)
@@ -139,7 +139,7 @@ protected:
         }
 %End
 
-    virtual qint64 writeData(const char * /Array/, qint64 /ArraySize/) /ReleaseGIL/;
+    virtual qint64 writeData(const char * /Array, TypeHint="Py_v3:bytes;str"/, qint64 /ArraySize/) /ReleaseGIL/;
 
 private:
     QLocalSocket(const QLocalSocket &);

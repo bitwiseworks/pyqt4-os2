@@ -1,6 +1,6 @@
 // This is the SIP specification of the QDeclarativeListProperty mapped type.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt4.
 // 
@@ -18,7 +18,7 @@
 // WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
 
-%MappedType QDeclarativeListProperty<QObject> /DocType="QPyDeclarativeListProperty"/
+%MappedType QDeclarativeListProperty<QObject> /TypeHint="QPyDeclarativeListProperty"/
 {
 %TypeHeaderCode
 #include <QDeclarativeListProperty>

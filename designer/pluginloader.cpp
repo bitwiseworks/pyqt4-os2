@@ -2,7 +2,7 @@
  * This is the Qt Designer plugin that collects all the Python plugins it can
  * find as a widget collection to Designer.
  *
- * Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+ * Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
  * 
  * This file is part of PyQt4.
  * 
@@ -149,7 +149,7 @@ PyCustomWidgets::PyCustomWidgets(QObject *parent) : QObject(parent)
         // Make sure we have sip.unwrapinstance.
         if (!sip_unwrapinstance)
         {
-            sip_unwrapinstance = getModuleAttr("sip", "unwrapinstance");
+            sip_unwrapinstance = getModuleAttr("PyQt4.sip", "unwrapinstance");
 
             if (!sip_unwrapinstance)
                 return;

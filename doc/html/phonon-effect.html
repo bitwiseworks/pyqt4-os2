@@ -8,7 +8,7 @@ tr.address { font-family: sans-serif }
 body { background: #ffffff; color: black; }
 </style></head><body><table border="0" cellpadding="0" cellspacing="0" width="100%"><tr /><td align="left" valign="top" width="32"><img align="left" border="0" height="32" src="images/rb-logo.png" width="32" /></td><td width="1">&#160;&#160;</td><td class="postheader" valign="center"><a href="index.html"><font color="#004faf">Home</font></a>&#160;&#183; <a href="classes.html"><font color="#004faf">All Classes</font></a>&#160;&#183; <a href="modules.html"><font color="#004faf">Modules</font></a></td></table><h1 align="center">Phonon.Effect Class Reference<br /><sup><sup>[<a href="phonon.html">phonon</a> module]</sup></sup></h1><p>The Effect class is used to transform audio streams. <a href="#details">More...</a></p>
 
-<p>Inherits <a href="qobject.html">QObject</a> and <a href="phonon-medianode.html">MediaNode</a>.</p><h3>Methods</h3><ul><li><div class="fn" /><b><a href="phonon-effect.html#Effect">__init__</a></b> (<i>self</i>, EffectDescription&#160;<i>description</i>, QObject&#160;<i>parent</i>&#160;=&#160;None)</li><li><div class="fn" />EffectDescription <b><a href="phonon-effect.html#description">description</a></b> (<i>self</i>)</li><li><div class="fn" />list-of-Phonon.EffectParameter <b><a href="phonon-effect.html#parameters">parameters</a></b> (<i>self</i>)</li><li><div class="fn" />QVariant <b><a href="phonon-effect.html#parameterValue">parameterValue</a></b> (<i>self</i>, EffectParameter)</li><li><div class="fn" /><b><a href="phonon-effect.html#setParameterValue">setParameterValue</a></b> (<i>self</i>, EffectParameter, QVariant&#160;<i>value</i>)</li></ul><a name="details" /><hr /><h2>Detailed Description</h2><p>The Effect class is used to transform audio streams.</p>
+<p>Inherits <a href="qobject.html">QObject</a> and <a href="phonon-medianode.html">MediaNode</a>.</p><h3>Methods</h3><ul><li><div class="fn" /><b><a href="phonon-effect.html#Effect">__init__</a></b> (<i>self</i>, EffectDescription&#160;<i>description</i>, QObject&#160;<i>parent</i>&#160;=&#160;None)</li><li><div class="fn" />EffectDescription <b><a href="phonon-effect.html#description">description</a></b> (<i>self</i>)</li><li><div class="fn" />unknown-type <b><a href="phonon-effect.html#parameters">parameters</a></b> (<i>self</i>)</li><li><div class="fn" />QVariant <b><a href="phonon-effect.html#parameterValue">parameterValue</a></b> (<i>self</i>, EffectParameter)</li><li><div class="fn" /><b><a href="phonon-effect.html#setParameterValue">setParameterValue</a></b> (<i>self</i>, EffectParameter, QVariant&#160;<i>value</i>)</li></ul><a name="details" /><hr /><h2>Detailed Description</h2><p>The Effect class is used to transform audio streams.</p>
 <p>An effect is a media node which is inserted into a path between
 a <a href="phonon-mediaobject.html">MediaObject</a> and an audio
 output node, for instance, an <a href="phonon-audiooutput.html">AudioOutput</a>. The Effect transforms
@@ -58,7 +58,7 @@ object determines the type of the effect.</p>
 description that was passed to the constructor.</p>
 
 
-<h3 class="fn"><a name="parameters" />list-of-Phonon.EffectParameter Effect.parameters (<i>self</i>)</h3><p>Returns a list of parameters that this effect provides to
+<h3 class="fn"><a name="parameters" />unknown-type Effect.parameters (<i>self</i>)</h3><p>Returns a list of parameters that this effect provides to
 control its behavior.</p>
 <p><b>See also</b> <a href="phonon-effectparameter.html">EffectParameter</a> and <a href="phonon-effectwidget.html">EffectWidget</a>.</p>
 
@@ -78,4 +78,4 @@ with the <a href="phonon-effectparameter.html#type">EffectParameter.type</a>()
 function.</p>
 <p><b>See also</b> <a href="phonon-effect.html#parameterValue">parameterValue</a>() and
 <a href="phonon-effectparameter.html">EffectParameter</a>.</p>
-<address><hr /><div align="center"><table border="0" cellspacing="0" width="100%"><tr class="address"><td align="left" width="25%">PyQt&#160;4.11.4 for X11</td><td align="center" width="50%">Copyright &#169; <a href="http://www.riverbankcomputing.com">Riverbank&#160;Computing&#160;Ltd</a> and <a href="http://www.qt.io">The Qt Company</a> 2015</td><td align="right" width="25%">Qt&#160;4.8.7</td></tr></table></div></address></body></html>
+<address><hr /><div align="center"><table border="0" cellspacing="0" width="100%"><tr class="address"><td align="left" width="25%">PyQt&#160;4.12.3 for X11</td><td align="center" width="50%">Copyright &#169; <a href="http://www.riverbankcomputing.com">Riverbank&#160;Computing&#160;Ltd</a> and <a href="http://www.qt.io">The Qt Company</a> 2015</td><td align="right" width="25%">Qt&#160;4.8.7</td></tr></table></div></address></body></html>

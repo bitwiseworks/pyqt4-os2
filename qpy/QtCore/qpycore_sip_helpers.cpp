@@ -1,6 +1,6 @@
 // This is the signal/slot helper code for SIP.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt4.
 // 
@@ -81,14 +81,14 @@ static PyQtProxy *find_signal(QObject *qtx, const QByteArray &sig)
 // Find an existing signal emitter for the given object and signature.  Returns
 // a pointer to the emitter or 0 if there wasn't one, and updates the signature
 // if necessary.
-QObject *qpycore_find_signal(QObject *qtx, const char **sig)
+QObject *qpycore_find_signal(QObject *qtx, const char **sigp)
 {
     // See if it a short-circuit signal.
-    if (is_shortcircuit_signal(*sig))
-        return find_shortcircuit_signal(qtx, sig);
+    if (is_shortcircuit_signal(*sigp))
+        return find_shortcircuit_signal(qtx, sigp);
 
     // See if the object can be used itself.
-    QByteArray norm_sig = QMetaObject::normalizedSignature(&(*sig)[1]);
+    QByteArray norm_sig = QMetaObject::normalizedSignature(&(*sigp)[1]);
 
     if (qtx->metaObject()->indexOfSignal(norm_sig.constData()) >= 0)
         return qtx;
@@ -98,6 +98,8 @@ QObject *qpycore_find_signal(QObject *qtx, const char **sig)
 }
 
 
+
+#if SIP_VERSION < 0x050000
 // Find an existing signal emitter for the given object and signature.  Returns
 // a pointer to the emitter or 0 if there wasn't one, and updates the signature
 // if necessary.
@@ -105,15 +107,15 @@ extern "C" void *sipQtFindUniversalSignal(void *tx, const char **sig)
 {
     return qpycore_find_signal(reinterpret_cast<QObject *>(tx), sig);
 }
+#endif
 
 
 // Factory function to create a signal emitter for the given object and
-// signature.  Returns a pointer to the emitter or 0 if there was an error, and
-// updates the signature if necessary.
-extern "C" void *sipQtCreateUniversalSignal(void *tx, const char **sigp)
+// signature.  Returns a pointer to the emitter and updates the signature if
+// necessary.
+QObject *qpycore_create_universal_signal(QObject *qtx, const char **sigp)
 {
     QObject *proxy;
-    QObject *qtx = reinterpret_cast<QObject *>(tx);
     const char *sig = *sigp;
 
     // See if it a short-circuit signal.
@@ -137,10 +139,22 @@ extern "C" void *sipQtCreateUniversalSignal(void *tx, const char **sigp)
 }
 
 
+#if SIP_VERSION < 0x050000
+// Factory function to create a signal emitter for the given object and
+// signature.  Returns a pointer to the emitter or 0 if there was an error, and
+// updates the signature if necessary.
+extern "C" void *sipQtCreateUniversalSignal(void *tx, const char **sigp)
+{
+    return qpycore_create_universal_signal(reinterpret_cast<QObject *>(tx),
+            sigp);
+}
+#endif
+
+
 // Factory function to create a universal slot instance.  Returns a pointer to
 // the instance or 0 if there was an error.  Note that we may also return a
 // Qt signal (from a bound signal).
-extern "C" void *sipQtCreateUniversalSlot(sipWrapper *tx, const char *sig,
+QObject *qpycore_create_universal_slot(sipWrapper *tx, const char *sig,
         PyObject *rxObj, const char *slot, const char **member, int flags)
 {
     // Get the receiver C++ QObject if there is one.
@@ -205,6 +219,19 @@ extern "C" void *sipQtCreateUniversalSlot(sipWrapper *tx, const char *sig,
 }
 
 
+#if SIP_VERSION < 0x050000
+// Factory function to create a universal slot instance.  Returns a pointer to
+// the instance or 0 if there was an error.  Note that we may also return a
+// Qt signal (from a bound signal).
+extern "C" void *sipQtCreateUniversalSlot(sipWrapper *tx, const char *sig,
+        PyObject *rxObj, const char *slot, const char **member, int flags)
+{
+    return qpycore_create_universal_slot(tx, sig, rxObj, slot, member, flags);
+}
+#endif
+
+
+#if SIP_VERSION < 0x050000
 // Dispose of a receiver that might be a universal slot.
 extern "C" void sipQtDestroyUniversalSlot(void *rx)
 {
@@ -232,16 +259,20 @@ extern "C" void sipQtDestroyUniversalSlot(void *rx)
     PyQtProxy::mutex->unlock();
     Py_END_ALLOW_THREADS
 }
+#endif
 
 
+#if SIP_VERSION < 0x050000
 // Search for the universal slot connected to a particular Qt signal.
 extern "C" void *sipQtFindSlot(void *tx, const char *sig, PyObject *rxObj,
         const char *slot, const char **member)
 {
     return PyQtProxy::findSlotProxy(tx, sig, rxObj, slot, member);
 }
+#endif
 
 
+#if SIP_VERSION < 0x050000
 // Connect a Qt signal to a Qt slot.
 extern "C" int sipQtConnect(void *tx, const char *sig, void *rx, const char *slot, int type)
 {
@@ -263,8 +294,10 @@ extern "C" int sipQtConnect(void *tx, const char *sig, void *rx, const char *slo
 
     return res;
 }
+#endif
 
 
+#if SIP_VERSION < 0x050000
 // Disconnect a Qt signal from a Qt slot.
 extern "C" int sipQtDisconnect(void *tx, const char *sig, void *rx, const char *slot)
 {
@@ -277,8 +310,10 @@ extern "C" int sipQtDisconnect(void *tx, const char *sig, void *rx, const char *
 
     return res;
 }
+#endif
 
 
+#if SIP_VERSION < 0x050000
 // See if two signal or slot names are the same.
 extern "C" int sipQtSameSignalSlotName(const char *s1, const char *s2)
 {
@@ -286,8 +321,10 @@ extern "C" int sipQtSameSignalSlotName(const char *s1, const char *s2)
     // comparison will do.
     return (qstrcmp(s1, s2) == 0);
 }
+#endif
 
 
+#if SIP_VERSION < 0x050000
 // Return the next slot for a particular transmitter.  This will be called with
 // the GIL locked.
 extern "C" sipSlot *sipQtFindSipslot(void *tx, void **context)
@@ -322,23 +359,30 @@ extern "C" sipSlot *sipQtFindSipslot(void *tx, void **context)
 
     return 0;
 }
+#endif
 
 
 // Emit the given signal from the given object.  Note that we do not apply the
 // hacks when building against Qt5 that workaround the problems with signals
 // with optional arguments.  New style signals must be used instead.
-bool qpycore_qobject_emit(QObject *qtx, const char *sig, PyObject *sigargs)
+sipErrorState qpycore_qobject_emit(QObject *qtx, PyObject *sigObj,
+        PyObject *sigargs)
 {
+    // Finish converting the arguments.
+    const char *sig = pyqt4_get_signal(sigObj);
+    if (!sig)
+        return sipBadCallableArg(0, sigObj);
+
     // We need to explicitly check for anything that uses a proxy, so we might
     // as well check for everything.
     if (qtx->signalsBlocked())
-        return true;
+        return sipErrorNone;
 
     // See if it is a short-circuit signal.
     if (is_shortcircuit_signal(sig))
     {
         emit_shortcircuit_signal(qtx, sig, sigargs);
-        return true;
+        return sipErrorNone;
     }
 
     QByteArray norm_sig = QMetaObject::normalizedSignature(&sig[1]);
@@ -352,7 +396,7 @@ bool qpycore_qobject_emit(QObject *qtx, const char *sig, PyObject *sigargs)
         // Unfortunately we can't distinguish between a Qt name with a typo and
         // an unconnected Python signal - so we just ignore the emit.
         if (!proxy)
-            return true;
+            return sipErrorNone;
 
         // Use the proxy instead.
         qtx = proxy;
@@ -364,13 +408,13 @@ bool qpycore_qobject_emit(QObject *qtx, const char *sig, PyObject *sigargs)
             "a signal argument");
 
     if (!parsed_signature)
-        return false;
+        return sipErrorFail;
 
     bool ok = qpycore_emit(qtx, signal_index, parsed_signature,
             parsed_signature->py_signature.constData(), sigargs);
     delete parsed_signature;
 
-    return ok;
+    return (ok ? sipErrorNone : sipErrorFail);
 }
 
 

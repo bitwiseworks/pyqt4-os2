@@ -1,8 +1,823 @@
+2018-08-31  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* .hgtags:
+	Added tag 4.12.3 for changeset 36fcf4ecff7a
+	[132640242807] [tip] <4.12-maint>
+
+	* NEWS:
+	Released as v4.12.3.
+	[36fcf4ecff7a] [4.12.3] <4.12-maint>
+
+2018-08-27  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* lib/configure-ng.py, lib/configure.py:
+	Fixed the contents of PYQT_CONFIGURATION for the private sip module.
+	[260bf075fcdf] <4.12-maint>
+
+2018-08-14  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* .hgtags:
+	Added tag 4.12.2 for changeset 38d78257dcab
+	[9b0eda0778bb] <4.12-maint>
+
+	* NEWS:
+	Released as v4.12.2.
+	[38d78257dcab] [4.12.2] <4.12-maint>
+
+	* sphinx/installation.rst:
+	Fixed a sphinx warning.
+	[90916a1b3894] <4.12-maint>
+
+2018-07-05  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* sphinx/installation.rst:
+	Updated the docs regarding the private sip module.
+	[2b2a93b6767b] <4.12-maint>
+
+	* sphinx/incompatibilities.rst, sphinx/installation.rst:
+	Updated the documentation regarding the PyQt4.sip module.
+	[ff16bf274c3d] <4.12-maint>
+
+	* lib/README:
+	Updated the README.
+	[0e3a023b07c0] <4.12-maint>
+
+	* lib/LICENSE.commercial.short, lib/LICENSE.gpl,
+	lib/LICENSE.gpl.short, lib/LICENSE.internal:
+	Updated the copyright notices.
+	[6cdfd0b44218] <4.12-maint>
+
+	* Makefile, NEWS, designer/pluginloader.cpp, lib/configure-ng.py,
+	lib/configure.py, test/runtests.py:
+	A private copy of the sip module called PyQt4.sip must now be used.
+	[26953dd3cec2] <4.12-maint>
+
+	* Makefile:
+	Removed the non-native build targets from the Makefile (and other
+	tidy ups).
+	[69ce09c27f80] <4.12-maint>
+
+	* PyQt4.msp:
+	Updated the version of the project file.
+	[2bc5d700759b] <4.12-maint>
+
+2018-04-11  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* lib/LICENSE.commercial:
+	Further updates to the commercial license.
+	[0b5420247346] <4.12-maint>
+
+2018-04-09  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* lib/LICENSE.commercial:
+	Relaxed the verification clause of the commercial license.
+	[bd69f54fde2b] <4.12-maint>
+
+2018-03-02  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt4.msp:
+	Replaced all calls to PySlice_GetIndicesEx() with
+	sipConvertFromSliceObject().
+	[6a66b52eafd0] <4.12-maint>
+
+2017-09-22  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* Makefile, pyuic/uic/uiparser.py:
+	Fixed the default margins of nested layouts.
+	[1a2ab60a841d] <4.12-maint>
+
+2017-06-30  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* .hgtags:
+	Added tag 4.12.1 for changeset c14f43801cc2
+	[7d9f51a9593b] <4.12-maint>
+
+	* NEWS:
+	Released as v4.12.1.
+	[c14f43801cc2] [4.12.1] <4.12-maint>
+
+2017-06-15  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* qpy/QtCore/qpycore_pyqtboundsignal.cpp:
+	Removed some assumptions about a slot receiver when it is a method.
+	[c6004fde410a] <4.12-maint>
+
+	* doc/docgen.conf:
+	Fix some legacy http links.
+	[7e5b523ab924] <4.12-maint>
+
+2017-03-24  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* build.py:
+	msip is now msipgen.
+	[e4d02ca19c24] <4.12-maint>
+
+	* lib/build-pyqt4.sh:
+	Removed the build-pyqt4.sh script as it is now part of the build
+	system.
+	[8f34e88f49da] <4.12-maint>
+
+2017-03-16  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* lib/configure-ng.py, lib/configure.py:
+	QtXml is no longer deprecated in Qt5.
+	[404e747e002d] <4.12-maint>
+
+	* PyQt4.msp:
+	Fix for building against Qt v5.8.0 and later.
+	[81466ef1ee5b] <4.12-maint>
+
+2017-03-03  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* qpy/QtCore/qpycore_types.cpp:
+	Fixed a regression that affects user defined classes that use
+	pyqtWrapperType as a meta-type but are not derived from
+	sip.simplewrapper.
+	[beba857bd97d] <4.12-maint>
+
+2017-02-20  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* NEWS, lib/configure-ng.py, lib/configure.py:
+	Pass the -D flag to SIP with debug builds.
+	[e82534c138da] <4.12-maint>
+
+2016-12-26  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* .hgtags:
+	Added tag 4.12 for changeset 092a9edefe40
+	[1517de4c152d]
+
+	* NEWS:
+	Released as v4.12.
+	[092a9edefe40] [4.12]
+
+2016-12-04  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* pylupdate/main.cpp:
+	pylupdate now generates correct relative paths when -ts is used.
+	[476e75155347]
+
+	* pyuic/uic/uiparser.py:
+	Fixed a crash when a .ui file doesn't contain a button group when it
+	should.
+	[6d0e7c5de2f0]
+
+2016-10-25  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt4.msp, lib/configure-ng.py:
+	SIP v4.19 is now required.
+	[68ccdd558f8f]
+
+2016-09-23  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt4.msp, lib/configure.py, qpy/QtCore/qpycore_chimera.cpp,
+	qpy/QtCore/qpycore_pyqtsignal.cpp,
+	qpy/QtCore/qpycore_qobject_helpers.cpp,
+	qpy/QtCore/qpycore_types.cpp:
+	Updates for SIP v4.19.
+	[66ed246156fc]
+
+2016-08-13  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* lib/build-pyqt4.sh:
+	Updated build-pyqt4.sh for the revised ~bob layout.
+	[41f22d9f30b4]
+
+	* lib/build-pyqt4.sh:
+	Fixed the name of the opensource download directory.
+	[a76a45a5e7e5]
+
+2016-08-12  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* lib/build-pyqt4.sh:
+	Added build-pyqt4.sh as the legacy script for generating overnight
+	snapshots.
+	[81efbae5590c]
+
+2016-06-10  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt4.msp:
+	Fixed the build when the protect hack is not used.
+	[16190713919c]
+
+2016-05-05  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* qpy/QtCore/qpycore_pyqtboundsignal.cpp:
+	Backed out changeset 194333545a2f This is a more intrusive change
+	than first anticipated (based on the PyQt5 experience) so it's
+	better to leave the bug unfixed.
+	[bf9f0230a3de]
+
+	* PyQt4.msp:
+	Fixed a bug breaking the build of the QtDBus module.
+	[f8a51466aeef]
+
+2016-04-17  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* rbproduct.py:
+	Removed the product plugin as it isn't helping as intended.
+	[ffa00852ebe7]
+
+	* sphinx/installation.rst:
+	Fixed some Sphinx warnings.
+	[0bb981ffc583]
+
+	* Makefile, rbproduct.py:
+	Added a minimal product plugin that supports minimal installs.
+	[478ad0f58561]
+
+2016-03-31  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* lib/configure-ng.py, lib/configure.py:
+	Fixed confusion between os.pathsep and os.sep.
+	[8a6e6de8b30e]
+
+2016-03-28  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* qpy/QtCore/qpycore_pyqtboundsignal.cpp:
+	Backed out changeset 06f347063026
+	[88c1c9cd95c5]
+
+	* qpy/QtCore/qpycore_pyqtboundsignal.cpp:
+	Fixed a minor bug in the error handling of bound signals.
+	[06f347063026]
+
+2016-03-25  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* build.py:
+	Use the new naming standards for source packages.
+	[4190edc8f51a]
+
+	* QAxContainer/qaxbase.sip:
+	Removed uses of the deprecated /DocValue/ annotation.
+	[1c8c7394191e]
+
+2016-03-24  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* qpy/QtCore/qpycore_pyqtboundsignal.cpp:
+	Connecting to a decorated method will now fail without a compatible
+	signature.
+	[194333545a2f]
+
+2016-03-13  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt4.msp:
+	Restored the QFlags copy ctor to ensure assignment helpers are
+	generated.
+	[203b66d61cf9]
+
+2016-03-07  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt4.msp:
+	Updated the project file to the latest MetaSIP version.
+	[19cee2125593]
+
+2016-03-01  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* lib/configure-ng.py:
+	Don't embed the -f flag in PYQT_CONFIGURATION.
+	[1de80a2aa9bf]
+
+2016-02-27  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt4.msp:
+	Renamed a number of enum members from None to None_.
+	[dd08aa5ceced]
+
+	* PyQt4.msp:
+	More updated type hints.
+	[45c54fb81b42]
+
+	* PyQt4.msp:
+	Updated the type hints for all callables.
+	[5230b6b1990b]
+
+	* PyQt4.msp:
+	Replaced Iterator with Iterable in type hints.
+	[8e6ba6f17184]
+
+2016-02-26  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt4.msp:
+	Make sure the datetime module is available to stub files.
+	[c70cb1479d40]
+
+	* PyQt4.msp:
+	Removed some superfluous ctors.
+	[9d7e22e884fe]
+
+2016-02-25  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt4.msp:
+	Updated the project file to the current version.
+	[aaba7b771563]
+
+2016-02-18  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt4.msp:
+	Moved /TypeHintValue/ from individual arguments to the appropriate
+	mapped type definitions.
+	[e13652538f92]
+
+	* PyQt4.msp:
+	Rename some type hint aliases to be consistent with PyQt5.
+	[89849b8fda37]
+
+2016-02-16  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt4.msp:
+	Added the type hint types for old-style signals and slots.
+	[a479cd5f3076]
+
+	* PyQt4.msp:
+	Tweaked the type hints for pyqtSlot() and pyqtSignature().
+	[af3011416715]
+
+	* PyQt4.msp:
+	Renamed some typing types.
+	[61bb9de06d96]
+
+2016-02-15  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt4.msp:
+	Fixed remaining old-style TypeHintValue annotations.
+	[bc353204a390]
+
+	* qpy/QtCore/qpycore_qtlib.cpp:
+	Fixed regressions related to the refactored SIP Qt support.
+	[f73b59612c99]
+
+2016-02-10  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* qpy/QtCore/qpycore_pyqtsignal.cpp:
+	Updated the docstring for pyqtSignal().
+	[b3c6b3b66994]
+
+	* qpy/QtDBus/qpydbuspendingreply.sip, qpy/QtDBus/qpydbusreply.sip:
+	Removed finaluses of /DocValue/.
+	[bfa7d99054db]
+
+	* sphinx/installation.rst:
+	Fixed some version related typos in the docs.
+	[d3482bda0a9a]
+
+	* Makefile, PyQt4.msp:
+	Tweaked the use of Optional now that we understand exactly what it
+	means.
+	[e2f3310787dc]
+
+2016-02-08  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt4.msp:
+	Attempted to make the type hint pseudo-types more readable in
+	docstrings.
+	[6f7d0667c880]
+
+	* qpy/QtCore/qpycore_pyqtboundsignal.cpp,
+	qpy/QtCore/qpycore_pyqtsignal.cpp:
+	Improved the repr() of bound and unbound PyQt signals.
+	[8e313416bb52]
+
+	* Makefile, PyQt4.msp, qpy/QtCore/qpycore_pyqtsignal.cpp:
+	Improved the repr() of unbound signals.
+	[3fc59f7a7691]
+
+2016-02-05  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* Makefile, PyQt4.msp, test/tests/classes/test_QFlags.py:
+	Fixed a regression in the handling of QFlags.
+	[f033a2dea8e9]
+
+	* PyQt4.msp:
+	Refined the typehints for ellipsis arguments.
+	[f1677dd5917a]
+
+	* PyQt4.msp:
+	Further refinement of QFlags.
+	[9728e8a54f1e]
+
+	* PyQt4.msp, test/tests/classes/test_QFlags.py:
+	Refactored the QFlags support so that is consistant and minimal.
+	[7600ac4d4985]
+
+2016-02-04  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* test/tests/classes/test_QFlags.py:
+	Added the QFlags unit tests.
+	[558eee916ee4]
+
+	* PyQt4.msp:
+	Added the /TypeHintIn/ class annotation where appropriate.
+	[a3b257461842]
+
+2016-02-03  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt4.msp:
+	Replaced /DocValue/ with /TypeHintValue/.
+	[e04b5d2b5af7]
+
+	* Makefile, lib/configure-ng.py:
+	Run sip with the -f flag.
+	[c185cd1f1c77]
+
+	* qpy/QtDBus/qpydbusreply.sip,
+	qpy/QtDeclarative/qpydeclarativelistproperty.sip:
+	Replaced /DocType/ with /TypeHint/ in the support code.
+	[a52a55c00479]
+
+	* Makefile, PyQt4.msp:
+	Removed all uses of /DocType/.
+	[1e207f6c0ccd]
+
+	* Makefile, PyQt4.msp:
+	Replaced TypeHint with TypeHintIn and TypeHintOut where appropriate.
+	[0d70bb9dba16]
+
+2016-02-02  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* Makefile, PyQt4.msp, sphinx/incompatibilities.rst:
+	Removed all remaining implementations of qSwap().
+	[3c82dc0a68f7]
+
+	* Makefile, PyQt4.msp:
+	Fixed a /TypeHint/ typo.
+	[81322681e5bf]
+
+	* PyQt4.msp:
+	Removed redundant DocType and TypeHint annos.
+	[a66ddbc91a94]
+
+	* PyQt4.msp:
+	Fixed the type hint for QAbstractItemModel.setItemData().
+	[41335faca1b8]
+
+	* PyQt4.msp:
+	Properly fix QStringRef.
+	[639d49aa71cf]
+
+2016-02-01  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt4.msp:
+	Added a missing /DocType/ to QStringRef.
+	[8dc44059dd1f]
+
+	* lib/configure-ng.py, sphinx/build_system.rst,
+	sphinx/installation.rst:
+	Updated configure-ng.py to handle PEP 484 stub files.
+	[65a78775a249]
+
+2016-01-31  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* Makefile, PyQt4.msp:
+	Updated the project format to v8. Implemented the required
+	handwritten type hint code.
+	[8317759dc48b]
+
+	* PyQt4.msp:
+	Renamed the OpenGL type hint types.
+	[4d50352f4130]
+
+	* PyQt4.msp:
+	Renamed /HintType/ to /TypeHint/.
+	[eb4263ef76bb]
+
+2016-01-30  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt4.msp:
+	Added /HintType/ annotations where necessary.
+	[ce05ffb29566]
+
+2016-01-26  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* Makefile, lib/LICENSE.commercial.short, lib/LICENSE.gpl.short,
+	lib/LICENSE.internal, lib/configure-ng.py, sphinx/conf.py:
+	Updated the copyright notices.
+	[f5c379f1edec]
+
+2016-01-25  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt4.msp:
+	Removed all implementations of qSwap().
+	[dd17caf8fe5c]
+
+2016-01-22  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt4.msp, qpy/QtCore/qpycore_pyqtproxy.cpp,
+	qpy/QtCore/qpycore_pyqtproxy.h, qpy/QtCore/qpycore_sip_helpers.cpp:
+	Fixes for building against sip v5.
+	[80b5e1494320]
+
+	* qpy/QtCore/qpycore_qtlib.cpp:
+	Only call sipSetPossibleProxy() for sip v4.
+	[5672107fc627]
+
+	* PyQt4.msp, qpy/QtCore/qpycore_api.h,
+	qpy/QtCore/qpycore_pyqtproxy.cpp, qpy/QtCore/qpycore_pyqtproxy.h,
+	test/tests/metaobject/test_gc_slots.py:
+	Refactored the garbage collection of slots for sip v5.
+	[60fcab00604a]
+
+2016-01-21  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* qpy/QtCore/qpycore.pro, qpy/QtCore/qpycore_pyqtproxy.cpp,
+	qpy/QtCore/qpycore_qtlib.cpp, qpy/QtCore/qpycore_qtlib.h,
+	qpy/QtCore/qpycore_types.h:
+	Refactored most of the remaining code that depends on the Qt support
+	implemented in sip v4.
+	[6beb4d54832a]
+
+	* qpy/QtCore/qpycore_qmetaobject_helpers.cpp:
+	Removed a call to the deprecated sipConnectRx().
+	[1780a9d76521]
+
+2016-01-20  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* sphinx/extension_api.rst, sphinx/index.rst:
+	Documented the public extension API.
+	[7aa14e236317]
+
+	* PyQt4.msp, qpy/QtDBus/qpydbus_post_init.cpp,
+	qpy/QtDeclarative/qpydeclarative_post_init.cpp:
+	Called Q_ASSERT() on the value returned from sipImportSymbol().
+	[14c3c868155a]
+
+	* qpy/QtCore/qpycore_init.cpp, qpy/QtCore/qpycore_public_api.h,
+	qpy/QtDBus/qpydbus_chimera_helpers.cpp,
+	qpy/QtDBus/qpydbus_chimera_helpers.h,
+	qpy/QtDBus/qpydbus_post_init.cpp,
+	qpy/QtDeclarative/qpydeclarative_chimera_helpers.cpp,
+	qpy/QtDeclarative/qpydeclarative_chimera_helpers.h,
+	qpy/QtDeclarative/qpydeclarative_post_init.cpp:
+	Added the QVariant convertor registration functions to the public
+	API.
+	[31d4004ce7e5]
+
+	* PyQt4.msp, qpy/QtCore/qpycore_init.cpp,
+	qpy/QtCore/qpycore_public_api.h,
+	qpy/QtCore/qpycore_pyqtboundsignal.cpp,
+	qpy/QtCore/qpycore_qtlib.cpp:
+	Added pyqt4_get_pyqtsignal_parts() to the public API.
+	[f3170ae442a3]
+
+	* PyQt4.msp, qpy/QtCore/qpycore.pro, qpy/QtCore/qpycore_init.cpp,
+	qpy/QtCore/qpycore_public_api.h,
+	qpy/QtCore/qpycore_qvariant_value.cpp,
+	qpy/QtDBus/qpydbuspendingreply.cpp, qpy/QtDBus/qpydbusreply.cpp:
+	Added pyqt4_from_qvariant_by_type() ot the public API.
+	[66b2ff79a394]
+
+2016-01-18  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt4.msp, qpy/QtCore/qpycore_init.cpp,
+	qpy/QtCore/qpycore_public_api.h, qpy/QtCore/qpycore_pyqtslot.cpp:
+	Added pyqt4_get_pyqtslot_parts() to the public API and fix the
+	QtDBus module to use it.
+	[192a4f5e4063]
+
+2016-01-17  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt4.msp:
+	Removed all uses of SIP_SLOT.
+	[27b368969328]
+
+	* PyQt4.msp:
+	Fixed a documentation string.
+	[ca3f5d6050b9]
+
+	* PyQt4.msp:
+	Completed the removal of SIP_RXOBJ_CON and SIP_SLOT_CON.
+	[21a7e3aedeba]
+
+	* PyQt4.msp:
+	Removed the use of SIP_RXOBJ_CON from all dialog open() methods.
+	[528d73a108f0]
+
+	* PyQt4.msp, qpy/QtCore/qpycore_init.cpp,
+	qpy/QtCore/qpycore_public_api.h, qpy/QtCore/qpycore_qtlib.cpp:
+	Removed all uses of SIP_RXOBJ_CON except for the QtGui module.
+	[f7e42c545486]
+
+2016-01-16  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt4.msp:
+	Removed all uses of SIP_SIGNAL.
+	[76f8cf4b31ba]
+
+	* PyQt4.msp, qpy/QtCore/qpycore_public_api.h,
+	qpy/QtCore/qpycore_qtlib.cpp, qpy/QtCore/qpycore_sip_helpers.cpp:
+	pyqt4_get_signal() now handles signal objects.
+	[b5efe4794147]
+
+	* PyQt4.msp, qpy/QtCore/qpycore_api.h, qpy/QtCore/qpycore_init.cpp,
+	qpy/QtCore/qpycore_public_api.h, qpy/QtCore/qpycore_qtlib.cpp,
+	qpy/QtCore/qpycore_sip_helpers.cpp:
+	Added pyqt4_get_signal() to the public API.
+	[e1bed57399b0]
+
+2016-01-15  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt4.msp, qpy/QtCore/qpycore_api.h, qpy/QtCore/qpycore_init.cpp,
+	qpy/QtCore/qpycore_misc.cpp, qpy/QtCore/qpycore_misc.h,
+	qpy/QtCore/qpycore_public_api.cpp, qpy/QtCore/qpycore_public_api.h,
+	qpy/QtCore/qpycore_shared.h:
+	Some tidying up of the public API.
+	[e97445a1cb66]
+
+	* Makefile, PyQt4.msp, qpy/QtCore/qpycore_public_api.cpp,
+	qpy/QtCore/qpycore_public_api.h,
+	qpy/QtCore/qpycore_pyqtboundsignal.cpp,
+	qpy/QtCore/qpycore_pyqtboundsignal.h,
+	qpy/QtCore/qpycore_pyqtproxy.cpp, qpy/QtCore/qpycore_pyqtproxy.h:
+	No longer use SIP_ANYSLOT.
+	[ffbb9edd9f8e]
+
+2016-01-12  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt4.msp, qpy/QtCore/qpycore_api.h, qpy/QtCore/qpycore_qtlib.cpp,
+	qpy/QtCore/qpycore_sip_helpers.cpp,
+	qpy/QtCore/qpycore_sip_helpers.h:
+	Refactored QObject.connect().
+	[ebd7866c5e3e]
+
+	* PyQt4.msp:
+	Refactored QObject.connectNotify() and QObject.disconnectNotify().
+	[b4ede964024c]
+
+	* PyQt4.msp, qpy/QtCore/qpycore_init.cpp:
+	Refactored QObject.receivers().
+	[e4dcb263638b]
+
+	* PyQt4.msp, qpy/QtCore/qpycore_api.h, qpy/QtCore/qpycore_qtlib.cpp,
+	qpy/QtCore/qpycore_sip_helpers.cpp:
+	Refactored QObject.emit().
+	[9237b00d973e]
+
+	* Makefile, PyQt4.msp, qpy/QtCore/qpycore_api.h,
+	qpy/QtCore/qpycore_pyqtmethodproxy.cpp,
+	qpy/QtCore/qpycore_pyqtproxy.h, qpy/QtCore/qpycore_qtlib.cpp:
+	Completed the refactoring of QObject.disconnect().
+	[90175827fb3a]
+
+	* Merged the current maintenance branch into the default.
+	[9ac77e8026c3]
+
+	* test/tests/metaobject/test_connections_old_style.py:
+	Added unit tests for bad arguments for old-style disconnect().
+	[56f884b39c9f] <4.11-maint>
+
+	* test/tests/metaobject/test_connections_old_style.py:
+	Added unit tests for bad arguments for old-style connect().
+	[7dd72a7ea281] <4.11-maint>
+
+	* test/tests/metaobject/test_connections_old_style.py:
+	Added unit tests for old-style disconnect().
+	[122a24cafbbc] <4.11-maint>
+
+2016-01-11  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* pyuic/uic/uiparser.py:
+	Fixed a regression in the handling of button groups when loading a
+	.ui file.
+	[6b2e6a904523] <4.11-maint>
+
+	* Makefile, PyQt4.msp, qpy/QtCore/qpycore_api.h,
+	qpy/QtCore/qpycore_qtlib.cpp:
+	Added the stub of the migration of the sip4 Qt support.
+	[6a64fe715215]
+
+	* pyuic/uic/uiparser.py:
+	Fixed a regression in the handling of button groups when loading a
+	.ui file.
+	[85dd5efaf948]
+
+	* designer/python.pro-in, lib/GPL_EXCEPTION.TXT,
+	lib/GPL_EXCEPTION_ADDENDUM.TXT, lib/LICENSE.GPL2, lib/LICENSE.GPL3,
+	lib/OPENSOURCE-NOTICE.TXT, sphinx/static/default.css:
+	Merged the current maintenance branch into the default branch.
+	[b196765619d2]
+
+	* qpy/QtCore/qpycore_pyqtboundsignal.cpp,
+	qpy/QtCore/qpycore_pyqtmethodproxy.cpp,
+	qpy/QtCore/qpycore_pyqtproperty.cpp,
+	qpy/QtCore/qpycore_pyqtsignal.cpp, qpy/QtCore/qpycore_pyqtslot.cpp,
+	qpy/QtCore/qpycore_types.cpp,
+	qpy/QtDeclarative/qpydeclarativelistproperty.cpp:
+	More sip5 fixes.
+	[e071838202e3] <4.11-maint>
+
+	* qpy/QtCore/qpycore_pyqtboundsignal.cpp:
+	More sip5 changes.
+	[30fe9d140339] <4.11-maint>
+
+	* lib/configure-ng.py, qpy/QtCore/qpycore_pyqtboundsignal.cpp,
+	qpy/QtCore/qpycore_pyqtslot.cpp:
+	Fixes for sip5.
+	[fc00c13bb116] <4.11-maint>
+
+2016-01-06  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* sphinx/new_style_signals_slots.rst:
+	Documented the PyQt_PyObject signal argument type.
+	[27002b3cf1ce] <4.11-maint>
+
+2015-12-15  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* Makefile:
+	Switched the internal build system to Python v3.5.
+	[e8028b5d2594] <4.11-maint>
+
+2015-12-14  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* Makefile:
+	Added support for venv to the internal build system.
+	[8466d735a6c4] <4.11-maint>
+
+2015-12-05  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* pyuic/uic/uiparser.py:
+	Fixed pyuic's handling of the margins of layout widgets.
+	[6493d33126f5] <4.11-maint>
+
+2015-10-28  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* lib/configure-ng.py:
+	Handle PATH components that are enclosed in quotes.
+	[d5f52f3403f7] <4.11-maint>
+
+	* PyQt4.msp:
+	Fixed QStyleOptionButton.None.
+	[3a4a57126086] <4.11-maint>
+
+2015-10-25  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* qpy/QtCore/qpycore_pyqtproperty.cpp:
+	Fixed the handling of a getter's docstring by pyqtProperty.
+	[cb64cf7df330] <4.11-maint>
+
+2015-09-19  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* qpy/QtCore/qpycore_qstring.cpp:
+	Don't assume unicode objects being converted to QStrings are ready.
+	[cc708df12d26] <4.11-maint>
+
+2015-09-18  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* Makefile, pyuic/uic/properties.py:
+	Fixed pyuic's handling of non-ASCII font family names.
+	[147fb277a6e8] <4.11-maint>
+
+2015-09-08  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* installers/BuildGPL.txt, installers/PyQt4-Qt4-gpl.nsi,
+	installers/PyQt4-Qt5-gpl.nsi, installers/psql-config.bat:
+	Updates to installers for Python v3.5.
+	[ec8ff8d8e222] <4.11-maint>
+
+	* lib/configure-ng.py:
+	Use win32-msvc2015 for Python v3.5.
+	[92a10920a144] <4.11-maint>
+
+2015-09-01  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* Makefile:
+	The internal build system now defaults to Python v3.5.
+	[b57eda72a756] <4.11-maint>
+
+2015-08-02  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* lib/configure-ng.py:
+	Properly fix the different licensee values for the LGPL version of
+	Qt.
+	[4de100248645] <4.11-maint>
+
+2015-07-22  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* PyQt4.msp, lib/SubclassCode/QtCore.versions, lib/configure-ng.py:
+	Added the PyQt_Process feature for iOS.
+	[9e9f7cd5a29b] <4.11-maint>
+
+	* lib/configure-ng.py:
+	Interpret a licensee of "Builder Qt" as being the LGPL version.
+	[385471caa33b] <4.11-maint>
+
+2015-07-17  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* installers/PyQt4-Qt5-gpl.nsi, installers/pyqt4-check.py:
+	Updated the installer for Qt5.
+	[8d582c64313f] <4.11-maint>
+
+2015-07-01  Phil Thompson  <phil@riverbankcomputing.com>
+
+	* pyuic/uic/uiparser.py:
+	Fixed the adding of a widget to a box layout when an alignment is
+	specified.
+	[3f0dad48ec97] <4.11-maint>
+
 2015-06-11  Phil Thompson  <phil@riverbankcomputing.com>
 
 	* .hgtags:
 	Added tag 4.11.4 for changeset ee2652e4e85d
-	[60b1f4e054a1] [tip] <4.11-maint>
+	[60b1f4e054a1] <4.11-maint>
 
 	* NEWS:
 	Released as v4.11.4.

@@ -2,7 +2,7 @@
 //
 // This file is part of the QtCore Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt4.
 // 
@@ -22,7 +22,7 @@
 
 // QHash<TYPE1, TYPE2> is implemented as a Python dictionary.
 template<TYPE1, TYPE2>
-%MappedType QHash<TYPE1, TYPE2> /DocType="dict-of-TYPE1-TYPE2"/
+%MappedType QHash<TYPE1, TYPE2> /TypeHint="Dict[TYPE1, TYPE2]", TypeHintValue="{}"/
 {
 %TypeHeaderCode
 #include <qhash.h>
@@ -133,7 +133,7 @@ template<TYPE1, TYPE2>
 };
 // QHash<int, TYPE> is implemented as a Python dictionary.
 template<TYPE>
-%MappedType QHash<int, TYPE> /DocType="dict-of-int-TYPE"/
+%MappedType QHash<int, TYPE> /TypeHint="Dict[int, TYPE]", TypeHintValue="{}"/
 {
 %TypeHeaderCode
 #include <qhash.h>
@@ -230,7 +230,7 @@ template<TYPE>
 };
 // QMultiHash<TYPE1, TYPE2> is implemented as a Python dictionary.
 template<TYPE1, TYPE2>
-%MappedType QMultiHash<TYPE1, TYPE2> /DocType="dict-of-TYPE1-list-of-TYPE2"/
+%MappedType QMultiHash<TYPE1, TYPE2> /TypeHintIn="Dict[TYPE1, Sequence[TYPE2]]", TypeHintOut="Dict[TYPE1, List[TYPE2]]", TypeHintValue="{}"/
 {
 %TypeHeaderCode
 #include <qhash.h>

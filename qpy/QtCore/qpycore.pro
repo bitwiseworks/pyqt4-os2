@@ -1,7 +1,7 @@
 # This is the qmake project file for the QPy support code for the QtCore
 # module.  Note that it is not required by configure-ng.py.
 #
-# Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+# Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 # 
 # This file is part of PyQt4.
 # 
@@ -31,7 +31,6 @@ DEFINES     += QT_DISABLE_DEPRECATED_BEFORE=0x04ffff
 win32: INCLUDEPATH += .
 
 SOURCES   = \
-            qpycore_qabstracteventdispatcher.cpp \
             qpycore_chimera.cpp \
             qpycore_chimera_signature.cpp \
             qpycore_chimera_storage.cpp \
@@ -39,6 +38,7 @@ SOURCES   = \
             qpycore_init.cpp \
             qpycore_misc.cpp \
             qpycore_post_init.cpp \
+            qpycore_public_api.cpp \
             qpycore_pyqtboundsignal.cpp \
             qpycore_pyqtconfigure.cpp \
             qpycore_pyqtmethodproxy.cpp \
@@ -47,6 +47,7 @@ SOURCES   = \
             qpycore_pyqtpyobject.cpp \
             qpycore_pyqtsignal.cpp \
             qpycore_pyqtslot.cpp \
+            qpycore_qabstracteventdispatcher.cpp \
             qpycore_qmetaobject.cpp \
             qpycore_qmetaobject_helpers.cpp \
             qpycore_qobject_getattr.cpp \
@@ -54,10 +55,11 @@ SOURCES   = \
             qpycore_qpynullvariant.cpp \
             qpycore_qstring.cpp \
             qpycore_qstringlist.cpp \
-            qpycore_sip_helpers.cpp \
-            qpycore_types.cpp \
+            qpycore_qtlib.cpp \
             qpycore_qvariant.cpp \
-            qpycore_qvariant_value.cpp
+            qpycore_qvariant_value.cpp \
+            qpycore_sip_helpers.cpp \
+            qpycore_types.cpp
 
 HEADERS   = \
             qpycore_api.h \
@@ -65,15 +67,17 @@ HEADERS   = \
             qpycore_classinfo.h \
             qpycore_misc.h \
             qpycore_namespace.h \
+            qpycore_public_api.h \
             qpycore_pyqtboundsignal.h \
+            qpycore_pyqtmethodproxy.h \
             qpycore_pyqtproperty.h \
             qpycore_pyqtproxy.h \
             qpycore_pyqtpyobject.h \
             qpycore_pyqtsignal.h \
-            qpycore_pyqtmethodproxy.h \
             qpycore_qmetaobjectbuilder.h \
             qpycore_qobject_helpers.h \
             qpycore_qpynullvariant.h \
+            qpycore_qtlib.h \
             qpycore_sip.h \
             qpycore_sip_helpers.h \
             qpycore_types.h

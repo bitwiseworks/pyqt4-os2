@@ -2,7 +2,7 @@
 //
 // This file is part of the QtGui Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt4.
 // 
@@ -70,7 +70,7 @@ public:
 // Mapped type for QList<QPagedPaintDevice::PageSize>.
 %If (PyQt_Printer)
 
-%MappedType QList<QPagedPaintDevice::PageSize> /DocType="list-of-QPagedPaintDevice.PageSize"/
+%MappedType QList<QPagedPaintDevice::PageSize> /TypeHintOut="List[QPagedPaintDevice.PageSize]", TypeHintValue="[]"/
 {
 %TypeHeaderCode
 #include <qlist.h>
@@ -122,7 +122,7 @@ public:
 // Mapped type for QList<QPrinter::PageSize>.
 %If (PyQt_Printer)
 
-%MappedType QList<QPrinter::PageSize> /DocType="list-of-QPrinter.PageSize"/
+%MappedType QList<QPrinter::PageSize> /TypeHintOut="List[QPrinter.PageSize]", TypeHintValue="[]"/
 {
 %TypeHeaderCode
 #include <qlist.h>

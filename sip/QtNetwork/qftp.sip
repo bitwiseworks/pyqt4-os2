@@ -2,7 +2,7 @@
 //
 // This file is part of the QtNetwork Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt4.
 // 
@@ -84,10 +84,10 @@ public:
 
     int setProxy(const QString &host, quint16 port);
     int connectToHost(const QString &host, quint16 port = 21) /ReleaseGIL/;
-    int login(const QString &user /DocValue="Py_v3:''"/ = QString(), const QString &password /DocValue="Py_v3:''"/ = QString()) /ReleaseGIL/;
+    int login(const QString &user = QString(), const QString &password = QString()) /ReleaseGIL/;
     int close() /ReleaseGIL/;
     int setTransferMode(QFtp::TransferMode mode);
-    int list(const QString &directory /DocValue="Py_v3:''"/ = QString()) /ReleaseGIL/;
+    int list(const QString &directory = QString()) /ReleaseGIL/;
     int cd(const QString &directory) /ReleaseGIL/;
     int get(const QString &file, QIODevice *device = 0, QFtp::TransferType type = QFtp::Binary) /ReleaseGIL/;
     int put(const QByteArray &data, const QString &file, QFtp::TransferType type = QFtp::Binary) /ReleaseGIL/;
@@ -98,7 +98,7 @@ public:
     int rename(const QString &oldname, const QString &newname) /ReleaseGIL/;
     int rawCommand(const QString &command) /ReleaseGIL/;
     qint64 bytesAvailable() const;
-    SIP_PYOBJECT read(qint64 maxlen) /DocType="Py_v3:bytes;str",ReleaseGIL/;
+    SIP_PYOBJECT read(qint64 maxlen) /TypeHint="Py_v3:bytes;str",ReleaseGIL/;
 %MethodCode
         // Return the data read or None if there was an error.
         if (a0 < 0)

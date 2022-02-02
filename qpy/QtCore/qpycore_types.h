@@ -1,6 +1,6 @@
 // This defines the interfaces for the meta-type used by PyQt.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt4.
 // 
@@ -30,6 +30,7 @@
 
 #include "qpycore_chimera.h"
 #include "qpycore_pyqtproperty.h"
+#include "qpycore_qtlib.h"
 #include "qpycore_sip.h"
 
 

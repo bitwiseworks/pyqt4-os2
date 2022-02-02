@@ -2,7 +2,7 @@
 //
 // This file is part of the QtGui Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt4.
 // 
@@ -55,13 +55,13 @@ public:
     virtual bool setHeaderData(int section, Qt::Orientation orientation, const QVariant &value, int role = Qt::EditRole);
 %End
 %If (Qt_4_3_0 -)
-    virtual QMap<int, QVariant> itemData(const QModelIndex &index) const /DocType="Py_v3:dict-of-int-object;dict-of-int-QVariant"/;
+    virtual QMap<int, QVariant> itemData(const QModelIndex &index) const;
 %End
 %If (Qt_4_2_0 -)
     virtual Qt::ItemFlags flags(const QModelIndex &index) const;
 %End
 %If (Qt_4_8_0 -)
-    virtual bool setItemData(const QModelIndex &index, const QMap<int, QVariant> &roles /DocType="Py_v3:dict-of-int-object;dict-of-int-QVariant"/);
+    virtual bool setItemData(const QModelIndex &index, const QMap<int, QVariant> &roles);
 %End
 %If (Qt_4_8_0 -)
     virtual QModelIndex buddy(const QModelIndex &index) const;

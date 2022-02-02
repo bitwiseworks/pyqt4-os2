@@ -2,7 +2,7 @@
 //
 // This file is part of the QtNetwork Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt4.
 // 
@@ -20,11 +20,7 @@
 // WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
 
-%ModuleCode
-#include <qhostaddress.h>
-%End
-
-class QHostAddress
+class QHostAddress /TypeHintIn="Union[QHostAddress, QHostAddress.SpecialAddress]"/
 {
 %TypeHeaderCode
 #include <qhostaddress.h>
@@ -119,7 +115,7 @@ QDataStream &operator<<(QDataStream &, const QHostAddress &);
 QDataStream &operator>>(QDataStream &, QHostAddress &);
 %End
 // Q_IPV6ADDR is implemented as a Python 16-tuple of ints.
-%MappedType Q_IPV6ADDR /DocType="16-tuple-of-int"/
+%MappedType Q_IPV6ADDR /TypeHint="Tuple[int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int]"/
 {
 %TypeHeaderCode
 #include <qhostaddress.h>

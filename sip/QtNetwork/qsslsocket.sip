@@ -2,7 +2,7 @@
 //
 // This file is part of the QtNetwork Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt4.
 // 
@@ -136,7 +136,7 @@ protected slots:
 %End
 
 protected:
-    virtual SIP_PYOBJECT readData(qint64 maxlen) /DocType="Py_v3:bytes;str",ReleaseGIL/ [qint64 (char *data, qint64 maxlen)];
+    virtual SIP_PYOBJECT readData(qint64 maxlen) /TypeHint="Py_v3:bytes;str",ReleaseGIL/ [qint64 (char *data, qint64 maxlen)];
 %MethodCode
         // Return the data read or None if there was an error.
         if (a0 < 0)
@@ -174,7 +174,7 @@ protected:
         }
 %End
 
-    virtual qint64 writeData(const char *data /Array/, qint64 len /ArraySize/) /ReleaseGIL/;
+    virtual qint64 writeData(const char *data /Array, TypeHint="Py_v3:bytes;str"/, qint64 len /ArraySize/) /ReleaseGIL/;
 
 public:
 %If (Qt_4_4_0 -)

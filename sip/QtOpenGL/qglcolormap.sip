@@ -2,7 +2,7 @@
 //
 // This file is part of the QtOpenGL Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt4.
 // 
@@ -35,7 +35,7 @@ public:
     void detach();
     bool isEmpty() const;
     int size() const;
-    void setEntries(SIP_PYLIST colors /DocType="list-of-int"/, int base = 0);
+    void setEntries(SIP_PYLIST colors /TypeHint="List[int]"/, int base = 0);
 %MethodCode
         // The Python implementation takes a list of numbers.
         QRgb *colours = new QRgb[PyList_GET_SIZE(a0)];
