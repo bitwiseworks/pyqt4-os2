@@ -2,7 +2,7 @@
 //
 // This file is part of the QtCore Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt4.
 // 
@@ -19,10 +19,6 @@
 // This file is provided AS IS with NO WARRANTY OF ANY KIND, INCLUDING THE
 // WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
-
-%ModuleCode
-#include <qlocale.h>
-%End
 
 class QLocale
 {
@@ -1312,16 +1308,16 @@ public:
     QString currencySymbol(QLocale::CurrencySymbolFormat format = QLocale::CurrencySymbol) const;
 %End
 %If (Qt_4_8_0 -)
-    QString toCurrencyString(int value /Constrained/, const QString &symbol /DocValue="Py_v3:''"/ = QString()) const;
+    QString toCurrencyString(int value /Constrained/, const QString &symbol = QString()) const;
 %End
 %If (Qt_4_8_0 -)
-    QString toCurrencyString(double value /Constrained/, const QString &symbol /DocValue="Py_v3:''"/ = QString()) const;
+    QString toCurrencyString(double value /Constrained/, const QString &symbol = QString()) const;
 %End
 %If (Qt_4_8_0 -)
-    QString toCurrencyString(qlonglong value, const QString &symbol /DocValue="Py_v3:''"/ = QString()) const;
+    QString toCurrencyString(qlonglong value, const QString &symbol = QString()) const;
 %End
 %If (Qt_4_8_0 -)
-    QString toCurrencyString(qulonglong value, const QString &symbol /DocValue="Py_v3:''"/ = QString()) const;
+    QString toCurrencyString(qulonglong value, const QString &symbol = QString()) const;
 %End
 %If (Qt_4_8_0 -)
     QStringList uiLanguages() const;
@@ -1455,7 +1451,7 @@ public:
 %End
 %If (Qt_4_3_0 -)
 // Mapped type for QList<QLocale::Country>.
-%MappedType QList<QLocale::Country> /DocType="list-of-QLocale.Country"/
+%MappedType QList<QLocale::Country> /TypeHint="List[QLocale.Country]", TypeHintValue="[]"/
 {
 %TypeHeaderCode
 #include <qlocale.h>

@@ -2,7 +2,7 @@
 //
 // This file is part of the QtMultimedia Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt4.
 // 
@@ -102,7 +102,7 @@ public:
     bool map(QAbstractVideoBuffer::MapMode mode);
     void unmap();
     int bytesPerLine() const;
-    SIP_PYOBJECT bits() /DocType="sip.voidptr"/;
+    SIP_PYOBJECT bits() /TypeHint="sip.voidptr"/;
 %MethodCode
         uchar *mem;
         
@@ -143,7 +143,7 @@ public:
 %End
 %If (Qt_4_6_0 -)
 // Mapped type for QList<QVideoFrame::PixelFormat>.
-%MappedType QList<QVideoFrame::PixelFormat> /DocType="list-of-QVideoFrame.PixelFormat"/
+%MappedType QList<QVideoFrame::PixelFormat> /TypeHint="List[QVideoFrame.PixelFormat]", TypeHintValue="[]"/
 {
 %TypeHeaderCode
 #include <qvideoframe.h>

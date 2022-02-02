@@ -1,6 +1,6 @@
 // This contains the definition of the PyQtProxy class.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt4.
 // 
@@ -28,18 +28,20 @@
 #include <QMultiHash>
 #include <QList>
 #include <QMetaObject>
+#include <QMutex>
 #include <QObject>
 
 #include "qpycore_chimera.h"
 #include "qpycore_namespace.h"
-#include "qpycore_pyqtboundsignal.h"
 #include "qpycore_sip.h"
 #include "qpycore_types.h"
 
 
-QT_BEGIN_NAMESPACE
-class QMutex;
-QT_END_NAMESPACE
+// In case we are using SIP v5.
+#if !defined(SIP_SINGLE_SHOT)
+#define SIP_SINGLE_SHOT     0x01
+#endif
+
 
 class PyQt_PyObject;
 
@@ -60,11 +62,11 @@ public:
         ProxySignal,
     };
 
-    PyQtProxy(QObject *tx, const char *sig);
+    PyQtProxy(QObject *qtx, const char *sig);
     PyQtProxy(sipWrapper *txObj, const char *sig, PyObject *rxObj,
             const char *slot, const char **member, int flags);
-    PyQtProxy(qpycore_pyqtBoundSignal *bs, PyObject *rxObj,
-            const char **member);
+    PyQtProxy(QObject *qtx, const Chimera::Signature *signal_signature,
+            PyObject *rxObj, const char **member, int flags);
     ~PyQtProxy();
 
     static const QMetaObject staticMetaObject;
@@ -85,6 +87,12 @@ public:
             const char *slot, const char **member);
 
     void disableReceiverCheck();
+
+#if SIP_VERSION >= 0x050000
+    static int clearSlotProxies(const QObject *transmitter);
+    static int visitSlotProxies(const QObject *transmitter, visitproc visit,
+            void *arg);
+#endif
 
     // The type of a proxy hash.
     typedef QMultiHash<void *, PyQtProxy *> ProxyHash;

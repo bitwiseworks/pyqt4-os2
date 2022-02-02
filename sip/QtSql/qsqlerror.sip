@@ -2,7 +2,7 @@
 //
 // This file is part of the QtSql Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt4.
 // 
@@ -36,7 +36,7 @@ public:
         UnknownError,
     };
 
-    QSqlError(const QString &driverText /DocValue="Py_v3:''"/ = QString(), const QString &databaseText /DocValue="Py_v3:''"/ = QString(), QSqlError::ErrorType type = QSqlError::NoError, int number = -1);
+    QSqlError(const QString &driverText = QString(), const QString &databaseText = QString(), QSqlError::ErrorType type = QSqlError::NoError, int number = -1);
     QSqlError(const QSqlError &other);
     ~QSqlError();
     QString driverText() const;

@@ -2,7 +2,7 @@
 //
 // This file is part of the QtGui Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt4.
 // 
@@ -19,10 +19,6 @@
 // This file is provided AS IS with NO WARRANTY OF ANY KIND, INCLUDING THE
 // WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
-
-%ModuleCode
-#include <qevent.h>
-%End
 
 class QInputEvent : QEvent /NoDefaultCtors/
 {
@@ -482,7 +478,7 @@ public:
 %If (Qt_5_0_0 -)
     QKeyEvent(QEvent::Type type, int key, Qt::KeyboardModifiers modifiers, quint32 nativeScanCode, quint32 nativeVirtualKey, quint32 nativeModifiers, const QString &text = QString(), bool autorep = false, ushort count = 1);
 %End
-    QKeyEvent(QEvent::Type type, int key, Qt::KeyboardModifiers modifiers, const QString &text /DocValue="Py_v3:''"/ = QString(), bool autorep = false, ushort count = 1);
+    QKeyEvent(QEvent::Type type, int key, Qt::KeyboardModifiers modifiers, const QString &text = QString(), bool autorep = false, ushort count = 1);
     virtual ~QKeyEvent();
     int key() const;
     Qt::KeyboardModifiers modifiers() const;

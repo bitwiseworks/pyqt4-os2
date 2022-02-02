@@ -1,6 +1,6 @@
 // This is the implementation of pyqtProperty.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt4.
 // 
@@ -44,6 +44,7 @@ static int pyqtProperty_traverse(PyObject *self, visitproc visit, void *arg);
 }
 
 static qpycore_pyqtProperty *clone(qpycore_pyqtProperty *orig);
+static PyObject *getter_docstring(PyObject *getter);
 
 
 // Doc-strings.
@@ -108,7 +109,11 @@ static PyMethodDef pyqtProperty_methods[] = {
 // This implements the PyQt version of the standard Python property type.
 PyTypeObject qpycore_pyqtProperty_Type = {
     PyVarObject_HEAD_INIT(NULL, 0)
-    SIP_TPNAME_CAST("PyQt4.QtCore.pyqtProperty"),
+#if PY_VERSION_HEX >= 0x02050000
+    "PyQt4.QtCore.pyqtProperty",
+#else
+    const_cast<char *>("PyQt4.QtCore.pyqtProperty"),
+#endif
     sizeof (qpycore_pyqtProperty),
     0,
     pyqtProperty_dealloc,
@@ -378,23 +383,15 @@ static int pyqtProperty_init(PyObject *self, PyObject *args, PyObject *kwds)
     Py_XINCREF(notify);
     Py_INCREF(type);
 
-    /* If no docstring was given and the getter has one, then use it. */
-    if ((!doc || doc == Py_None) && get)
+    // If no docstring was given try the getter.
+    if (!doc || doc == Py_None)
     {
-#if PY_VERSION_HEX >= 0x02050000
-        PyObject *get_doc = PyObject_GetAttrString(get, "__doc__");
-#else
-        PyObject *get_doc = PyObject_GetAttrString(get, const_cast<char *>("__doc__"));
-#endif
+        PyObject *getter_doc = getter_docstring(get);
 
-        if (get_doc)
+        if (getter_doc)
         {
             Py_XDECREF(doc);
-            doc = get_doc;
-        }
-        else
-        {
-            PyErr_Clear();
+            doc = getter_doc;
         }
     }
 
@@ -470,6 +467,15 @@ static PyObject *pyqtProperty_getter(PyObject *self, PyObject *getter)
             Py_INCREF(getter);
 
         pp->pyqtprop_get = getter;
+
+        // Use the getter's docstring if it has one.
+        PyObject *getter_doc = getter_docstring(getter);
+
+        if (getter_doc)
+        {
+            Py_XDECREF(pp->pyqtprop_doc);
+            pp->pyqtprop_doc = getter_doc;
+        }
     }
 
     return (PyObject *)pp;
@@ -581,4 +587,33 @@ static qpycore_pyqtProperty *clone(qpycore_pyqtProperty *orig)
     }
 
     return pp;
+}
+
+
+// Return the docstring of an optional getter or 0 if it doesn't have one.
+static PyObject *getter_docstring(PyObject *getter)
+{
+    // Handle the trivial case.
+    if (!getter)
+        return 0;
+
+#if PY_VERSION_HEX >= 0x02050000
+    PyObject *getter_doc = PyObject_GetAttrString(getter, "__doc__");
+#else
+    PyObject *getter_doc = PyObject_GetAttrString(getter, const_cast<char *>("__doc__"));
+#endif
+
+    if (!getter_doc)
+    {
+        PyErr_Clear();
+        return 0;
+    }
+
+    if (getter_doc == Py_None)
+    {
+        Py_DECREF(getter_doc);
+        return 0;
+    }
+
+    return getter_doc;
 }

@@ -2,7 +2,7 @@
 //
 // This file is part of the QtCore Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt4.
 // 
@@ -19,10 +19,6 @@
 // This file is provided AS IS with NO WARRANTY OF ANY KIND, INCLUDING THE
 // WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
-
-%ModuleCode
-#include <qtextcodec.h>
-%End
 
 class QTextCodec /Abstract,Supertype=sip.wrapper/
 {
@@ -93,13 +89,13 @@ public:
         ConverterState(const QTextCodec::ConverterState &);
     };
 
-    QString toUnicode(const char *in /Array/, int length /ArraySize/, QTextCodec::ConverterState *state = 0) const;
+    QString toUnicode(const char *in /Array, TypeHint="Py_v3:bytes;str"/, int length /ArraySize/, QTextCodec::ConverterState *state = 0) const;
     virtual QByteArray name() const = 0;
     virtual QList<QByteArray> aliases() const;
     virtual int mibEnum() const = 0;
 
 protected:
-    virtual QString convertToUnicode(const char *in /Array/, int length /ArraySize/, QTextCodec::ConverterState *state) const = 0;
+    virtual QString convertToUnicode(const char *in /Array, TypeHint="Py_v3:bytes;str"/, int length /ArraySize/, QTextCodec::ConverterState *state) const = 0;
     QTextCodec() /Transfer/;
     virtual ~QTextCodec();
 
@@ -153,9 +149,9 @@ public:
     QTextDecoder(const QTextCodec *codec, QFlags<QTextCodec::ConversionFlag> flags);
 %End
     ~QTextDecoder();
-    QString toUnicode(const char *chars /Array/, int len /ArraySize/);
+    QString toUnicode(const char *chars /Array, TypeHint="Py_v3:bytes;str"/, int len /ArraySize/);
 %If (Qt_4_3_0 -)
-    void toUnicode(QString *target /Constrained/, const char *chars /Array/, int len /ArraySize/) /API=QString: - 2/;
+    void toUnicode(QString *target /Constrained/, const char *chars /Array, TypeHint="Py_v3:bytes;str"/, int len /ArraySize/) /API=QString: - 2/;
 %End
     QString toUnicode(const QByteArray &ba);
 

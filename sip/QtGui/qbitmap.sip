@@ -2,7 +2,7 @@
 //
 // This file is part of the QtGui Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt4.
 // 
@@ -19,10 +19,6 @@
 // This file is provided AS IS with NO WARRANTY OF ANY KIND, INCLUDING THE
 // WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
-
-%ModuleCode
-#include <qbitmap.h>
-%End
 
 class QBitmap : QPixmap
 {
@@ -61,7 +57,3 @@ public:
     void swap(QBitmap &other);
 %End
 };
-
-%If (Qt_4_3_0 -)
-void qSwap(QBitmap &value1, QBitmap &value2);
-%End

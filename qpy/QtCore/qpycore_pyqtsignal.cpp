@@ -1,6 +1,6 @@
 // This contains the implementation of the pyqtSignal type.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt4.
 // 
@@ -64,7 +64,7 @@ static PyGetSetDef pyqtSignal_getsets[] = {
 
 
 PyDoc_STRVAR(pyqtSignal_doc,
-"pyqtSignal(*types, name=str) -> signal\n"
+"pyqtSignal(*types, name: str = ...) -> PYQT_SIGNAL\n"
 "\n"
 "types is normally a sequence of individual types.  Each type is either a\n"
 "type object or a string that is the name of a C++ type.  Alternatively\n"
@@ -77,7 +77,11 @@ PyDoc_STRVAR(pyqtSignal_doc,
 // The pyqtSignal type object.
 PyTypeObject qpycore_pyqtSignal_Type = {
     PyVarObject_HEAD_INIT(NULL, 0)
-    SIP_TPNAME_CAST("PyQt4.QtCore.pyqtSignal"), /* tp_name */
+#if PY_VERSION_HEX >= 0x02050000
+    "PyQt4.QtCore.pyqtSignal",  /* tp_name */
+#else
+    const_cast<char *>("PyQt4.QtCore.pyqtSignal"),  /* tp_name */
+#endif
     sizeof (qpycore_pyqtSignal),    /* tp_basicsize */
     0,                      /* tp_itemsize */
     pyqtSignal_dealloc,     /* tp_dealloc */
@@ -194,7 +198,7 @@ static PyObject *pyqtSignal_repr(PyObject *self)
 #else
         PyString_FromFormat
 #endif
-            ("<unbound signal %s>", ps->signature->name().constData() + 1);
+            ("<unbound PYQT_SIGNAL %s>", ps->signature->py_signature.constData());
 }
 
 
@@ -568,8 +572,8 @@ void qpycore_set_signal_name(qpycore_pyqtSignal *ps, const char *type_name,
 // Handle the getting of a lazy attribute, ie. a native Qt signal.
 int qpycore_get_lazy_attr(const sipTypeDef *td, PyObject *dict)
 {
-    pyqt4ClassTypeDef *ctd = (pyqt4ClassTypeDef *)td;
-    const pyqt4QtSignal *sigs = ctd->qt_signals;
+    const pyqt4QtSignal *sigs = reinterpret_cast<const pyqt4ClassPluginDef *>(
+            sipTypePluginData(td))->qt_signals;
 
     // Handle the trvial case.
     if (!sigs)

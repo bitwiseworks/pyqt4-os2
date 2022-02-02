@@ -2,7 +2,7 @@
 //
 // This file is part of the QtGui Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt4.
 // 
@@ -29,7 +29,7 @@ class QGuiApplication : QCoreApplication
 %End
 
 public:
-    QGuiApplication(SIP_PYLIST argv /DocType="list-of-str"/) /PostHook=__pyQtQAppHook__/ [(int &argc, char **argv, int = ApplicationFlags)];
+    QGuiApplication(SIP_PYLIST argv /TypeHint="List[str]"/) /PostHook=__pyQtQAppHook__/ [(int &argc, char **argv, int = ApplicationFlags)];
 %MethodCode
         // The Python interface is a list of argument strings that is modified.
         
@@ -37,8 +37,10 @@ public:
         char **argv;
         
         // Convert the list.
-        if ((argv = qpycore_ArgvToC(a0, argc)) == NULL)
+        if ((argv = pyqt4_qtgui_from_argv_list(a0, argc)) == NULL)
+        {
             sipIsErr = 1;
+        }
         else
         {
             // Create it now the arguments are right.
@@ -50,7 +52,7 @@ public:
             Py_END_ALLOW_THREADS
         
             // Now modify the original list.
-            qpycore_UpdatePyArgv(a0, argc, argv);
+            pyqt4_qtgui_update_argv_list(a0, argc, argv);
         }
 %End
 

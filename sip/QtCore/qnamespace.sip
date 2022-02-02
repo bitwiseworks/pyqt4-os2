@@ -2,7 +2,7 @@
 //
 // This file is part of the QtCore Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt4.
 // 
@@ -19,10 +19,6 @@
 // This file is provided AS IS with NO WARRANTY OF ANY KIND, INCLUDING THE
 // WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
-
-%ModuleCode
-#include <qnamespace.h>
-%End
 
 namespace Qt
 {
@@ -276,10 +272,10 @@ namespace Qt
         WindowContextHelpButtonHint,
         WindowShadeButtonHint,
         WindowStaysOnTopHint,
-%If (Qt_4_4_0 -)
+%If (Qt_4_4_0 - Qt_5_0_0)
         WindowOkButtonHint,
 %End
-%If (Qt_4_4_0 -)
+%If (Qt_4_4_0 - Qt_5_0_0)
         WindowCancelButtonHint,
 %End
 %If (Qt_4_5_0 -)
@@ -2022,7 +2018,7 @@ namespace Qt
 
 %If (Py_v3)
 // Mapped type for QSet<Qt::DayOfWeek> in Python v3.
-%MappedType QSet<Qt::DayOfWeek> /DocType="set-of-Qt.DayOfWeek"/
+%MappedType QSet<Qt::DayOfWeek> /TypeHintIn="Iterable[Qt.DayOfWeek]", TypeHintOut="Set[Qt.DayOfWeek]", TypeHintValue="set()"/
 {
 %TypeHeaderCode
 #include <qnamespace.h>
@@ -2112,7 +2108,7 @@ namespace Qt
 %End
 %If (!Py_v3)
 // Mapped type for QSet<Qt::DayOfWeek> in Python v2.
-%MappedType QSet<Qt::DayOfWeek> /DocType="list-of-Qt.DayOfWeek"/
+%MappedType QSet<Qt::DayOfWeek> /TypeHintIn="Iterable[Qt.DayOfWeek]", TypeHintOut="List[Qt.DayOfWeek]", TypeHintValue="[]"/
 {
 %TypeHeaderCode
 #include <qnamespace.h>

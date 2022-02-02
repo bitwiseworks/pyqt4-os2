@@ -2,7 +2,7 @@
 //
 // This file is part of the QtNetwork Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt4.
 // 
@@ -125,7 +125,7 @@ public:
     QList<QByteArray> rawHeaderList() const;
     QByteArray rawHeader(const QByteArray &headerName) const;
     void setRawHeader(const QByteArray &headerName, const QByteArray &value);
-    QVariant attribute(QNetworkRequest::Attribute code, const QVariant &defaultValue /DocValue="Py_v3:None"/ = QVariant()) const;
+    QVariant attribute(QNetworkRequest::Attribute code, const QVariant &defaultValue = QVariant()) const;
     void setAttribute(QNetworkRequest::Attribute code, const QVariant &value);
 %If (PyQt_OpenSSL)
     QSslConfiguration sslConfiguration() const;

@@ -1,6 +1,6 @@
 // This is the implementation of the various Chimera helpers.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt4.
 // 
@@ -39,7 +39,7 @@ static PyObject *from_qvariant(const QVariant &arg);
 
 
 // Convert a QVariant to a Python object.
-bool qpydbus_to_pyobject(const QVariant *varp, PyObject **objp)
+bool qpydbus_from_qvariant(const QVariant *varp, PyObject **objp)
 {
     // Handle QDBusObjectPath.
     if (varp->userType() == qMetaTypeId<QDBusObjectPath>())

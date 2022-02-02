@@ -2,7 +2,7 @@
 //
 // This file is part of the QtGui Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt4.
 // 
@@ -19,12 +19,6 @@
 // This file is provided AS IS with NO WARRANTY OF ANY KIND, INCLUDING THE
 // WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
-
-%If (Qt_4_2_0 -)
-%ModuleCode
-#include <qgraphicsscene.h>
-%End
-%End
 
 %If (Qt_4_2_0 -)
 
@@ -204,7 +198,7 @@ protected:
     virtual void inputMethodEvent(QInputMethodEvent *event);
     virtual void drawBackground(QPainter *painter, const QRectF &rect);
     virtual void drawForeground(QPainter *painter, const QRectF &rect);
-    virtual void drawItems(QPainter *painter, SIP_PYLIST items /DocType="list-of-QGraphicsItem"/, SIP_PYLIST options /DocType="list-of-QStyleOptionGraphicsItem"/, QWidget *widget = 0) [void (QPainter *painter, int numItems, QGraphicsItem **items, const QStyleOptionGraphicsItem *options, QWidget *widget = 0)];
+    virtual void drawItems(QPainter *painter, SIP_PYLIST items /TypeHint="List[QGraphicsItem]"/, SIP_PYLIST options /TypeHint="List[QStyleOptionGraphicsItem]"/, QWidget *widget = 0) [void (QPainter *painter, int numItems, QGraphicsItem **items, const QStyleOptionGraphicsItem *options, QWidget *widget = 0)];
 %MethodCode
         // PyQt takes lists as the items and options arguments.
         

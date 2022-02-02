@@ -2,7 +2,7 @@
 //
 // This file is part of the QtCore Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt4.
 // 
@@ -20,11 +20,7 @@
 // WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
 
-%ModuleCode
-#include <qdatetime.h>
-%End
-
-class QDate
+class QDate /TypeHintIn="Union[QDate, datetime.date]"/
 {
 %TypeHeaderCode
 #include <qdatetime.h>
@@ -76,7 +72,7 @@ return 0;
 public:
     QDate();
     QDate(int y, int m, int d);
-    SIP_PYOBJECT __repr__() const /DocType="str"/;
+    SIP_PYOBJECT __repr__() const /TypeHint="str"/;
 %MethodCode
         if (sipCpp->isNull())
         {
@@ -113,7 +109,7 @@ public:
 %End
 
 %If (Py_DateTime)
-    SIP_PYOBJECT toPyDate() const /DocType="datetime.date"/;
+    SIP_PYOBJECT toPyDate() const /TypeHint="datetime.date"/;
 %MethodCode
         if (!PyDateTimeAPI)
             PyDateTime_IMPORT;
@@ -239,7 +235,7 @@ public:
 %End
 };
 
-class QTime
+class QTime /TypeHintIn="Union[QTime, datetime.time]"/
 {
 %TypeHeaderCode
 #include <qdatetime.h>
@@ -292,7 +288,7 @@ return 0;
 public:
     QTime();
     QTime(int h, int m, int second = 0, int msec = 0);
-    SIP_PYOBJECT __repr__() const /DocType="str"/;
+    SIP_PYOBJECT __repr__() const /TypeHint="str"/;
 %MethodCode
         if (sipCpp->isNull())
         {
@@ -352,7 +348,7 @@ public:
 %End
 
 %If (Py_DateTime)
-    SIP_PYOBJECT toPyTime() const /DocType="datetime.time"/;
+    SIP_PYOBJECT toPyTime() const /TypeHint="datetime.time"/;
 %MethodCode
         if (!PyDateTimeAPI)
             PyDateTime_IMPORT;
@@ -395,7 +391,7 @@ public:
     int elapsed() const;
 };
 
-class QDateTime
+class QDateTime /TypeHintIn="Union[QDateTime, datetime.datetime]"/
 {
 %TypeHeaderCode
 #include <qdatetime.h>
@@ -463,7 +459,7 @@ public:
     QDateTime(const QDateTime &other);
     explicit QDateTime(const QDate &);
     QDateTime(const QDate &date, const QTime &time, Qt::TimeSpec timeSpec = Qt::LocalTime);
-    QDateTime(int y, int m, int d, int h, int m, int s = 0, int msec = 0, int timeSpec = 0) /NoDerived/;
+    QDateTime(int year, int month, int day, int hour, int min, int sec = 0, int msec = 0, int timeSpec = 0) /NoDerived/;
 %MethodCode
         // This ctor is mainly supplied to allow pickling.
         QDate qd(a0, a1, a2);
@@ -473,7 +469,7 @@ public:
 %End
 
     ~QDateTime();
-    SIP_PYOBJECT __repr__() const /DocType="str"/;
+    SIP_PYOBJECT __repr__() const /TypeHint="str"/;
 %MethodCode
         if (sipCpp->isNull())
         {
@@ -550,7 +546,7 @@ public:
 %End
 
 %If (Py_DateTime)
-    SIP_PYOBJECT toPyDateTime() const /DocType="datetime.datetime"/;
+    SIP_PYOBJECT toPyDateTime() const /TypeHint="datetime.datetime"/;
 %MethodCode
         if (!PyDateTimeAPI)
             PyDateTime_IMPORT;

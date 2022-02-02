@@ -28,3 +28,4 @@ PyQt4 Reference Guide
     incompatible_apis
     deploy_commercial
     build_system
+    extension_api

@@ -2,7 +2,7 @@
 //
 // This file is part of the QtCore Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt4.
 // 
@@ -21,14 +21,8 @@
 
 
 %If (Qt_4_6_0 -)
-%ModuleCode
-#include <qeasingcurve.h>
-%End
-%End
 
-%If (Qt_4_6_0 -)
-
-class QEasingCurve
+class QEasingCurve /TypeHintIn="Union[QEasingCurve, QEasingCurve.Type]"/
 {
 %TypeHeaderCode
 #include <qeasingcurve.h>
@@ -235,7 +229,7 @@ public:
     void setOvershoot(qreal overshoot);
     QEasingCurve::Type type() const;
     void setType(QEasingCurve::Type type);
-    void setCustomType(SIP_PYCALLABLE func);
+    void setCustomType(SIP_PYCALLABLE func /TypeHint="Callable[[float], float]"/);
 %MethodCode
         int i;
         ec_custom_type *ct;
@@ -265,7 +259,7 @@ public:
         }
 %End
 
-    SIP_PYCALLABLE customType() const;
+    SIP_PYCALLABLE customType() const /TypeHint="Callable[[float], float]"/;
 %MethodCode
         QEasingCurve::EasingFunction func = sipCpp->customType();
         

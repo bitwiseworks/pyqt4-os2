@@ -2,7 +2,7 @@
 //
 // This file is part of the QtCore Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt4.
 // 
@@ -21,11 +21,16 @@
 
 
 %If (WS_WIN)
+%If (PyQt_Process)
 typedef void *Q_PID;
 %End
+%End
 %If (WS_X11 || WS_MACX || WS_OS2)
+%If (PyQt_Process)
 typedef qint64 Q_PID;
 %End
+%End
+%If (PyQt_NotBootstrapped)
 
 class QProcess : QIODevice
 {
@@ -144,7 +149,7 @@ signals:
 protected:
     void setProcessState(QProcess::ProcessState state);
     virtual void setupChildProcess();
-    virtual SIP_PYOBJECT readData(qint64 maxlen) /DocType="Py_v3:bytes;str",ReleaseGIL/ [qint64 (char *data, qint64 maxlen)];
+    virtual SIP_PYOBJECT readData(qint64 maxlen) /TypeHint="Py_v3:bytes;str",ReleaseGIL/ [qint64 (char *data, qint64 maxlen)];
 %MethodCode
         // Return the data read or None if there was an error.
         if (a0 < 0)
@@ -182,7 +187,7 @@ protected:
         }
 %End
 
-    virtual qint64 writeData(const char *data /Array/, qint64 len /ArraySize/) /ReleaseGIL/;
+    virtual qint64 writeData(const char *data /Array, TypeHint="Py_v3:bytes;str"/, qint64 len /ArraySize/) /ReleaseGIL/;
 
 public:
 %If (Qt_4_6_0 -)
@@ -202,7 +207,9 @@ private:
     QProcess(const QProcess &);
 };
 
+%End
 %If (Qt_4_6_0 -)
+%If (PyQt_NotBootstrapped)
 
 class QProcessEnvironment
 {
@@ -224,7 +231,7 @@ public:
     void insert(const QProcessEnvironment &e);
 %End
     void remove(const QString &name);
-    QString value(const QString &name, const QString &defaultValue /DocValue="Py_v3:''"/ = QString()) const;
+    QString value(const QString &name, const QString &defaultValue = QString()) const;
     QStringList toStringList() const;
     static QProcessEnvironment systemEnvironment();
 %If (Qt_4_8_0 -)
@@ -235,4 +242,5 @@ public:
 %End
 };
 
+%End
 %End

@@ -1,7 +1,7 @@
 Introduction
 ============
 
-This is the reference guide for PyQt4 4.11.4.  PyQt4 is a set of
+This is the reference guide for PyQt4 4.12.3.  PyQt4 is a set of
 `Python <http://www.python.org>`__ bindings for v4 and v5 of the Qt application
 framework from `Digia <http://qt.digia.com>`__.
 

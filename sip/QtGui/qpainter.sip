@@ -2,7 +2,7 @@
 //
 // This file is part of the QtGui Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt4.
 // 
@@ -19,10 +19,6 @@
 // This file is provided AS IS with NO WARRANTY OF ANY KIND, INCLUDING THE
 // WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
-
-%ModuleCode
-#include <qpainter.h>
-%End
 
 class QPainter
 {
@@ -672,7 +668,7 @@ public:
     typedef QFlags<QPainter::PixmapFragmentHint> PixmapFragmentHints;
 %End
 %If (Qt_4_7_0 -)
-    void drawPixmapFragments(SIP_PYLIST fragments /DocType="list-of-QPainter.PixmapFragment"/, const QPixmap &pixmap, QFlags<QPainter::PixmapFragmentHint> hints = 0);
+    void drawPixmapFragments(SIP_PYLIST fragments /TypeHint="List[QPainter.PixmapFragment]"/, const QPixmap &pixmap, QFlags<QPainter::PixmapFragmentHint> hints = 0);
 %MethodCode
         // Allocate temporary storage for the C++ conversions.
         SIP_SSIZE_T numFragments = PyList_GET_SIZE(a0);
@@ -698,7 +694,7 @@ public:
 
 %End
 %If (Qt_4_8_0 - Qt_5_0_0)
-    void drawPixmapFragments(SIP_PYLIST targetRects /DocType="list-of-QRectF"/, SIP_PYLIST sourceRects /AllowNone, DocType="list-of-QRectF"/, const QPixmap &pixmap, QFlags<QPainter::PixmapFragmentHint> hints = 0);
+    void drawPixmapFragments(SIP_PYLIST targetRects /TypeHint="List[QRectF]"/, SIP_PYLIST sourceRects /AllowNone, TypeHint="List[QRectF]"/, const QPixmap &pixmap, QFlags<QPainter::PixmapFragmentHint> hints = 0);
 %MethodCode
         // Allocate temporary storage for the C++ conversions.
         QRectF *target, *source;

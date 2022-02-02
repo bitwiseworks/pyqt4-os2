@@ -2,7 +2,7 @@
 //
 // This file is part of the QtCore Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt4.
 // 
@@ -20,7 +20,7 @@
 // WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
 
-%Module(name=PyQt4.QtCore, keyword_arguments="Optional", version=1)
+%Module(name=PyQt4.QtCore, keyword_arguments="Optional")
 
 %Timeline {Qt_4_1_0 Qt_4_1_1 Qt_4_1_2 Qt_4_1_3 Qt_4_2_0 Qt_4_2_1 Qt_4_2_2 Qt_4_2_3 Qt_4_3_0 Qt_4_3_1 Qt_4_3_2 Qt_4_3_3 Qt_4_3_4 Qt_4_4_0 Qt_4_4_1 Qt_4_4_2 Qt_4_5_0 Qt_4_5_1 Qt_4_5_2 Qt_4_5_3 Qt_4_6_0 Qt_4_6_1 Qt_4_6_2 Qt_4_6_3 Qt_4_7_0 Qt_4_7_1 Qt_4_7_2 Qt_4_7_3 Qt_4_7_4 Qt_4_8_0 Qt_4_8_1 Qt_4_8_2 Qt_4_8_3 Qt_4_8_4 Qt_4_8_5 Qt_4_8_6 Qt_4_8_7 Qt_5_0_0}
 
@@ -46,9 +46,10 @@
 %Feature PyQt_NoOpenGLES
 %Feature PyQt_Deprecated_5_0
 %Feature PyQt_NotBootstrapped
+%Feature PyQt_Process
 
 %Copying
-Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 
 This file is part of PyQt4.
 

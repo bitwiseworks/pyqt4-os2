@@ -2,7 +2,7 @@
 //
 // This file is part of the QtCore Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt4.
 // 
@@ -34,7 +34,7 @@ public:
     const QByteArray &data() const;
     void setBuffer(QByteArray *a);
     void setData(const QByteArray &data);
-    void setData(const char *adata /Array/, int alen /ArraySize/);
+    void setData(const char *adata /Array, TypeHint="Py_v3:bytes;str"/, int alen /ArraySize/);
     virtual bool open(QFlags<QIODevice::OpenModeFlag> openMode);
     virtual void close();
     virtual qint64 size() const;
@@ -44,7 +44,7 @@ public:
     virtual bool canReadLine() const;
 
 protected:
-    virtual SIP_PYOBJECT readData(qint64 maxlen) /DocType="Py_v3:bytes;str",ReleaseGIL/ [qint64 (char *data, qint64 maxlen)];
+    virtual SIP_PYOBJECT readData(qint64 maxlen) /TypeHint="Py_v3:bytes;str",ReleaseGIL/ [qint64 (char *data, qint64 maxlen)];
 %MethodCode
         // Return the data read or None if there was an error.
         if (a0 < 0)
@@ -82,18 +82,72 @@ protected:
         }
 %End
 
-    virtual qint64 writeData(const char *data /Array/, qint64 len /ArraySize/) /ReleaseGIL/;
+    virtual qint64 writeData(const char *data /Array, TypeHint="Py_v3:bytes;str"/, qint64 len /ArraySize/) /ReleaseGIL/;
 %If (Qt_5_0_0 -)
     virtual void connectNotify(const QMetaMethod &);
 %End
 %If (Qt_4_5_0 - Qt_5_0_0)
-    virtual void connectNotify(SIP_SIGNAL);
+    virtual void connectNotify(SIP_PYOBJECT /TypeHint="QT_SIGNAL"/) [void (const char *)];
+%MethodCode
+        typedef const char *(*pyqt4_get_signal_t)(PyObject *);
+        
+        static pyqt4_get_signal_t pyqt4_get_signal = 0;
+        
+        if (!pyqt4_get_signal)
+        {
+            pyqt4_get_signal = (pyqt4_get_signal_t)sipImportSymbol("pyqt4_get_signal");
+            Q_ASSERT(pyqt4_get_signal);
+        }
+        
+        const char *sig = pyqt4_get_signal(a0);
+            
+        if (sig)
+        {
+        #if defined(SIP_PROTECTED_IS_PUBLIC)
+            (sipSelfWasArg ? sipCpp->QBuffer::connectNotify(sig) : sipCpp->connectNotify(sig));
+        #else
+            sipCpp->sipProtectVirt_connectNotify(sipSelfWasArg, sig);
+        #endif
+        }
+        else
+        {
+            sipError = sipBadCallableArg(0, a0);
+        }
+%End
+
 %End
 %If (Qt_5_0_0 -)
     virtual void disconnectNotify(const QMetaMethod &);
 %End
 %If (Qt_4_5_0 - Qt_5_0_0)
-    virtual void disconnectNotify(SIP_SIGNAL);
+    virtual void disconnectNotify(SIP_PYOBJECT /TypeHint="QT_SIGNAL"/) [void (const char *)];
+%MethodCode
+        typedef const char *(*pyqt4_get_signal_t)(PyObject *);
+        
+        static pyqt4_get_signal_t pyqt4_get_signal = 0;
+        
+        if (!pyqt4_get_signal)
+        {
+            pyqt4_get_signal = (pyqt4_get_signal_t)sipImportSymbol("pyqt4_get_signal");
+            Q_ASSERT(pyqt4_get_signal);
+        }
+        
+        const char *sig = pyqt4_get_signal(a0);;
+        
+        if (sig)
+        {
+        #if defined(SIP_PROTECTED_IS_PUBLIC)
+            (sipSelfWasArg ? sipCpp->QBuffer::disconnectNotify(sig) : sipCpp->disconnectNotify(sig));
+        #else
+            sipCpp->sipProtectVirt_disconnectNotify(sipSelfWasArg, sig);
+        #endif
+        }
+        else
+        {
+            sipError = sipBadCallableArg(0, a0);
+        }
+%End
+
 %End
 
 private:

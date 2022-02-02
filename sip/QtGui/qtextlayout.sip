@@ -2,7 +2,7 @@
 //
 // This file is part of the QtGui Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt4.
 // 
@@ -101,7 +101,7 @@ public:
     bool isValidCursorPosition(int pos) const;
     int nextCursorPosition(int oldPos, QTextLayout::CursorMode mode = QTextLayout::SkipCharacters) const;
     int previousCursorPosition(int oldPos, QTextLayout::CursorMode mode = QTextLayout::SkipCharacters) const;
-    void draw(QPainter *p, const QPointF &pos, const QVector<QTextLayout::FormatRange> &selections /DocValue="list-of-QTextLayout.FormatRange"/ = QVector<QTextLayout::FormatRange>(), const QRectF &clip = QRectF()) const;
+    void draw(QPainter *p, const QPointF &pos, const QVector<QTextLayout::FormatRange> &selections = QVector<QTextLayout::FormatRange>(), const QRectF &clip = QRectF()) const;
     void drawCursor(QPainter *p, const QPointF &pos, int cursorPosition) const;
 %If (Qt_4_2_0 -)
     void drawCursor(QPainter *p, const QPointF &pos, int cursorPosition, int width) const;

@@ -2,7 +2,7 @@
 //
 // This file is part of the QtScript Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt4.
 // 
@@ -128,7 +128,7 @@ public:
     QScriptContext *pushContext();
     void popContext();
     bool canEvaluate(const QString &program) const;
-    QScriptValue evaluate(const QString &program, const QString &fileName /DocValue="Py_v3:''"/ = QString(), int lineNumber = 1);
+    QScriptValue evaluate(const QString &program, const QString &fileName = QString(), int lineNumber = 1);
     bool hasUncaughtException() const;
     QStringList uncaughtExceptionBacktrace() const;
     QScriptValue uncaughtException() const;
@@ -136,7 +136,7 @@ public:
     QScriptValue nullValue();
     QScriptValue undefinedValue();
 %If (Qt_4_4_0 -)
-    QScriptValue newFunction(SIP_PYCALLABLE signature, int length = 0);
+    QScriptValue newFunction(SIP_PYCALLABLE signature /TypeHint="Callable[[QScriptContext, QScriptEngine], QScriptValue]"/, int length = 0);
 %MethodCode
         // This is implemented for Qt v4.4 and later because we rely on the
         // QScriptValue::setData() support.
@@ -150,7 +150,7 @@ public:
 
 %End
 %If (Qt_4_4_0 -)
-    QScriptValue newFunction(SIP_PYCALLABLE signature, const QScriptValue &prototype, int length = 0);
+    QScriptValue newFunction(SIP_PYCALLABLE signature /TypeHint="Callable[[QScriptContext, QScriptEngine], QScriptValue]"/, const QScriptValue &prototype, int length = 0);
 %MethodCode
         // This is implemented for Qt v4.4 and later because we rely on the
         // QScriptValue::setData() support.
@@ -263,10 +263,40 @@ private:
 QFlags<QScriptEngine::QObjectWrapOption> operator|(QScriptEngine::QObjectWrapOption f1, QFlags<QScriptEngine::QObjectWrapOption> f2);
 %End
 %If (Qt_4_4_0 -)
-bool qScriptConnect(QObject *sender, SIP_SIGNAL signal, const QScriptValue &receiver, const QScriptValue &function);
+bool qScriptConnect(QObject *sender, SIP_PYOBJECT signal /TypeHint="QT_SIGNAL"/, const QScriptValue &receiver, const QScriptValue &function);
+%MethodCode
+    const char *sig = pyqt4_qtscript_get_signal(a1);
+    
+    if (sig)
+    {
+        Py_BEGIN_ALLOW_THREADS
+        sipRes = qScriptConnect(a0, sig, *a2, *a3);
+        Py_END_ALLOW_THREADS
+    }
+    else
+    {
+        sipError = sipBadCallableArg(1, a1);
+    }
+%End
+
 %End
 %If (Qt_4_4_0 -)
-bool qScriptDisconnect(QObject *sender, SIP_SIGNAL signal, const QScriptValue &receiver, const QScriptValue &function);
+bool qScriptDisconnect(QObject *sender, SIP_PYOBJECT signal /TypeHint="QT_SIGNAL"/, const QScriptValue &receiver, const QScriptValue &function);
+%MethodCode
+    const char *sig = pyqt4_qtscript_get_signal(a1);
+    
+    if (sig)
+    {
+        Py_BEGIN_ALLOW_THREADS
+        sipRes = qScriptDisconnect(a0, sig, *a2, *a3);
+        Py_END_ALLOW_THREADS
+    }
+    else
+    {
+        sipError = sipBadCallableArg(1, a1);
+    }
+%End
+
 %End
 %If (Qt_4_5_0 -)
 
@@ -295,4 +325,21 @@ private:
     QScriptSyntaxCheckResult();
 };
 
+%End
+
+%ModuleHeaderCode
+// Imports from QtCore.
+typedef const char *(*pyqt4_qtscript_get_signal_t)(PyObject *);
+extern pyqt4_qtscript_get_signal_t pyqt4_qtscript_get_signal;
+%End
+
+%ModuleCode
+// Imports from QtCore.
+pyqt4_qtscript_get_signal_t pyqt4_qtscript_get_signal;
+%End
+
+%PostInitialisationCode
+// Imports from QtCore.
+pyqt4_qtscript_get_signal = (pyqt4_qtscript_get_signal_t)sipImportSymbol("pyqt4_get_signal");
+Q_ASSERT(pyqt4_qtscript_get_signal);
 %End

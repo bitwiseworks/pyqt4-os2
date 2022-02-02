@@ -2,7 +2,7 @@
 //
 // This file is part of the QtCore Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt4.
 // 
@@ -47,9 +47,9 @@ public:
         SystemScope,
     };
 
-    QSettings(const QString &organization, const QString &application /DocValue="Py_v3:''"/ = QString(), QObject *parent /TransferThis/ = 0);
-    QSettings(QSettings::Scope scope, const QString &organization, const QString &application /DocValue="Py_v3:''"/ = QString(), QObject *parent /TransferThis/ = 0);
-    QSettings(QSettings::Format format, QSettings::Scope scope, const QString &organization, const QString &application /DocValue="Py_v3:''"/ = QString(), QObject *parent /TransferThis/ = 0);
+    QSettings(const QString &organization, const QString &application = QString(), QObject *parent /TransferThis/ = 0);
+    QSettings(QSettings::Scope scope, const QString &organization, const QString &application = QString(), QObject *parent /TransferThis/ = 0);
+    QSettings(QSettings::Format format, QSettings::Scope scope, const QString &organization, const QString &application = QString(), QObject *parent /TransferThis/ = 0);
     QSettings(const QString &fileName, QSettings::Format format, QObject *parent /TransferThis/ = 0);
     explicit QSettings(QObject *parent /TransferThis/ = 0);
     virtual ~QSettings();
@@ -68,7 +68,7 @@ public:
     QStringList childGroups() const;
     bool isWritable() const;
     void setValue(const QString &key, const QVariant &value);
-    SIP_PYOBJECT value(const QString &key, const QVariant &defaultValue /DocValue="Py_v3:None"/ = QVariant(), SIP_PYOBJECT type /DocValue="None"/ = 0) const /ReleaseGIL/;
+    SIP_PYOBJECT value(const QString &key, const QVariant &defaultValue = QVariant(), SIP_PYOBJECT type /TypeHint="type", TypeHintValue="None"/ = 0) const /ReleaseGIL/;
 %MethodCode
         QVariant value;
         
@@ -78,7 +78,7 @@ public:
         value = sipCpp->value(*a0, *a1);
         Py_END_ALLOW_THREADS
         
-        sipRes = qpycore_qvariant_value(value, a2);
+        sipRes = pyqt4_from_qvariant_by_type(value, a2);
         
         sipIsErr = !sipRes;
 %End

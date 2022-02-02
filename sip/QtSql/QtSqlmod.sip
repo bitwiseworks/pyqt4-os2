@@ -2,7 +2,7 @@
 //
 // This file is part of the QtSql Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt4.
 // 
@@ -26,7 +26,7 @@
 %Import QtGui/QtGuimod.sip
 
 %Copying
-Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 
 This file is part of PyQt4.
 

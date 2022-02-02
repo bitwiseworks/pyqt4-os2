@@ -2,7 +2,7 @@
 //
 // This file is part of the QtGui Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt4.
 // 
@@ -19,10 +19,6 @@
 // This file is provided AS IS with NO WARRANTY OF ANY KIND, INCLUDING THE
 // WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
-
-%ModuleCode
-#include <qstyleoption.h>
-%End
 
 class QStyleOption
 {
@@ -498,7 +494,7 @@ public:
 
     enum FrameFeature
     {
-        None,
+        None /PyName=None_/,
         Flat,
     };
 
@@ -676,7 +672,7 @@ public:
 
     enum SortIndicator
     {
-        None,
+        None /PyName=None_/,
         SortUp,
         SortDown,
     };
@@ -736,7 +732,7 @@ public:
 
     enum ButtonFeature
     {
-        None,
+        None /PyName=None_/,
         Flat,
         HasMenu,
         DefaultButton,
@@ -1547,7 +1543,7 @@ public:
 
     enum ToolButtonFeature
     {
-        None,
+        None /PyName=None_/,
         Arrow,
         Menu,
         PopupDelay,
@@ -1825,7 +1821,7 @@ public:
 
     enum ToolBarFeature
     {
-        None,
+        None /PyName=None_/,
         Movable,
     };
 
@@ -1912,7 +1908,7 @@ public:
 
     enum ViewItemFeature
     {
-        None,
+        None /PyName=None_/,
         WrapText,
         Alternate,
 %If (Qt_4_4_0 -)

@@ -2,7 +2,7 @@
 //
 // This file is part of the QtNetwork Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt4.
 // 
@@ -130,7 +130,7 @@ public:
 %If (Qt_5_0_0 -)
 %If (PyQt_OpenSSL)
 // Mapped type for QMultiMap<QSsl::AlternativeNameEntryType, QString>.
-%MappedType QMultiMap<QSsl::AlternativeNameEntryType, QString> /DocType="Py_v3:dict-of-QSsl.AlternativeNameEntryType-list-of-str;dict-of-QSsl.AlternateNameEntryType-list-of-QString"/
+%MappedType QMultiMap<QSsl::AlternativeNameEntryType, QString> /TypeHintOut="Dict[QSsl.AlternateNameEntryType, List[QString]]", TypeHintValue="{}"/
 {
 %TypeHeaderCode
 #include <QtCore/qmap.h>
@@ -281,7 +281,7 @@ public:
 %If (PyQt_Deprecated_5_0)
 // Mapped type for QMultiMap<QSsl::AlternateNameEntryType, QString>.
 %If (PyQt_OpenSSL)
-%MappedType QMultiMap<QSsl::AlternateNameEntryType, QString> /DocType="Py_v3:dict-of-QSsl.AlternateNameEntryType-list-of-str;dict-of-QSsl.AlternateNameEntryType-list-of-QString"/
+%MappedType QMultiMap<QSsl::AlternateNameEntryType, QString> /TypeHintOut="Dict[QSsl.AlternateNameEntryType, List[QString]]", TypeHintValue="{}"/
 {
 %TypeHeaderCode
 #include <QtCore/qmap.h>

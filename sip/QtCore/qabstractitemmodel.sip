@@ -2,7 +2,7 @@
 //
 // This file is part of the QtCore Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt4.
 // 
@@ -51,7 +51,7 @@ public:
         Py_INCREF(sipRes);
 %End
 
-    SIP_PYOBJECT internalId() const /DocType="int"/;
+    SIP_PYOBJECT internalId() const /TypeHint="int"/;
 %MethodCode
         // Python needs to treat the result as an unsigned value (which may not happen
         // on 64 bit systems).  Instead we get the real value as it is stored (as a
@@ -142,8 +142,8 @@ public:
     virtual bool setData(const QModelIndex &index, const QVariant &value, int role = Qt::EditRole);
     virtual QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const;
     virtual bool setHeaderData(int section, Qt::Orientation orientation, const QVariant &value, int role = Qt::EditRole);
-    virtual QMap<int, QVariant> itemData(const QModelIndex &index) const /DocType="Py_v3:dict-of-int-object;dict-of-int-QVariant"/;
-    virtual bool setItemData(const QModelIndex &index, const QMap<int, QVariant> &roles /DocType="Py_v3:dict-of-int-object;dict-of-int-QVariant"/);
+    virtual QMap<int, QVariant> itemData(const QModelIndex &index) const;
+    virtual bool setItemData(const QModelIndex &index, const QMap<int, QVariant> &roles);
     virtual QStringList mimeTypes() const;
     virtual QMimeData *mimeData(const QModelIndexList &indexes) const /TransferBack/;
     virtual bool dropMimeData(const QMimeData *data, Qt::DropAction action, int row, int column, const QModelIndex &parent);
@@ -162,7 +162,7 @@ public:
 
 signals:
 %If (Qt_5_0_0 -)
-    void dataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight, const QVector<int> &roles /DocValue="[]"/ = QVector<int>()) /PyQtSignalHack=2/;
+    void dataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight, const QVector<int> &roles = QVector<int>()) /PyQtSignalHack=2/;
 %End
 %If (- Qt_5_0_0)
     void dataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight);

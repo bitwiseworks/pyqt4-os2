@@ -2,7 +2,7 @@
 //
 // This file is part of the QtCore Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt4.
 // 
@@ -78,7 +78,7 @@ public:
     virtual void startingUp();
     virtual void closingDown();
 %If (- Qt_5_0_0)
-    SIP_PYCALLABLE setEventFilter(SIP_PYCALLABLE filter /AllowNone/);
+    SIP_PYCALLABLE setEventFilter(SIP_PYCALLABLE filter /AllowNone,TypeHint="Callable[..., bool]"/) /TypeHint="Callable[..., bool]"/;
 %MethodCode
         sipRes = qpycore_qabstracteventdispatcher_seteventfilter(sipCpp, a0);
 %End

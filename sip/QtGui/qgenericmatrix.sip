@@ -2,7 +2,7 @@
 //
 // This file is part of the QtGui Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt4.
 // 
@@ -44,7 +44,7 @@ class QMatrix4x3
 public:
     QMatrix4x3();
     QMatrix4x3(const QMatrix4x3 &other);
-    explicit QMatrix4x3(SIP_PYOBJECT values /DocType="sequence-of-float"/);
+    explicit QMatrix4x3(SIP_PYOBJECT values /TypeHint="Sequence[float]"/);
 %MethodCode
         PYQT_FLOAT values[12];
 
@@ -52,7 +52,7 @@ public:
             sipCpp = new QMatrix4x3(values);
 %End
 
-    SIP_PYOBJECT __repr__() const /DocType="str"/;
+    SIP_PYOBJECT __repr__() const /TypeHint="str"/;
 %MethodCode
         bool bad = false;
         int i;
@@ -101,12 +101,12 @@ public:
             Py_XDECREF(m[i]);
 %End
 
-    SIP_PYLIST data() /DocType="list-of-float"/;
+    SIP_PYLIST data() /TypeHint="List[float]"/;
 %MethodCode
         sipError = qtgui_matrixDataAsList(12, sipCpp->constData(), &sipRes);
 %End
 
-    SIP_PYLIST copyDataTo() const /DocType="list-of-float"/;
+    SIP_PYLIST copyDataTo() const /TypeHint="List[float]"/;
 %MethodCode
         PYQT_FLOAT values[12];
 
@@ -198,7 +198,7 @@ class QMatrix4x2
 public:
     QMatrix4x2();
     QMatrix4x2(const QMatrix4x2 &other);
-    explicit QMatrix4x2(SIP_PYOBJECT values /DocType="sequence-of-float"/);
+    explicit QMatrix4x2(SIP_PYOBJECT values /TypeHint="Sequence[float]"/);
 %MethodCode
         PYQT_FLOAT values[8];
 
@@ -206,7 +206,7 @@ public:
             sipCpp = new QMatrix4x2(values);
 %End
 
-    SIP_PYOBJECT __repr__() const /DocType="str"/;
+    SIP_PYOBJECT __repr__() const /TypeHint="str"/;
 %MethodCode
         bool bad = false;
         int i;
@@ -255,12 +255,12 @@ public:
             Py_XDECREF(m[i]);
 %End
 
-    SIP_PYLIST data() /DocType="list-of-float"/;
+    SIP_PYLIST data() /TypeHint="List[float]"/;
 %MethodCode
         sipError = qtgui_matrixDataAsList(8, sipCpp->constData(), &sipRes);
 %End
 
-    SIP_PYLIST copyDataTo() const /DocType="list-of-float"/;
+    SIP_PYLIST copyDataTo() const /TypeHint="List[float]"/;
 %MethodCode
         PYQT_FLOAT values[8];
 
@@ -352,7 +352,7 @@ class QMatrix3x4
 public:
     QMatrix3x4();
     QMatrix3x4(const QMatrix3x4 &other);
-    explicit QMatrix3x4(SIP_PYOBJECT values /DocType="sequence-of-float"/);
+    explicit QMatrix3x4(SIP_PYOBJECT values /TypeHint="Sequence[float]"/);
 %MethodCode
         PYQT_FLOAT values[12];
 
@@ -360,7 +360,7 @@ public:
             sipCpp = new QMatrix3x4(values);
 %End
 
-    SIP_PYOBJECT __repr__() const /DocType="str"/;
+    SIP_PYOBJECT __repr__() const /TypeHint="str"/;
 %MethodCode
         bool bad = false;
         int i;
@@ -409,12 +409,12 @@ public:
             Py_XDECREF(m[i]);
 %End
 
-    SIP_PYLIST data() /DocType="list-of-float"/;
+    SIP_PYLIST data() /TypeHint="List[float]"/;
 %MethodCode
         sipError = qtgui_matrixDataAsList(12, sipCpp->constData(), &sipRes);
 %End
 
-    SIP_PYLIST copyDataTo() const /DocType="list-of-float"/;
+    SIP_PYLIST copyDataTo() const /TypeHint="List[float]"/;
 %MethodCode
         PYQT_FLOAT values[12];
 
@@ -505,7 +505,7 @@ class QMatrix3x3
 public:
     QMatrix3x3();
     QMatrix3x3(const QMatrix3x3 &other);
-    explicit QMatrix3x3(SIP_PYOBJECT values /DocType="sequence-of-float"/);
+    explicit QMatrix3x3(SIP_PYOBJECT values /TypeHint="Sequence[float]"/);
 %MethodCode
         PYQT_FLOAT values[9];
 
@@ -513,7 +513,7 @@ public:
             sipCpp = new QMatrix3x3(values);
 %End
 
-    SIP_PYOBJECT __repr__() const /DocType="str"/;
+    SIP_PYOBJECT __repr__() const /TypeHint="str"/;
 %MethodCode
         bool bad = false;
         int i;
@@ -560,12 +560,12 @@ public:
             Py_XDECREF(m[i]);
 %End
 
-    SIP_PYLIST data() /DocType="list-of-float"/;
+    SIP_PYLIST data() /TypeHint="List[float]"/;
 %MethodCode
         sipError = qtgui_matrixDataAsList(9, sipCpp->constData(), &sipRes);
 %End
 
-    SIP_PYLIST copyDataTo() const /DocType="list-of-float"/;
+    SIP_PYLIST copyDataTo() const /TypeHint="List[float]"/;
 %MethodCode
         PYQT_FLOAT values[9];
 
@@ -656,7 +656,7 @@ class QMatrix3x2
 public:
     QMatrix3x2();
     QMatrix3x2(const QMatrix3x2 &other);
-    explicit QMatrix3x2(SIP_PYOBJECT values /DocType="sequence-of-float"/);
+    explicit QMatrix3x2(SIP_PYOBJECT values /TypeHint="Sequence[float]"/);
 %MethodCode
         PYQT_FLOAT values[6];
 
@@ -664,7 +664,7 @@ public:
             sipCpp = new QMatrix3x2(values);
 %End
 
-    SIP_PYOBJECT __repr__() const /DocType="str"/;
+    SIP_PYOBJECT __repr__() const /TypeHint="str"/;
 %MethodCode
         bool bad = false;
         int i;
@@ -711,12 +711,12 @@ public:
             Py_XDECREF(m[i]);
 %End
 
-    SIP_PYLIST data() /DocType="list-of-float"/;
+    SIP_PYLIST data() /TypeHint="List[float]"/;
 %MethodCode
         sipError = qtgui_matrixDataAsList(6, sipCpp->constData(), &sipRes);
 %End
 
-    SIP_PYLIST copyDataTo() const /DocType="list-of-float"/;
+    SIP_PYLIST copyDataTo() const /TypeHint="List[float]"/;
 %MethodCode
         PYQT_FLOAT values[6];
 
@@ -806,7 +806,7 @@ class QMatrix2x4
 public:
     QMatrix2x4();
     QMatrix2x4(const QMatrix2x4 &other);
-    explicit QMatrix2x4(SIP_PYOBJECT values /DocType="sequence-of-float"/);
+    explicit QMatrix2x4(SIP_PYOBJECT values /TypeHint="Sequence[float]"/);
 %MethodCode
         PYQT_FLOAT values[8];
 
@@ -814,7 +814,7 @@ public:
             sipCpp = new QMatrix2x4(values);
 %End
 
-    SIP_PYOBJECT __repr__() const /DocType="str"/;
+    SIP_PYOBJECT __repr__() const /TypeHint="str"/;
 %MethodCode
         bool bad = false;
         int i;
@@ -859,12 +859,12 @@ public:
             Py_XDECREF(m[i]);
 %End
 
-    SIP_PYLIST data() /DocType="list-of-float"/;
+    SIP_PYLIST data() /TypeHint="List[float]"/;
 %MethodCode
         sipError = qtgui_matrixDataAsList(8, sipCpp->constData(), &sipRes);
 %End
 
-    SIP_PYLIST copyDataTo() const /DocType="list-of-float"/;
+    SIP_PYLIST copyDataTo() const /TypeHint="List[float]"/;
 %MethodCode
         PYQT_FLOAT values[8];
 
@@ -954,7 +954,7 @@ class QMatrix2x3
 public:
     QMatrix2x3();
     QMatrix2x3(const QMatrix2x3 &other);
-    explicit QMatrix2x3(SIP_PYOBJECT values /DocType="sequence-of-float"/);
+    explicit QMatrix2x3(SIP_PYOBJECT values /TypeHint="Sequence[float]"/);
 %MethodCode
         PYQT_FLOAT values[6];
 
@@ -962,7 +962,7 @@ public:
             sipCpp = new QMatrix2x3(values);
 %End
 
-    SIP_PYOBJECT __repr__() const /DocType="str"/;
+    SIP_PYOBJECT __repr__() const /TypeHint="str"/;
 %MethodCode
         bool bad = false;
         int i;
@@ -1007,12 +1007,12 @@ public:
             Py_XDECREF(m[i]);
 %End
 
-    SIP_PYLIST data() /DocType="list-of-float"/;
+    SIP_PYLIST data() /TypeHint="List[float]"/;
 %MethodCode
         sipError = qtgui_matrixDataAsList(6, sipCpp->constData(), &sipRes);
 %End
 
-    SIP_PYLIST copyDataTo() const /DocType="list-of-float"/;
+    SIP_PYLIST copyDataTo() const /TypeHint="List[float]"/;
 %MethodCode
         PYQT_FLOAT values[6];
 
@@ -1102,7 +1102,7 @@ class QMatrix2x2
 public:
     QMatrix2x2();
     QMatrix2x2(const QMatrix2x2 &other);
-    explicit QMatrix2x2(SIP_PYOBJECT values /DocType="sequence-of-float"/);
+    explicit QMatrix2x2(SIP_PYOBJECT values /TypeHint="Sequence[float]"/);
 %MethodCode
         PYQT_FLOAT values[4];
 
@@ -1110,7 +1110,7 @@ public:
             sipCpp = new QMatrix2x2(values);
 %End
 
-    SIP_PYOBJECT __repr__() const /DocType="str"/;
+    SIP_PYOBJECT __repr__() const /TypeHint="str"/;
 %MethodCode
         bool bad = false;
         int i;
@@ -1155,12 +1155,12 @@ public:
             Py_XDECREF(m[i]);
 %End
 
-    SIP_PYLIST data() /DocType="list-of-float"/;
+    SIP_PYLIST data() /TypeHint="List[float]"/;
 %MethodCode
         sipError = qtgui_matrixDataAsList(4, sipCpp->constData(), &sipRes);
 %End
 
-    SIP_PYLIST copyDataTo() const /DocType="list-of-float"/;
+    SIP_PYLIST copyDataTo() const /TypeHint="List[float]"/;
 %MethodCode
         PYQT_FLOAT values[4];
 

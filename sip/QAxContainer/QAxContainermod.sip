@@ -1,6 +1,6 @@
 // This is the SIP interface definition for the QAxContainer module of PyQt v4.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt4.
 // 
@@ -23,7 +23,7 @@
 %Import QtGui/QtGuimod.sip
 
 %Copying
-Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 
 This file is part of PyQt4.
 

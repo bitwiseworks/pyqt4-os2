@@ -2,7 +2,7 @@
 //
 // This file is part of the QtGui Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt4.
 // 
@@ -55,7 +55,7 @@ public:
     QRect boundingRect(QChar) const /API=QString:2 - , PyName=boundingRectChar/;
     QRect boundingRect(QChar) const /API=QString: - 2/;
     QRect boundingRect(const QString &text) const;
-    QRect boundingRect(const QRect &rect, int flags, const QString &text, int tabStops = 0, SIP_PYLIST tabArray /AllowNone,DocType="list-of-int"/ = 0) const;
+    QRect boundingRect(const QRect &rect, int flags, const QString &text, int tabStops = 0, SIP_PYLIST tabArray /AllowNone,TypeHint="Optional[List[int]]"/ = 0) const;
 %MethodCode
         int *tabarray = qtgui_tabarray(a4);
         
@@ -65,7 +65,7 @@ public:
             delete[] tabarray;
 %End
 
-    QRect boundingRect(int x, int y, int width, int height, int flags, const QString &text, int tabStops = 0, SIP_PYLIST tabArray /AllowNone,DocType="list-of-int"/ = 0) const;
+    QRect boundingRect(int x, int y, int width, int height, int flags, const QString &text, int tabStops = 0, SIP_PYLIST tabArray /AllowNone,TypeHint="Optional[List[int]]"/ = 0) const;
 %MethodCode
         int *tabarray = qtgui_tabarray(a7);
         
@@ -75,7 +75,7 @@ public:
             delete[] tabarray;
 %End
 
-    QSize size(int flags, const QString &text, int tabStops = 0, SIP_PYLIST tabArray /AllowNone,DocType="list-of-int"/ = 0) const;
+    QSize size(int flags, const QString &text, int tabStops = 0, SIP_PYLIST tabArray /AllowNone,TypeHint="Optional[List[int]]"/ = 0) const;
 %MethodCode
         int *tabarray = qtgui_tabarray(a3);
         
@@ -150,7 +150,7 @@ public:
     QRectF boundingRect(QChar) const /API=QString:2 - , PyName=boundingRectChar/;
     QRectF boundingRect(QChar) const /API=QString: - 2/;
     QRectF boundingRect(const QString &string) const;
-    QRectF boundingRect(const QRectF &rect, int flags, const QString &text, int tabStops = 0, SIP_PYLIST tabArray /AllowNone,DocType="list-of-int"/ = 0) const;
+    QRectF boundingRect(const QRectF &rect, int flags, const QString &text, int tabStops = 0, SIP_PYLIST tabArray /AllowNone,TypeHint="Optional[List[int]]"/ = 0) const;
 %MethodCode
         int *tabarray = qtgui_tabarray(a4);
         
@@ -160,7 +160,7 @@ public:
             delete[] tabarray;
 %End
 
-    QSizeF size(int flags, const QString &text, int tabStops = 0, SIP_PYLIST tabArray /AllowNone,DocType="list-of-int"/ = 0) const;
+    QSizeF size(int flags, const QString &text, int tabStops = 0, SIP_PYLIST tabArray /AllowNone,TypeHint="Optional[List[int]]"/ = 0) const;
 %MethodCode
         int *tabarray = qtgui_tabarray(a3);
         

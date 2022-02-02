@@ -2,7 +2,7 @@
 //
 // This file is part of the QtGui Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt4.
 // 
@@ -19,10 +19,6 @@
 // This file is provided AS IS with NO WARRANTY OF ANY KIND, INCLUDING THE
 // WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
-
-%ModuleCode
-#include <qitemselectionmodel.h>
-%End
 
 class QItemSelectionRange
 {
@@ -201,11 +197,7 @@ public:
         
         len = sipCpp->count();
         
-        #if PY_VERSION_HEX >= 0x03020000
-        if (PySlice_GetIndicesEx(a0, len, &start, &stop, &step, &slicelength) < 0)
-        #else
-        if (PySlice_GetIndicesEx((PySliceObject *)a0, len, &start, &stop, &step, &slicelength) < 0)
-        #endif
+        if (sipConvertFromSliceObject(a0, len, &start, &stop, &step, &slicelength) < 0)
             sipIsErr = 1;
         else
         {
@@ -248,11 +240,7 @@ public:
         
         len = sipCpp->count();
         
-        #if PY_VERSION_HEX >= 0x03020000
-        if (PySlice_GetIndicesEx(a0, len, &start, &stop, &step, &slicelength) < 0)
-        #else
-        if (PySlice_GetIndicesEx((PySliceObject *)a0, len, &start, &stop, &step, &slicelength) < 0)
-        #endif
+        if (sipConvertFromSliceObject(a0, len, &start, &stop, &step, &slicelength) < 0)
             sipIsErr = 1;
         else
             for (i = 0; i < slicelength; ++i)
@@ -278,11 +266,7 @@ public:
         
         len = sipCpp->count();
         
-        #if PY_VERSION_HEX >= 0x03020000
-        if (PySlice_GetIndicesEx(a0, len, &start, &stop, &step, &slicelength) < 0)
-        #else
-        if (PySlice_GetIndicesEx((PySliceObject *)a0, len, &start, &stop, &step, &slicelength) < 0)
-        #endif
+        if (sipConvertFromSliceObject(a0, len, &start, &stop, &step, &slicelength) < 0)
             sipIsErr = 1;
         else
         {

@@ -2,7 +2,7 @@
 //
 // This file is part of the QtGui Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt4.
 // 
@@ -20,11 +20,7 @@
 // WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
 
-%ModuleCode
-#include <qpen.h>
-%End
-
-class QPen
+class QPen /TypeHintIn="Union[QPen, QColor]"/
 {
 %TypeHeaderCode
 #include <qpen.h>
@@ -64,7 +60,6 @@ return sipGetState(sipTransferObj);
 public:
     QPen();
     QPen(Qt::PenStyle);
-    QPen(const QColor &color);
     QPen(const QBrush &brush, qreal width, Qt::PenStyle style = Qt::SolidLine, Qt::PenCapStyle cap = Qt::SquareCap, Qt::PenJoinStyle join = Qt::BevelJoin);
     QPen(const QPen &pen);
     QPen(const QVariant &variant /GetWrapper/) /NoDerived/;
@@ -121,6 +116,3 @@ public:
 
 QDataStream &operator<<(QDataStream &, const QPen & /Constrained/);
 QDataStream &operator>>(QDataStream &, QPen & /Constrained/);
-%If (Qt_4_3_0 -)
-void qSwap(QPen &value1, QPen &value2);
-%End

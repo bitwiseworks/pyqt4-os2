@@ -1,6 +1,6 @@
 // This defines access to the SIP helpers for the rest of the library.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt4.
 // 
@@ -34,7 +34,10 @@ QT_END_NAMESPACE
 
 
 // Forward declarations.
-QObject *qpycore_find_signal(QObject *qtx, const char **sig);
+QObject *qpycore_find_signal(QObject *qtx, const char **sigp);
+QObject *qpycore_create_universal_signal(QObject *qtx, const char **sigp);
+QObject *qpycore_create_universal_slot(sipWrapper *tx, const char *sig,
+        PyObject *rxObj, const char *slot, const char **member, int flags);
 bool qpycore_emit(QObject *qtx, int signal_index,
         const Chimera::Signature *parsed_signature, const char *docstring,
         PyObject *sigargs);

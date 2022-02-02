@@ -52,7 +52,7 @@ if it is currently playing or stopped.</p>
 if it is currently stopped or paused</p>
 
 
-<h3 class="fn"><a name="load" />VideoPlayer.load (<i>self</i>, <a href="phonon-mediasource.html">MediaSource</a>&#160;<i>source</i>)</h3><p>This method is also a Qt slot with the C++ signature <tt>void load(const Phonon::MediaSource&amp;)</tt>.</p><p>Starts pre-loading the media data from the specified
+<h3 class="fn"><a name="load" />VideoPlayer.load (<i>self</i>, <a href="phonon-mediasource.html">MediaSource</a>&#160;<i>source</i>)</h3><p>This method is also a Qt slot with the C++ signature <tt>void load(const  ::Phonon::MediaSource&amp;)</tt>.</p><p>Starts pre-loading the media data from the specified
 <i>source</i> and filling audio buffers in the backend.</p>
 <p>When there's already a media playing (or paused) it will be
 stopped (the finished signal will not be emitted).</p>
@@ -73,7 +73,7 @@ possible to give the object to other Phonon widgets, e.g., a
 <p><b>See also</b> <a href="phonon-mediaobject.html#pause">MediaObject.pause</a>().</p>
 
 
-<h3 class="fn"><a name="play" />VideoPlayer.play (<i>self</i>, <a href="phonon-mediasource.html">MediaSource</a>&#160;<i>source</i>)</h3><p>This method is also a Qt slot with the C++ signature <tt>void play(const Phonon::MediaSource&amp;)</tt>.</p><p>Plays the media from the given <i>source</i>. Starts playback as
+<h3 class="fn"><a name="play" />VideoPlayer.play (<i>self</i>, <a href="phonon-mediasource.html">MediaSource</a>&#160;<i>source</i>)</h3><p>This method is also a Qt slot with the C++ signature <tt>void play(const  ::Phonon::MediaSource&amp;)</tt>.</p><p>Plays the media from the given <i>source</i>. Starts playback as
 fast as possible. This can take a considerable time depending on
 the URL and the backend.</p>
 <p>If you need low latency between calling play() and the sound
@@ -94,7 +94,7 @@ stopped (or newly loaded) media.</p>
 <p><b>See also</b> <a href="phonon-mediaobject.html#play">MediaObject.play</a>() and <a href="phonon-videoplayer.html#play">play</a>().</p>
 
 
-<h3 class="fn"><a name="seek" />VideoPlayer.seek (<i>self</i>, int&#160;<i>ms</i>)</h3><p>This method is also a Qt slot with the C++ signature <tt>void seek(qint64)</tt>.</p><p>Seeks to the requested time. Note that the backend is free to
+<h3 class="fn"><a name="seek" />VideoPlayer.seek (<i>self</i>, int&#160;<i>ms</i>)</h3><p>This method is also a Qt slot with the C++ signature <tt>void seek( ::qint64)</tt>.</p><p>Seeks to the requested time. Note that the backend is free to
 ignore the seek request if the media source isn't seekable; you can
 check this by asking the media object of the <a href="phonon-videoplayer.html">VideoPlayer</a>.</p>
 <pre class="cpp">
@@ -131,4 +131,4 @@ played.</p>
 <hr /><h2>Qt Signal Documentation</h2><h3 class="fn"><a name="finished" />void finished ()</h3><p>This is the default overload of this signal.</p><p>This signal is emitted when the playback finished.</p>
 
 
-<address><hr /><div align="center"><table border="0" cellspacing="0" width="100%"><tr class="address"><td align="left" width="25%">PyQt&#160;4.11.4 for X11</td><td align="center" width="50%">Copyright &#169; <a href="http://www.riverbankcomputing.com">Riverbank&#160;Computing&#160;Ltd</a> and <a href="http://www.qt.io">The Qt Company</a> 2015</td><td align="right" width="25%">Qt&#160;4.8.7</td></tr></table></div></address></body></html>
+<address><hr /><div align="center"><table border="0" cellspacing="0" width="100%"><tr class="address"><td align="left" width="25%">PyQt&#160;4.12.3 for X11</td><td align="center" width="50%">Copyright &#169; <a href="http://www.riverbankcomputing.com">Riverbank&#160;Computing&#160;Ltd</a> and <a href="http://www.qt.io">The Qt Company</a> 2015</td><td align="right" width="25%">Qt&#160;4.8.7</td></tr></table></div></address></body></html>

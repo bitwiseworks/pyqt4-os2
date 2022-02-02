@@ -2,7 +2,7 @@
 //
 // This file is part of the QtCore Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt4.
 // 
@@ -39,15 +39,15 @@ public:
     QString translate(const char *context, const char *sourceText, const char *comment, int n) const;
 %End
     virtual bool isEmpty() const;
-    bool load(const QString &fileName, const QString &directory /DocValue="Py_v3:''"/ = QString(), const QString &searchDelimiters /DocValue="Py_v3:''"/ = QString(), const QString &suffix /DocValue="Py_v3:''"/ = QString()) /ReleaseGIL/;
+    bool load(const QString &fileName, const QString &directory = QString(), const QString &searchDelimiters = QString(), const QString &suffix = QString()) /ReleaseGIL/;
 %If (Qt_4_8_0 -)
-    bool load(const QLocale &locale, const QString &fileName, const QString &prefix /DocValue="Py_v3:''"/ = QString(), const QString &directory /DocValue="Py_v3:''"/ = QString(), const QString &suffix /DocValue="Py_v3:''"/ = QString()) /ReleaseGIL/;
+    bool load(const QLocale &locale, const QString &fileName, const QString &prefix = QString(), const QString &directory = QString(), const QString &suffix = QString()) /ReleaseGIL/;
 %End
 %If (Qt_5_0_0 -)
-    bool load(const uchar *data /Array/, int len /ArraySize/, const QString &directory = QString()) /PyName=loadFromData,ReleaseGIL/;
+    bool load(const uchar *data /Array, TypeHint="Py_v3:bytes;str"/, int len /ArraySize/, const QString &directory = QString()) /PyName=loadFromData,ReleaseGIL/;
 %End
 %If (- Qt_5_0_0)
-    bool load(const uchar *data /Array/, int len /ArraySize/) /PyName=loadFromData,ReleaseGIL/;
+    bool load(const uchar *data /Array, TypeHint="Py_v3:bytes;str"/, int len /ArraySize/) /PyName=loadFromData,ReleaseGIL/;
 %End
 
 private:

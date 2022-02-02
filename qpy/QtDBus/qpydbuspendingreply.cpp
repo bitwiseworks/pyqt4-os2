@@ -1,6 +1,6 @@
 // This is the implementation of the QPyDBusPendingReply class.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt4.
 // 
@@ -20,9 +20,9 @@
 
 #include <Python.h>
 
-#include "sipAPIQtDBus.h"
-
 #include "qpydbuspendingreply.h"
+
+#include "sipAPIQtDBus.h"
 
 
 // Default ctor.
@@ -62,5 +62,5 @@ PyObject *QPyDBusPendingReply::value(PyObject *type) const
     val = argumentAt(0);
     Py_END_ALLOW_THREADS
 
-    return qpycore_qvariant_value(val, type);
+    return pyqt4_qtdbus_from_qvariant_by_type(val, type);
 }

@@ -1,6 +1,6 @@
 // This defines the interfaces for the pyqtBoundSignal type.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt4.
 // 
@@ -23,12 +23,14 @@
 
 
 #include <Python.h>
+#include <sip.h>
 
 #include "qpycore_pyqtsignal.h"
 #include "qpycore_namespace.h"
 
 
 QT_BEGIN_NAMESPACE
+class QByteArray;
 class QObject;
 QT_END_NAMESPACE
 
@@ -57,6 +59,10 @@ extern PyTypeObject qpycore_pyqtBoundSignal_Type;
 
 PyObject *qpycore_pyqtBoundSignal_New(qpycore_pyqtSignal *unbound_signal,
         PyObject *bound_pyobject, QObject *bound_qobject);
+
+sipErrorState qpycore_get_receiver_slot_signature(PyObject *slot,
+        QObject *transmitter, const Chimera::Signature *signal_signature,
+        bool single_shot, QObject **receiver, QByteArray &slot_signature);
 
 
 #endif

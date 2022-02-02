@@ -2,7 +2,7 @@
 //
 // This file is part of the QtGui Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt4.
 // 
@@ -50,7 +50,7 @@ class QMatrix4x4
 public:
     QMatrix4x4();
 %If (Qt_5_0_0 -)
-    explicit QMatrix4x4(SIP_PYOBJECT values /DocType="sequence-of-float"/) [(const float *values)];
+    explicit QMatrix4x4(SIP_PYOBJECT values /TypeHint="Sequence[float]"/) [(const float *values)];
 %MethodCode
         float values[16];
         
@@ -60,7 +60,7 @@ public:
 
 %End
 %If (- Qt_5_0_0)
-    explicit QMatrix4x4(SIP_PYOBJECT values /DocType="sequence-of-float"/) [(const qreal *values)];
+    explicit QMatrix4x4(SIP_PYOBJECT values /TypeHint="Sequence[float]"/) [(const qreal *values)];
 %MethodCode
         qreal values[16];
         
@@ -77,7 +77,7 @@ public:
 %End
     QMatrix4x4(const QTransform &transform);
     QMatrix4x4(const QMatrix &matrix);
-    SIP_PYOBJECT __repr__() const /DocType="str"/;
+    SIP_PYOBJECT __repr__() const /TypeHint="str"/;
 %MethodCode
         bool bad = false;
         int i;
@@ -203,7 +203,7 @@ public:
     void lookAt(const QVector3D &eye, const QVector3D &center, const QVector3D &up);
     void flipCoordinates();
 %If (Qt_5_0_0 -)
-    SIP_PYLIST copyDataTo() const /DocType="list-of-float"/;
+    SIP_PYLIST copyDataTo() const /TypeHint="List[float]"/;
 %MethodCode
         float values[16];
         
@@ -213,7 +213,7 @@ public:
 
 %End
 %If (- Qt_5_0_0)
-    SIP_PYLIST copyDataTo() const /DocType="list-of-float"/;
+    SIP_PYLIST copyDataTo() const /TypeHint="List[float]"/;
 %MethodCode
         qreal values[16];
         
@@ -233,14 +233,14 @@ public:
     QRect mapRect(const QRect &rect) const;
     QRectF mapRect(const QRectF &rect) const;
 %If (Qt_5_0_0 -)
-    SIP_PYLIST data() /DocType="list-of-float"/;
+    SIP_PYLIST data() /TypeHint="List[float]"/;
 %MethodCode
         sipError = qtgui_matrixDataAsList(16, sipCpp->constData(), &sipRes);
 %End
 
 %End
 %If (- Qt_5_0_0)
-    SIP_PYLIST data() /DocType="list-of-float"/;
+    SIP_PYLIST data() /TypeHint="List[float]"/;
 %MethodCode
         sipError = qtgui_matrixDataAsList(16, sipCpp->constData(), &sipRes);
 %End

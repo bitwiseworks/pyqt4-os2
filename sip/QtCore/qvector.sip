@@ -2,7 +2,7 @@
 //
 // This file is part of the QtCore Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt4.
 // 
@@ -22,7 +22,7 @@
 
 // QVector<TYPE> is implemented as a Python list.
 template<TYPE>
-%MappedType QVector<TYPE> /DocType="list-of-TYPE"/
+%MappedType QVector<TYPE> /TypeHint="List[TYPE]", TypeHintValue="[]"/
 {
 %TypeHeaderCode
 #include <qvector.h>
@@ -95,7 +95,7 @@ template<TYPE>
 %End
 };
 // QVector<int> is implemented as a Python list of integers.
-%MappedType QVector<int> /DocType="list-of-int"/
+%MappedType QVector<int> /TypeHint="List[int]", TypeHintValue="[]"/
 {
 %TypeHeaderCode
 #include <qvector.h>
@@ -144,7 +144,7 @@ template<TYPE>
 %End
 };
 // QVector<unsigned> is implemented as a Python list of integers.
-%MappedType QVector<unsigned> /DocType="list-of-int"/
+%MappedType QVector<unsigned> /TypeHint="List[int]", TypeHintValue="[]"/
 {
 %TypeHeaderCode
 #include <qvector.h>
@@ -193,7 +193,7 @@ template<TYPE>
 %End
 };
 // QVector<qreal> is implemented as a Python list of floats.
-%MappedType QVector<qreal> /DocType="list-of-float"/
+%MappedType QVector<qreal> /TypeHint="List[float]", TypeHintValue="[]"/
 {
 %TypeHeaderCode
 #include <qvector.h>
@@ -241,7 +241,7 @@ template<TYPE>
 };
 // QVector<QPair<qreal, TYPE> > is implemented as a Python list of 2-element tuples.
 template<TYPE>
-%MappedType QVector<QPair<qreal, TYPE> > /DocType="list-of-tuple-of-float-TYPE"/
+%MappedType QVector<QPair<qreal, TYPE> > /TypeHint="List[Tuple[float, TYPE]]", TypeHintValue="[]"/
 {
 %TypeHeaderCode
 #include <qvector.h>

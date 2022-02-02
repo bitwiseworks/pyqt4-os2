@@ -2,7 +2,7 @@
 //
 // This file is part of the QtCore Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt4.
 // 
@@ -21,7 +21,7 @@
 
 
 // QPair<int, int> is implemented as a Python 2-element tuple.
-%MappedType QPair<int, int> /DocType="tuple-of-int-int"/
+%MappedType QPair<int, int> /TypeHint="Tuple[int, int]"/
 {
 %TypeHeaderCode
 #include <qpair.h>
@@ -48,7 +48,7 @@
 %End
 };
 // QPair<unsigned, unsigned> is implemented as a Python 2-element tuple.
-%MappedType QPair<unsigned, unsigned> /DocType="tuple-of-int-int"/
+%MappedType QPair<unsigned, unsigned> /TypeHint="Tuple[int, int]"/
 {
 %TypeHeaderCode
 #include <qpair.h>
@@ -77,7 +77,7 @@
 %If (Qt_4_5_0 -)
 // QPair<TYPE, int> is implemented as a Python 2-element tuple.
 template<TYPE>
-%MappedType QPair<TYPE, int> /DocType="tuple-of-TYPE-int"/
+%MappedType QPair<TYPE, int> /TypeHint="Tuple[TYPE, int]"/
 {
 %TypeHeaderCode
 #include <qpair.h>

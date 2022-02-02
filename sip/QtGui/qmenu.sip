@@ -2,7 +2,7 @@
 //
 // This file is part of the QtGui Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt4.
 // 
@@ -33,8 +33,72 @@ public:
     void addAction(QAction *action);
     QAction *addAction(const QString &text) /Transfer/;
     QAction *addAction(const QIcon &icon, const QString &text) /Transfer/;
-    QAction *addAction(const QString &text, SIP_RXOBJ_CON receiver, SIP_SLOT_CON() member, const QKeySequence &shortcut = 0) /Transfer/ [QAction * (const QString &text, const QObject *receiver, const char *member, const QKeySequence &shortcut = 0)];
-    QAction *addAction(const QIcon &icon, const QString &text, SIP_RXOBJ_CON receiver, SIP_SLOT_CON() member, const QKeySequence &shortcut = 0) /Transfer/ [QAction * (const QIcon &icon, const QString &text, const QObject *receiver, const char *member, const QKeySequence &shortcut = 0)];
+    QAction *addAction(const QString &text, const QObject *receiver, SIP_PYOBJECT member /TypeHint="QT_SLOT"/, const QKeySequence &shortcut = 0) /Transfer/;
+%MethodCode
+        const char *slot = pyqt4_qtgui_get_slot(a2);
+        
+        if (slot)
+        {
+            Py_BEGIN_ALLOW_THREADS
+            sipRes = sipCpp->addAction(*a0, a1, slot, *a3);
+            Py_END_ALLOW_THREADS
+        }
+        else
+        {
+            sipError = sipBadCallableArg(2, a2);
+        }
+%End
+
+    QAction *addAction(const QString &text, SIP_PYOBJECT slot /TypeHint="PYQT_SLOT"/, const QKeySequence &shortcut = 0) /Transfer/;
+%MethodCode
+        QObject *receiver;
+        QByteArray slot_signature;
+        
+        if ((sipError = pyqt4_qtgui_get_connection_parts(a1, 0, "()", false, &receiver, slot_signature)) == sipErrorNone)
+        {
+            Py_BEGIN_ALLOW_THREADS
+            sipRes = sipCpp->addAction(*a0, receiver, slot_signature.constData(), *a2);
+            Py_END_ALLOW_THREADS
+        }
+        else if (sipError == sipErrorContinue)
+        {
+            sipError = sipBadCallableArg(1, a1);
+        }
+%End
+
+    QAction *addAction(const QIcon &icon, const QString &text, const QObject *receiver, SIP_PYOBJECT member /TypeHint="QT_SLOT"/, const QKeySequence &shortcut = 0) /Transfer/;
+%MethodCode
+        const char *slot = pyqt4_qtgui_get_slot(a3);
+        
+        if (slot)
+        {
+            Py_BEGIN_ALLOW_THREADS
+            sipRes = sipCpp->addAction(*a0, *a1, a2, slot, *a4);
+            Py_END_ALLOW_THREADS
+        }
+        else
+        {
+            sipError = sipBadCallableArg(3, a3);
+        }
+%End
+
+    QAction *addAction(const QIcon &icon, const QString &text, SIP_PYOBJECT slot /TypeHint="PYQT_SLOT"/, const QKeySequence &shortcut = 0) /Transfer/;
+%MethodCode
+        QObject *receiver;
+        QByteArray slot_signature;
+        
+        if ((sipError = pyqt4_qtgui_get_connection_parts(a2, 0, "()", false, &receiver, slot_signature)) == sipErrorNone)
+        {
+            Py_BEGIN_ALLOW_THREADS
+            sipRes = sipCpp->addAction(*a0, *a1, receiver, slot_signature.constData(), *a3);
+            Py_END_ALLOW_THREADS
+        }
+        else if (sipError == sipErrorContinue)
+        {
+            sipError = sipBadCallableArg(2, a2);
+        }
+%End
+
     QAction *addMenu(QMenu *menu);
     QMenu *addMenu(const QString &title) /Transfer/;
     QMenu *addMenu(const QIcon &icon, const QString &title) /Transfer/;

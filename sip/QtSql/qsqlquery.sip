@@ -2,7 +2,7 @@
 //
 // This file is part of the QtSql Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt4.
 // 
@@ -42,7 +42,7 @@ public:
 %If (- Qt_5_0_0)
     QSqlQuery(QSqlResult *r);
 %End
-    QSqlQuery(const QString &query /DocValue="Py_v3:''"/ = QString(), QSqlDatabase db = QSqlDatabase());
+    QSqlQuery(const QString &query = QString(), QSqlDatabase db = QSqlDatabase());
     explicit QSqlQuery(QSqlDatabase db);
     QSqlQuery(const QSqlQuery &other);
     ~QSqlQuery();

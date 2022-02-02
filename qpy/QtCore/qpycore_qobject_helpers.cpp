@@ -1,6 +1,6 @@
 // This implements the helpers for QObject.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt4.
 // 
@@ -52,7 +52,9 @@ const QMetaObject *qpycore_qobject_metaobject(sipSimpleWrapper *pySelf,
         return QPYCORE_QMETAOBJECT(((pyqtWrapperType *)Py_TYPE(pySelf))->metaobject);
 
     // Fall back to the static Qt meta-object.
-    return reinterpret_cast<const QMetaObject *>(((pyqt4ClassTypeDef *)base)->static_metaobject);
+    const pyqt4ClassPluginDef *cpd = reinterpret_cast<const pyqt4ClassPluginDef *>(sipTypePluginData(base));
+
+    return reinterpret_cast<const QMetaObject *>(cpd->static_metaobject);
 }
 
 
@@ -305,7 +307,7 @@ PyObject *qpycore_qobject_staticmetaobject(PyObject *type_obj)
     else
     {
         // It's a wrapped type.
-        pyqt4ClassTypeDef *p4ctd = (pyqt4ClassTypeDef *)((sipWrapperType *)pyqt_wt)->type;
+        const pyqt4ClassPluginDef *p4ctd = reinterpret_cast<const pyqt4ClassPluginDef *>(sipTypePluginData(((sipWrapperType *)pyqt_wt)->wt_td));
 
         if (!p4ctd)
         {

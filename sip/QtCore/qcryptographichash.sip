@@ -2,7 +2,7 @@
 //
 // This file is part of the QtCore Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt4.
 // 
@@ -56,7 +56,7 @@ public:
 %End
     ~QCryptographicHash();
     void reset();
-    void addData(const char *data /Array/, int length /ArraySize/);
+    void addData(const char *data /Array, TypeHint="Py_v3:bytes;str"/, int length /ArraySize/);
     void addData(const QByteArray &data);
 %If (Qt_5_0_0 -)
     bool addData(QIODevice *device);

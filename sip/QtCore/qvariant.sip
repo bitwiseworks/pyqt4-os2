@@ -2,7 +2,7 @@
 //
 // This file is part of the QtCore Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt4.
 // 
@@ -20,11 +20,7 @@
 // WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
 
-%ModuleCode
-#include <qvariant.h>
-%End
-
-class QVariant /AllowNone,API=QVariant: - 2/
+class QVariant /AllowNone,API=QVariant: - 2,TypeHintIn="Union[QVariant, Any])"/
 {
 %TypeHeaderCode
 #include <qvariant.h>
@@ -261,9 +257,9 @@ public:
 %End
 };
 
-typedef QList<QVariant> QVariantList /DocType="Py_v3:list-of-object"/;
-// class QVariant /AllowNone,API=QVariant:2 -,DocType="object"/
-%MappedType QVariant /AllowNone,API=QVariant:2 -,DocType="object"/
+typedef QList<QVariant> QVariantList;
+// class QVariant /AllowNone, API=QVariant:2 -, TypeHint="Any"/
+%MappedType QVariant /AllowNone, API=QVariant:2 -, TypeHint="Any", TypeHintValue="None"/
 {
 %TypeHeaderCode
 #include <qvariant.h>
@@ -397,18 +393,15 @@ typedef QList<QVariant> QVariantList /DocType="Py_v3:list-of-object"/;
     static QVariant::Type nameToType(const char *name);
 };
 %If (Qt_4_5_0 -)
-typedef QHash<QString, QVariant> QVariantHash /DocType="Py_v3:dict-of-str-object"/;
+typedef QHash<QString, QVariant> QVariantHash;
 %End
 QDataStream &operator>>(QDataStream &s, QVariant &p /Constrained/) /API=QVariant: - 2/;
-typedef QMap<QString, QVariant> QVariantMap /DocType="Py_v3:dict-of-str-object"/;
+typedef QMap<QString, QVariant> QVariantMap;
 QDataStream &operator<<(QDataStream &s, const QVariant &p /Constrained/) /API=QVariant: - 2/;
 QDataStream &operator>>(QDataStream &s, QVariant::Type &p /Constrained,In/);
 QDataStream &operator<<(QDataStream &s, const QVariant::Type p /Constrained/);
-%If (Qt_4_3_0 -)
-void qSwap(QVariant &value1, QVariant &value2) /API=QVariant: - 2/;
-%End
 // QList<QVariant::Type> is implemented as a Python list.
-%MappedType QList<QVariant::Type> /DocType="list-of-QVariant.Type"/
+%MappedType QList<QVariant::Type> /TypeHint="List[QVariant.Type]", TypeHintValue="[]"/
 {
 %TypeHeaderCode
 #include <qvariant.h>

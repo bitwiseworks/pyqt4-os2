@@ -1,6 +1,6 @@
 // This contains the implementation of various odds and ends.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt4.
 // 
@@ -52,56 +52,3 @@ void qpycore_Unicode_ConcatAndDel(PyObject **string, PyObject *newpart)
     Py_XDECREF(newpart);
 }
 #endif
-
-
-// Convert a Python argv list to a conventional C argc count and argv array.
-char **qpycore_ArgvToC(PyObject *argvlist, int &argc)
-{
-    argc = PyList_GET_SIZE(argvlist);
-
-    // Allocate space for two copies of the argument pointers, plus the
-    // terminating NULL.
-    char **argv = new char *[2 * (argc + 1)];
-
-    // Convert the list.
-    for (int a = 0; a < argc; ++a)
-    {
-        PyObject *arg_obj = PyList_GET_ITEM(argvlist, a);
-        char *arg;
-
-        if (PyUnicode_Check(arg_obj))
-        {
-            QByteArray ba_arg = qpycore_PyObject_AsQString(arg_obj).toLocal8Bit();
-            arg = qstrdup(ba_arg.constData());
-        }
-        else if (SIPBytes_Check(arg_obj))
-        {
-            arg = qstrdup(SIPBytes_AS_STRING(arg_obj));
-        }
-        else
-        {
-            arg = const_cast<char *>("invalid");
-        }
-
-        argv[a] = argv[a + argc + 1] = arg;
-    }
-
-    argv[argc + argc + 1] = argv[argc] = NULL;
-
-    return argv;
-}
-
-
-// Remove arguments from the Python argv list that have been removed from the
-// C argv array.
-void qpycore_UpdatePyArgv(PyObject *argvlist, int argc, char **argv)
-{
-    for (int a = 0, na = 0; a < argc; ++a)
-    {
-        // See if it was removed.
-        if (argv[na] == argv[a + argc + 1])
-            ++na;
-        else
-            PyList_SetSlice(argvlist, na, na + 1, 0);
-    }
-}

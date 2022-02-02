@@ -2,7 +2,7 @@
 //
 // This file is part of the QtCore Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt4.
 // 
@@ -19,10 +19,6 @@
 // This file is provided AS IS with NO WARRANTY OF ANY KIND, INCLUDING THE
 // WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
-
-%ModuleCode
-#include <qrect.h>
-%End
 
 class QRect
 {
@@ -56,7 +52,7 @@ public:
     QRect(int aleft, int atop, int awidth, int aheight);
     QRect(const QPoint &atopLeft, const QPoint &abottomRight);
     QRect(const QPoint &atopLeft, const QSize &asize);
-    SIP_PYOBJECT __repr__() const /DocType="str"/;
+    SIP_PYOBJECT __repr__() const /TypeHint="str"/;
 %MethodCode
         if (sipCpp->isNull())
         {
@@ -175,7 +171,7 @@ public:
 %End
     QRectF(qreal aleft, qreal atop, qreal awidth, qreal aheight);
     QRectF(const QRect &r);
-    SIP_PYOBJECT __repr__() const /DocType="str"/;
+    SIP_PYOBJECT __repr__() const /TypeHint="str"/;
 %MethodCode
         if (sipCpp->isNull())
         {

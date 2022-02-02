@@ -1,3 +1,19 @@
+v4.12.3 31st August 2018
+  - This is planned to be the last ever release of PyQt4.
+  - Bug fixes.
+
+v4.12.2 14th August 2018
+  - A private copy of the sip module called PyQt4.sip is required.
+  - SIP v4.19.12 is now required.  SIP v5 is not supported.
+
+v4.12.1 30th June 2017
+  - SIP v4.19.1 is now required.
+  - Bug fixes.
+
+v4.12 26th December 2016
+  - SIP v4.19 is now required.
+  - Bug fixes.
+
 v4.11.4 11th June 2015
   - Added support for Qt v4.8.7.
   - Added QWIDGETSIZE_MAX to QtGui.

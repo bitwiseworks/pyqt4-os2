@@ -1,7 +1,7 @@
 // This is the implementation of the pySlot (and deprecated pyqtSignature)
 // decorator.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt4.
 // 
@@ -38,19 +38,21 @@ extern "C" {static PyObject *decorator(PyObject *self, PyObject *f);}
 
 // Get the bound QObject and slot signature from a callable (which should be a
 // decorated method).
-QByteArray qpycore_pyqtslot_get_parts(PyObject *callable, QObject **qrx)
+sipErrorState pyqt4_get_pyqtslot_parts(PyObject *callable, QObject **qrx,
+        QByteArray &slot_signature)
 {
     PyObject *qobj_obj, *decorations;
-    int is_err = 0;
+    int is_err;
     void *qobj;
     Chimera::Signature *sig;
-    QByteArray slot;
 
     // Get the QObject.
     qobj_obj = PyMethod_Self(callable);
 
     if (!qobj_obj)
         goto bad_callable;
+
+    is_err = 0;
 
     qobj = sipForceConvertToType(qobj_obj, sipType_QObject, 0,
             SIP_NO_CONVERTORS, 0, &is_err);
@@ -70,17 +72,17 @@ QByteArray qpycore_pyqtslot_get_parts(PyObject *callable, QObject **qrx)
     sig = Chimera::Signature::fromPyObject(PyList_GET_ITEM(decorations, 0));
     Py_DECREF(decorations);
 
-    slot = sig->signature;
-    slot.prepend('1');
+    slot_signature = sig->signature;
+    slot_signature.prepend('1');
 
-    return slot;
+    return sipErrorNone;
 
 bad_callable:
     PyErr_SetString(PyExc_TypeError,
             "callable must be a method of a QtCore.QObject instance decorated "
             "by QtCore.pyqtSlot");
 
-    return QByteArray();
+    return sipErrorFail;
 }
 
 
@@ -184,7 +186,11 @@ static PyObject *decorate(Chimera::Signature *parsed_sig, PyObject *res_obj,
     // Create the decorator function itself.  We stash the arguments in "self".
     // This may be an abuse, but it seems to be Ok.
     static PyMethodDef deco_method = {
-        SIP_MLNAME_CAST("_deco"), decorator, METH_O, 0
+#if PY_VERSION_HEX >= 0x02050000
+        "_deco", decorator, METH_O, 0
+#else
+        const_cast<char *>("_deco"), decorator, METH_O, 0
+#endif
     };
 
     PyObject *obj = PyCFunction_New(&deco_method, sig_obj);

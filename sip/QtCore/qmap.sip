@@ -2,7 +2,7 @@
 //
 // This file is part of the QtCore Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt4.
 // 
@@ -22,7 +22,7 @@
 
 // QMap<TYPE1, TYPE2> is implemented as a Python dictionary.
 template<TYPE1, TYPE2>
-%MappedType QMap<TYPE1, TYPE2> /DocType="dict-of-TYPE1-TYPE2"/
+%MappedType QMap<TYPE1, TYPE2> /TypeHint="Dict[TYPE1, TYPE2]", TypeHintValue="{}"/
 {
 %TypeHeaderCode
 #include <qmap.h>
@@ -133,7 +133,7 @@ template<TYPE1, TYPE2>
 };
 // QMap<int, TYPE> is implemented as a Python dictionary.
 template<TYPE>
-%MappedType QMap<int, TYPE> /DocType="dict-of-int-TYPE"/
+%MappedType QMap<int, TYPE> /TypeHint="Dict[int, TYPE]", TypeHintValue="{}"/
 {
 %TypeHeaderCode
 #include <qmap.h>
@@ -230,7 +230,7 @@ template<TYPE>
 };
 // QMultiMap<TYPE1, TYPE2> is implemented as a Python dictionary with a Python list as the value type.
 template<TYPE1, TYPE2>
-%MappedType QMultiMap<TYPE1, TYPE2> /DocType="dict-of-TYPE1-list-of-TYPE2"/
+%MappedType QMultiMap<TYPE1, TYPE2> /TypeHint="Dict[TYPE1, List[TYPE2]]", TypeHintValue="{}"/
 {
 %TypeHeaderCode
 #include <qmap.h>

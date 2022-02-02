@@ -1,6 +1,6 @@
 // This is the initialisation support code for the QtDeclarative module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt4.
 // 
@@ -51,18 +51,21 @@ void qpydeclarative_post_init(PyObject *module_dict)
         Py_FatalError("PyQt4.QtDeclarative: Failed to set QPyDeclarativeListProperty instance");
 
     // Get the Chimera helper registration functions.
-    void (*register_to_pyobject)(ToPyObjectFn);
-    register_to_pyobject = (void (*)(ToPyObjectFn))sipImportSymbol(
-            "qpycore_register_to_pyobject");
-    register_to_pyobject(qpydeclarative_to_pyobject);
+    void (*register_from_qvariant)(FromQVariantFn);
+    register_from_qvariant = (void (*)(FromQVariantFn))sipImportSymbol(
+            "pyqt4_register_from_qvariant_convertor");
+    Q_ASSERT(register_from_qvariant);
+    register_from_qvariant(qpydeclarative_from_qvariant);
 
     void (*register_to_qvariant)(ToQVariantFn);
     register_to_qvariant = (void (*)(ToQVariantFn))sipImportSymbol(
-            "qpycore_register_to_qvariant");
+            "pyqt4_register_to_qvariant_convertor");
+    Q_ASSERT(register_to_qvariant);
     register_to_qvariant(qpydeclarative_to_qvariant);
 
     void (*register_to_qvariant_data)(ToQVariantDataFn);
     register_to_qvariant_data = (void (*)(ToQVariantDataFn))sipImportSymbol(
-            "qpycore_register_to_qvariant_data");
+            "pyqt4_register_to_qvariant_data_convertor");
+    Q_ASSERT(register_to_qvariant_data);
     register_to_qvariant_data(qpydeclarative_to_qvariant_data);
 }

@@ -2,7 +2,7 @@
 //
 // This file is part of the QtMultimedia Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt4.
 // 
@@ -107,7 +107,7 @@ public:
 %End
 %If (Qt_4_6_0 -)
 // Mapped type for QList<QAudioFormat::Endian>.
-%MappedType QList<QAudioFormat::Endian> /DocType="list-of-QAudioFormat.Endian"/
+%MappedType QList<QAudioFormat::Endian> /TypeHint="List[QAudioFormat.Endian]", TypeHintValue="[]"/
 {
 %TypeHeaderCode
 #include <qaudioformat.h>
@@ -169,7 +169,7 @@ public:
 %End
 %If (Qt_4_6_0 -)
 // Mapped type for QList<QAudioFormat::SampleType>.
-%MappedType QList<QAudioFormat::SampleType> /DocType="list-of-QAudioFormat.SampleType"/
+%MappedType QList<QAudioFormat::SampleType> /TypeHint="List[QAudioFormat.SampleType]", TypeHintValue="[]"/
 {
 %TypeHeaderCode
 #include <qaudioformat.h>

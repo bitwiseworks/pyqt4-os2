@@ -2,7 +2,7 @@
 //
 // This file is part of the QtCore Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt4.
 // 
@@ -29,10 +29,10 @@ class QResource
 %End
 
 public:
-    QResource(const QString &fileName /DocValue="Py_v3:''"/ = QString(), const QLocale &locale = QLocale());
+    QResource(const QString &fileName = QString(), const QLocale &locale = QLocale());
     ~QResource();
     QString absoluteFilePath() const;
-    SIP_PYOBJECT data() const /DocType="Py_v3:bytes;str"/;
+    SIP_PYOBJECT data() const /TypeHint="Py_v3:bytes;str"/;
 %MethodCode
         // The data may contain embedded '\0's so set the size explicitly.
         
@@ -56,14 +56,14 @@ public:
     void setLocale(const QLocale &locale);
     qint64 size() const;
     static void addSearchPath(const QString &path);
-    static bool registerResource(const QString &rccFileName, const QString &mapRoot /DocValue="Py_v3:''"/ = QString());
+    static bool registerResource(const QString &rccFileName, const QString &mapRoot = QString());
 %If (Qt_4_3_0 -)
-    static bool registerResource(const uchar *rccData, const QString &mapRoot /DocValue="Py_v3:''"/ = QString()) /PyName=registerResourceData/;
+    static bool registerResource(const uchar *rccData, const QString &mapRoot = QString()) /PyName=registerResourceData/;
 %End
     static QStringList searchPaths();
-    static bool unregisterResource(const QString &rccFileName, const QString &mapRoot /DocValue="Py_v3:''"/ = QString());
+    static bool unregisterResource(const QString &rccFileName, const QString &mapRoot = QString());
 %If (Qt_4_3_0 -)
-    static bool unregisterResource(const uchar *rccData, const QString &mapRoot /DocValue="Py_v3:''"/ = QString()) /PyName=unregisterResourceData/;
+    static bool unregisterResource(const uchar *rccData, const QString &mapRoot = QString()) /PyName=unregisterResourceData/;
 %End
 
 protected:

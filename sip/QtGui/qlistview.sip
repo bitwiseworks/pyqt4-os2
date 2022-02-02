@@ -2,7 +2,7 @@
 //
 // This file is part of the QtGui Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt4.
 // 
@@ -97,7 +97,7 @@ signals:
 protected:
     virtual void scrollContentsBy(int dx, int dy);
 %If (Qt_5_0_0 -)
-    virtual void dataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight, const QVector<int> &roles /DocValue="[]"/ = QVector<int>());
+    virtual void dataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight, const QVector<int> &roles = QVector<int>());
 %End
 %If (- Qt_5_0_0)
     virtual void dataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight);

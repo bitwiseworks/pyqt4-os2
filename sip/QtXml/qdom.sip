@@ -2,7 +2,7 @@
 //
 // This file is part of the QtXml Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt4.
 // 
@@ -19,10 +19,6 @@
 // This file is provided AS IS with NO WARRANTY OF ANY KIND, INCLUDING THE
 // WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
-
-%ModuleCode
-#include <qdom.h>
-%End
 
 class QDomImplementation
 {
@@ -139,10 +135,10 @@ public:
 %If (- Qt_5_0_0)
     void save(QTextStream &, int) const /ReleaseGIL/;
 %End
-    QDomElement firstChildElement(const QString &tagName /DocValue="Py_v3:''"/ = QString()) const;
-    QDomElement lastChildElement(const QString &tagName /DocValue="Py_v3:''"/ = QString()) const;
-    QDomElement previousSiblingElement(const QString &tagName /DocValue="Py_v3:''"/ = QString()) const;
-    QDomElement nextSiblingElement(const QString &tagName /DocValue="Py_v3:''"/ = QString()) const;
+    QDomElement firstChildElement(const QString &tagName = QString()) const;
+    QDomElement lastChildElement(const QString &tagName = QString()) const;
+    QDomElement previousSiblingElement(const QString &tagName = QString()) const;
+    QDomElement nextSiblingElement(const QString &tagName = QString()) const;
     int lineNumber() const;
     int columnNumber() const;
 %If (Qt_4_3_0 -)
@@ -343,7 +339,7 @@ class QDomElement : QDomNode
 public:
     QDomElement();
     QDomElement(const QDomElement &x);
-    QString attribute(const QString &name, const QString &defaultValue /DocValue="Py_v3:''"/ = QString()) const;
+    QString attribute(const QString &name, const QString &defaultValue = QString()) const;
     void setAttribute(const QString &name, const QString &value);
     void setAttribute(const QString &name, qlonglong value);
     void setAttribute(const QString &name, qulonglong value);
@@ -355,7 +351,7 @@ public:
     QDomAttr removeAttributeNode(const QDomAttr &oldAttr);
     QDomNodeList elementsByTagName(const QString &tagname) const;
     bool hasAttribute(const QString &name) const;
-    QString attributeNS(const QString nsURI, const QString &localName, const QString &defaultValue /DocValue="Py_v3:''"/ = QString()) const;
+    QString attributeNS(const QString nsURI, const QString &localName, const QString &defaultValue = QString()) const;
     void setAttributeNS(const QString nsURI, const QString &qName, const QString &value);
     void setAttributeNS(const QString nsURI, const QString &qName, qlonglong value);
     void setAttributeNS(const QString nsURI, const QString &qName, qulonglong value);

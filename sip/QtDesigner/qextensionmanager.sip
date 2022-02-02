@@ -2,7 +2,7 @@
 //
 // This file is part of the QtDesigner Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt4.
 // 
@@ -71,7 +71,7 @@ class QExtensionManager : QObject, QAbstractExtensionManager
 public:
     QExtensionManager(QObject *parent /TransferThis/ = 0);
     virtual ~QExtensionManager();
-    virtual void registerExtensions(QAbstractExtensionFactory *factory, const QString &iid /DocValue="Py_v3:''"/ = QString());
-    virtual void unregisterExtensions(QAbstractExtensionFactory *factory, const QString &iid /DocValue="Py_v3:''"/ = QString());
+    virtual void registerExtensions(QAbstractExtensionFactory *factory, const QString &iid = QString());
+    virtual void unregisterExtensions(QAbstractExtensionFactory *factory, const QString &iid = QString());
     virtual QObject *extension(QObject *object, const QString &iid) const;
 };

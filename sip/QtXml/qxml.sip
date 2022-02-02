@@ -2,7 +2,7 @@
 //
 // This file is part of the QtXml Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt4.
 // 
@@ -112,7 +112,7 @@ class QXmlParseException
 %End
 
 public:
-    QXmlParseException(const QString &name /DocValue="Py_v3:''"/ = QString(), int column = -1, int line = -1, const QString &publicId /DocValue="Py_v3:''"/ = QString(), const QString &systemId /DocValue="Py_v3:''"/ = QString());
+    QXmlParseException(const QString &name = QString(), int column = -1, int line = -1, const QString &publicId = QString(), const QString &systemId = QString());
     ~QXmlParseException();
     int columnNumber() const;
     int lineNumber() const;

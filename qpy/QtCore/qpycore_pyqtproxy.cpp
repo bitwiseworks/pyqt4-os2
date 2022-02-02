@@ -1,6 +1,6 @@
 // This contains the implementation of the PyQtProxy class.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt4.
 // 
@@ -27,6 +27,7 @@
 
 #include "qpycore_chimera.h"
 #include "qpycore_qmetaobjectbuilder.h"
+#include "qpycore_qtlib.h"
 #include "qpycore_pyqtproxy.h"
 #include "qpycore_pyqtpyobject.h"
 #include "qpycore_sip.h"
@@ -111,7 +112,7 @@ PyQtProxy::PyQtProxy(sipWrapper *txObj, const char *sig, PyObject *rxObj,
     if (real_slot.signature)
     {
         // Save the slot.
-        if (sipSaveSlot(&real_slot.sip_slot, rxObj, slot) < 0)
+        if (qtlib_save_slot(&real_slot.sip_slot, rxObj, slot) < 0)
         {
             delete real_slot.signature;
             real_slot.signature = 0;
@@ -143,17 +144,17 @@ PyQtProxy::PyQtProxy(sipWrapper *txObj, const char *sig, PyObject *rxObj,
 
 // Create a universal proxy used as a slot being connected to a bound signal.
 // There will be no meta-object if there was a problem creating the proxy.
-PyQtProxy::PyQtProxy(qpycore_pyqtBoundSignal *bs, PyObject *rxObj,
-        const char **member)
-    : QObject(), type(PyQtProxy::ProxySlot), proxy_flags(0),
-        signature(bs->unbound_signal->signature->signature)
+PyQtProxy::PyQtProxy(QObject *qtx, const Chimera::Signature *signal_signature,
+        PyObject *rxObj, const char **member, int flags)
+    : QObject(), type(PyQtProxy::ProxySlot), proxy_flags(flags),
+        signature(signal_signature->signature)
 {
     SIP_BLOCK_THREADS
 
-    real_slot.signature = bs->unbound_signal->signature;
+    real_slot.signature = signal_signature;
 
     // Save the slot.
-    if (sipSaveSlot(&real_slot.sip_slot, rxObj, 0) < 0)
+    if (qtlib_save_slot(&real_slot.sip_slot, rxObj, 0) < 0)
         real_slot.signature = 0;
 
     SIP_UNBLOCK_THREADS
@@ -163,7 +164,7 @@ PyQtProxy::PyQtProxy(qpycore_pyqtBoundSignal *bs, PyObject *rxObj,
         // Return the slot to connect to.
         *member = SLOT(unislot());
 
-        init(bs->bound_qobject, &proxy_slots, bs->bound_qobject);
+        init(qtx, &proxy_slots, qtx);
     }
 }
 
@@ -334,7 +335,7 @@ PyQtProxy::~PyQtProxy()
         if (Py_IsInitialized())
         {
             SIP_BLOCK_THREADS
-            sipFreeSipslot(&real_slot.sip_slot);
+            qtlib_free_slot(&real_slot.sip_slot);
             SIP_UNBLOCK_THREADS
         }
 
@@ -442,7 +443,8 @@ void PyQtProxy::unislot(void **qargs)
         // The Python arguments will be the only argument.
         PyObject *pyargs = reinterpret_cast<PyQt_PyObject *>(qargs[1])->pyobject;
 
-        res = sipInvokeSlotEx(&real_slot.sip_slot, pyargs, no_receiver_check);
+        res = qtlib_invoke_slot(&real_slot.sip_slot, pyargs,
+                no_receiver_check);
     }
     else
     {
@@ -518,7 +520,8 @@ PyObject *PyQtProxy::invokeSlot(const qpycore_slot &slot, void **qargs,
     }
 
     // Dispatch to the real slot.
-    PyObject *res = sipInvokeSlotEx(&slot.sip_slot, argtup, no_receiver_check);
+    PyObject *res = qtlib_invoke_slot(&slot.sip_slot, argtup,
+            no_receiver_check);
 
     Py_DECREF(argtup);
 
@@ -549,7 +552,7 @@ PyQtProxy *PyQtProxy::findSlotProxy(void *tx, const char *sig, PyObject *rxObj,
     {
         PyQtProxy *up = it.value();
 
-        if (up->signature == sig && sipSameSlot(&up->real_slot.sip_slot, rxObj, slot))
+        if (up->signature == sig && qtlib_same_slot(&up->real_slot.sip_slot, rxObj, slot))
         {
             *member = SLOT(unislot());
             proxy = up;
@@ -589,6 +592,99 @@ void PyQtProxy::deleteSlotProxies(void *tx, const char *sig)
     }
 
     mutex->unlock();
+}
+
+
+#if SIP_VERSION >= 0x050000
+// Clear the extra references of any slots connected to a transmitter.  This is
+// called with the GIL.
+int PyQtProxy::clearSlotProxies(const QObject *transmitter)
+{
+    ProxyHash::iterator it(
+            proxy_slots.find(const_cast<QObject *>(transmitter)));
+    ProxyHash::iterator end(proxy_slots.end());
+
+    while (it != end && it.key() == transmitter)
+    {
+        sipSlot *slot = &it.value()->real_slot.sip_slot;
+
+        if (slot->weakSlot == Py_True)
+        {
+            PyObject *xref = slot->pyobj;
+
+            // Replace the slot with None.  We don't use NULL as this has
+            // another meaning.
+            Py_INCREF(Py_None);
+            slot->pyobj = Py_None;
+
+            Py_DECREF(xref);
+        }
+
+        ++it;
+    }
+
+    return 0;
+}
+#endif
+
+
+// A thing wrapper available to the generated code.
+int qpycore_clearSlotProxies(const QObject *transmitter)
+{
+#if SIP_VERSION >= 0x050000
+    return PyQtProxy::clearSlotProxies(transmitter);
+#else
+    Q_UNUSED(transmitter);
+
+    return 0;
+#endif
+}
+
+
+#if SIP_VERSION >= 0x050000
+// Visit the extra references of any slots connected to a transmitter.  This is
+// called with the GIL.
+int PyQtProxy::visitSlotProxies(const QObject *transmitter,
+        visitproc visit, void *arg)
+{
+    int vret = 0;
+
+    ProxyHash::iterator it(
+            proxy_slots.find(const_cast<QObject *>(transmitter)));
+    ProxyHash::iterator end(proxy_slots.end());
+
+    while (it != end && it.key() == transmitter)
+    {
+        sipSlot *slot = &it.value()->real_slot.sip_slot;
+
+        // See if the slot has an extra reference.
+        if (slot->weakSlot == Py_True && slot->pyobj != Py_None)
+        {
+            if ((vret = visit(slot->pyobj, arg)) != 0)
+                break;
+        }
+
+        ++it;
+    }
+
+    return vret;
+}
+#endif
+
+
+// A thing wrapper available to the generated code.
+int qpycore_visitSlotProxies(const QObject *transmitter, visitproc visit,
+        void *arg)
+{
+#if SIP_VERSION >= 0x050000
+    return PyQtProxy::visitSlotProxies(transmitter, visit, arg);
+#else
+    Q_UNUSED(transmitter);
+    Q_UNUSED(visit);
+    Q_UNUSED(arg);
+
+    return 0;
+#endif
 }
 
 

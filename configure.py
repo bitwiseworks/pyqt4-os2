@@ -1,6 +1,6 @@
 # This script generates the PyQt configuration and generates the Makefiles.
 #
-# Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+# Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 # 
 # This file is part of PyQt4.
 # 
@@ -28,10 +28,10 @@ import sipconfig
 
 
 # Initialise the globals.
-pyqt_version = 0x040b04
-pyqt_version_str = "4.11.4"
+pyqt_version = 0x040c03
+pyqt_version_str = "4.12.3"
 
-sip_min_version = 0x041004
+sip_min_version = 0x04130c
 
 qt_version = 0
 qt_edition = ""
@@ -360,7 +360,6 @@ class ConfigurePyQt4:
             check_module("QtScript", "qscriptengine.h", "new QScriptEngine()")
             check_module("QtScriptTools", "qscriptenginedebugger.h",
                     "new QScriptEngineDebugger()")
-            check_module("QtXml", "qdom.h", "new QDomDocument()")
 
         check_module("QtOpenGL", "qgl.h", "new QGLWidget()")
         check_module("QtSql", "qsqldatabase.h", "new QSqlDatabase()",
@@ -368,6 +367,7 @@ class ConfigurePyQt4:
         check_module("QtSvg", "qsvgwidget.h", "new QSvgWidget()")
         check_module("QtTest", "QtTest", "QTest::qSleep(0)")
         check_module("QtWebKit", "qwebpage.h", "new QWebPage()")
+        check_module("QtXml", "qdom.h", "new QDomDocument()")
         check_module("QtXmlPatterns", "qxmlname.h", "new QXmlName()")
         check_module("phonon", "phonon/videowidget.h",
                 "new Phonon::VideoWidget()")
@@ -1430,7 +1430,7 @@ def set_sip_flags(pyqt):
 
     pyqt is the configuration instance.
     """
-    sip_flags = []
+    sip_flags = ['-n', 'PyQt4.sip']
 
     # If we don't check for signed interpreters, we exclude the 'VendorID'
     # feature
@@ -1478,6 +1478,10 @@ def set_sip_flags(pyqt):
     if sipcfg.py_version < 0x030000:
         sip_flags.append("-x")
         sip_flags.append("Py_v3")
+
+    # Generate code for a debug build of Python if needed.
+    if hasattr(sys, "gettotalrefcount"):
+        sip_flags.append("-D")
 
     qt_sip_flags.extend(sip_flags)
 
@@ -1589,7 +1593,7 @@ def generate_code(mname, extra_include_dirs=None, extra_lib_dirs=None, extra_lib
             needed_qt_libs(mname, qt_libs)
 
     # Build the SIP command line.
-    argv = ['"' + sipcfg.sip_bin + '"', '-w']
+    argv = ['"' + sipcfg.sip_bin + '"', '-w', '-n', 'PyQt4.sip']
 
     if opts.no_timestamp:
         argv.append("-T")
@@ -1635,7 +1639,7 @@ def generate_code(mname, extra_include_dirs=None, extra_lib_dirs=None, extra_lib
         argv.append("sip/Qt/Qtmod.sip")
     else:
         drive, path = os.path.splitdrive(src_dir)
-        parts = path.split(os.pathsep)
+        parts = path.split(os.sep)
         parts.extend(["sip", mname, mname + "mod.sip"])
         argv.append(drive + "/".join(parts))
 

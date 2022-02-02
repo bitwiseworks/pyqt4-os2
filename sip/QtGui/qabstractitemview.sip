@@ -2,7 +2,7 @@
 //
 // This file is part of the QtGui Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt4.
 // 
@@ -19,10 +19,6 @@
 // This file is provided AS IS with NO WARRANTY OF ANY KIND, INCLUDING THE
 // WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
-
-%ModuleCode
-#include <qabstractitemview.h>
-%End
 
 class QAbstractItemView : QAbstractScrollArea
 {
@@ -170,7 +166,7 @@ public slots:
 
 protected slots:
 %If (Qt_5_0_0 -)
-    virtual void dataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight, const QVector<int> &roles /DocValue="[]"/ = QVector<int>());
+    virtual void dataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight, const QVector<int> &roles = QVector<int>());
 %End
 %If (- Qt_5_0_0)
     virtual void dataChanged(const QModelIndex &topLeft, const QModelIndex &bottomRight);

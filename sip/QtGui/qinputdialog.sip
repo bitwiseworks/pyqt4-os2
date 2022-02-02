@@ -2,7 +2,7 @@
 //
 // This file is part of the QtGui Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt4.
 // 
@@ -19,10 +19,6 @@
 // This file is provided AS IS with NO WARRANTY OF ANY KIND, INCLUDING THE
 // WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
-
-%ModuleCode
-#include <qinputdialog.h>
-%End
 
 class QInputDialog : QDialog
 {
@@ -57,13 +53,13 @@ public:
     static QString getText(QWidget *parent, const QString &title, const QString &label, QLineEdit::EchoMode echo = QLineEdit::Normal, const QString &text = QString(), bool *ok = 0, Qt::WindowFlags flags = 0, Qt::InputMethodHints inputMethodHints = Qt::ImhNone);
 %End
 %If (Qt_4_2_0 - Qt_5_0_0)
-    static QString getText(QWidget *parent, const QString &title, const QString &label, QLineEdit::EchoMode mode = QLineEdit::Normal, const QString &text /DocValue="Py_v3:''"/ = QString(), bool *ok = 0, Qt::WindowFlags flags = 0) /ReleaseGIL/;
+    static QString getText(QWidget *parent, const QString &title, const QString &label, QLineEdit::EchoMode mode = QLineEdit::Normal, const QString &text = QString(), bool *ok = 0, Qt::WindowFlags flags = 0) /ReleaseGIL/;
 %End
 %If (Qt_4_8_0 - Qt_5_0_0)
     static QString getText(QWidget *parent, const QString &title, const QString &label, QLineEdit::EchoMode mode, const QString &text, bool *ok, Qt::WindowFlags flags, Qt::InputMethodHints inputMethodHints);
 %End
 %If (- Qt_4_2_0)
-    static QString getText(QWidget *parent, const QString &title, const QString &label, QLineEdit::EchoMode mode = QLineEdit::Normal, const QString &text /DocValue="Py_v3:''"/ = QString(), bool *ok = 0, Qt::WFlags flags = 0) /ReleaseGIL/;
+    static QString getText(QWidget *parent, const QString &title, const QString &label, QLineEdit::EchoMode mode = QLineEdit::Normal, const QString &text = QString(), bool *ok = 0, Qt::WFlags flags = 0) /ReleaseGIL/;
 %End
 %If (Qt_4_5_0 -)
     static int getInt(QWidget *parent, const QString &title, const QString &label, int value = 0, int min = -2147483647, int max = 2147483647, int step = 1, bool *ok = 0, Qt::WindowFlags flags = 0);
@@ -233,7 +229,41 @@ public:
     void open();
 %End
 %If (Qt_4_5_0 -)
-    void open(SIP_RXOBJ_CON receiver, SIP_SLOT_CON() member) [void (QObject *receiver, const char *member)];
+    void open(QObject *receiver, SIP_PYOBJECT member /TypeHint="QT_SLOT"/);
+%MethodCode
+        const char *slot = pyqt4_qtgui_get_slot(a1);
+        
+        if (slot)
+        {
+            Py_BEGIN_ALLOW_THREADS
+            sipCpp->open(a0, slot);
+            Py_END_ALLOW_THREADS
+        }
+        else
+        {
+            sipError = sipBadCallableArg(1, a1);
+        }
+%End
+
+%End
+%If (Qt_4_5_0 -)
+    void open(SIP_PYOBJECT slot /TypeHint="PYQT_SLOT"/);
+%MethodCode
+        QObject *receiver;
+        QByteArray slot_signature;
+        
+        if ((sipError = pyqt4_qtgui_get_connection_parts(a0, 0, "()", false, &receiver, slot_signature)) == sipErrorNone)
+        {
+            Py_BEGIN_ALLOW_THREADS
+            sipCpp->open(receiver, slot_signature.constData());
+            Py_END_ALLOW_THREADS
+        }
+        else if (sipError == sipErrorContinue)
+        {
+            sipError = sipBadCallableArg(0, a0);
+        }
+%End
+
 %End
 %If (Qt_4_5_0 -)
     virtual QSize minimumSizeHint() const;

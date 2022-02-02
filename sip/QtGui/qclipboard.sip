@@ -2,7 +2,7 @@
 //
 // This file is part of the QtGui Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt4.
 // 
@@ -55,7 +55,7 @@ public:
 %End
     bool ownsSelection() const;
     QString text(QClipboard::Mode mode = QClipboard::Clipboard) const;
-    SIP_PYTUPLE text(const QString &subtype, QClipboard::Mode mode = QClipboard::Clipboard) const /DocType="Py_v3:(str, str);(QString, QString)", API=QString:2 - /;
+    SIP_PYTUPLE text(const QString &subtype, QClipboard::Mode mode = QClipboard::Clipboard) const /TypeHint="Tuple[QString, QString]", API=QString:2 - /;
 %MethodCode
         QString *text;
         QString *subtype = new QString(*a0);
@@ -114,7 +114,34 @@ signals:
 
 protected:
 %If (- Qt_5_0_0)
-    virtual void connectNotify(SIP_SIGNAL);
+    virtual void connectNotify(SIP_PYOBJECT /TypeHint="QT_SIGNAL"/) [void (const char *)];
+%MethodCode
+        typedef const char *(*pyqt4_get_signal_t)(PyObject *);
+        
+        static pyqt4_get_signal_t pyqt4_get_signal = 0;
+        
+        if (!pyqt4_get_signal)
+        {
+            pyqt4_get_signal = (pyqt4_get_signal_t)sipImportSymbol("pyqt4_get_signal");
+            Q_ASSERT(pyqt4_get_signal);
+        }
+        
+        const char *sig = pyqt4_get_signal(a0);
+            
+        if (sig)
+        {
+        #if defined(SIP_PROTECTED_IS_PUBLIC)
+            (sipSelfWasArg ? sipCpp->QClipboard::connectNotify(sig) : sipCpp->connectNotify(sig));
+        #else
+            sipCpp->sipProtectVirt_connectNotify(sipSelfWasArg, sig);
+        #endif
+        }
+        else
+        {
+            sipError = sipBadCallableArg(0, a0);
+        }
+%End
+
 %End
 %If (- Qt_5_0_0)
     virtual bool event(QEvent *);

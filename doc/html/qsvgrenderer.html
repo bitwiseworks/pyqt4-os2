@@ -98,12 +98,12 @@ if the content was successfully parsed; otherwise returns
 false.</p>
 
 
-<h3 class="fn"><a name="load-2" />bool QSvgRenderer.load (<i>self</i>, <a href="qbytearray.html">QByteArray</a>&#160;<i>contents</i>)</h3><p>This method is also a Qt slot with the C++ signature <tt>bool load(const QByteArray&amp;)</tt>.</p><p>Loads the specified SVG format <i>contents</i>, returning true
+<h3 class="fn"><a name="load-2" />bool QSvgRenderer.load (<i>self</i>, <a href="qbytearray.html">QByteArray</a>&#160;<i>contents</i>)</h3><p>This method is also a Qt slot with the C++ signature <tt>bool load(const  ::QByteArray&amp;)</tt>.</p><p>Loads the specified SVG format <i>contents</i>, returning true
 if the content was successfully parsed; otherwise returns
 false.</p>
 
 
-<h3 class="fn"><a name="load-3" />bool QSvgRenderer.load (<i>self</i>, <a href="qxmlstreamreader.html">QXmlStreamReader</a>&#160;<i>contents</i>)</h3><p>This method is also a Qt slot with the C++ signature <tt>bool load(QXmlStreamReader*)</tt>.</p><p>Loads the specified SVG in <i>contents</i>, returning true if
+<h3 class="fn"><a name="load-3" />bool QSvgRenderer.load (<i>self</i>, <a href="qxmlstreamreader.html">QXmlStreamReader</a>&#160;<i>contents</i>)</h3><p>This method is also a Qt slot with the C++ signature <tt>bool load( ::QXmlStreamReader*)</tt>.</p><p>Loads the specified SVG in <i>contents</i>, returning true if
 the content was successfully parsed; otherwise returns false.</p>
 <p>The reader will be used from where it currently is positioned.
 If <i>contents</i> is <tt>null</tt>, behavior is undefined.</p>
@@ -121,17 +121,17 @@ from <a href="qsvgrenderer.html#boundsOnElement">boundsOnElement</a>().</p>
 <p><b>See also</b> <a href="qsvgrenderer.html#boundsOnElement">boundsOnElement</a>().</p>
 
 
-<h3 class="fn"><a name="render" />QSvgRenderer.render (<i>self</i>, <a href="qpainter.html">QPainter</a>&#160;<i>p</i>)</h3><p>This method is also a Qt slot with the C++ signature <tt>void render(QPainter*)</tt>.</p><p>Renders the current document, or the current frame of an
+<h3 class="fn"><a name="render" />QSvgRenderer.render (<i>self</i>, <a href="qpainter.html">QPainter</a>&#160;<i>p</i>)</h3><p>This method is also a Qt slot with the C++ signature <tt>void render( ::QPainter*)</tt>.</p><p>Renders the current document, or the current frame of an
 animated document, using the given <i>painter</i>.</p>
 
 
-<h3 class="fn"><a name="render-2" />QSvgRenderer.render (<i>self</i>, <a href="qpainter.html">QPainter</a>&#160;<i>p</i>, <a href="qrectf.html">QRectF</a>&#160;<i>bounds</i>)</h3><p>This method is also a Qt slot with the C++ signature <tt>void render(QPainter*,const QRectF&amp;)</tt>.</p><p>Renders the current document, or the current frame of an
+<h3 class="fn"><a name="render-2" />QSvgRenderer.render (<i>self</i>, <a href="qpainter.html">QPainter</a>&#160;<i>p</i>, <a href="qrectf.html">QRectF</a>&#160;<i>bounds</i>)</h3><p>This method is also a Qt slot with the C++ signature <tt>void render( ::QPainter*,const  ::QRectF&amp;)</tt>.</p><p>Renders the current document, or the current frame of an
 animated document, using the given <i>painter</i> on the specified
 <i>bounds</i> within the painter. If the bounding rectangle is not
 specified the SVG file is mapped to the whole paint device.</p>
 
 
-<h3 class="fn"><a name="render-3" />QSvgRenderer.render (<i>self</i>, <a href="qpainter.html">QPainter</a>&#160;<i>painter</i>, QString&#160;<i>elementId</i>, <a href="qrectf.html">QRectF</a>&#160;<i>bounds</i>&#160;=&#160;QRectF())</h3><p>This method is also a Qt slot with the C++ signature <tt>void render(QPainter*,const QString&amp;,const QRectF&amp; = QRectF())</tt>.</p><p>Renders the given element with <i>elementId</i> using the given
+<h3 class="fn"><a name="render-3" />QSvgRenderer.render (<i>self</i>, <a href="qpainter.html">QPainter</a>&#160;<i>painter</i>, QString&#160;<i>elementId</i>, <a href="qrectf.html">QRectF</a>&#160;<i>bounds</i>&#160;=&#160;QRectF())</h3><p>This method is also a Qt slot with the C++ signature <tt>void render( ::QPainter*,const QString&amp;,const  ::QRectF&amp; = QRectF())</tt>.</p><p>Renders the given element with <i>elementId</i> using the given
 <i>painter</i> on the specified <i>bounds</i>. If the bounding
 rectangle is not specified the SVG element is mapped to the whole
 paint device.</p>
@@ -143,4 +143,4 @@ paint device.</p>
 needs to be updated, usually for the purposes of animation.</p>
 
 
-<address><hr /><div align="center"><table border="0" cellspacing="0" width="100%"><tr class="address"><td align="left" width="25%">PyQt&#160;4.11.4 for X11</td><td align="center" width="50%">Copyright &#169; <a href="http://www.riverbankcomputing.com">Riverbank&#160;Computing&#160;Ltd</a> and <a href="http://www.qt.io">The Qt Company</a> 2015</td><td align="right" width="25%">Qt&#160;4.8.7</td></tr></table></div></address></body></html>
+<address><hr /><div align="center"><table border="0" cellspacing="0" width="100%"><tr class="address"><td align="left" width="25%">PyQt&#160;4.12.3 for X11</td><td align="center" width="50%">Copyright &#169; <a href="http://www.riverbankcomputing.com">Riverbank&#160;Computing&#160;Ltd</a> and <a href="http://www.qt.io">The Qt Company</a> 2015</td><td align="right" width="25%">Qt&#160;4.8.7</td></tr></table></div></address></body></html>

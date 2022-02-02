@@ -2,7 +2,7 @@
 //
 // This file is part of the QtGui Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt4.
 // 
@@ -20,10 +20,6 @@
 // WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
 
-%ModuleCode
-#include <qpicture.h>
-%End
-
 class QPicture : QPaintDevice
 {
 %TypeHeaderCode
@@ -38,7 +34,7 @@ public:
     virtual int devType() const;
     uint size() const;
     const char *data() const /Encoding="None"/;
-    virtual void setData(const char *data /Array/, uint size /ArraySize/);
+    virtual void setData(const char *data /Array, TypeHint="Py_v3:bytes;str"/, uint size /ArraySize/);
     bool play(QPainter *p);
     bool load(QIODevice *dev, const char *format = 0) /ReleaseGIL/;
     bool load(const QString &fileName, const char *format = 0) /ReleaseGIL/;
@@ -149,7 +145,7 @@ public:
     static QByteArray pictureFormat(QIODevice *);
     static QList<QByteArray> inputFormats();
     static QList<QByteArray> outputFormats();
-    static void defineIOHandler(const char *format, const char *header, const char *flags, SIP_PYCALLABLE read_picture /AllowNone/, SIP_PYCALLABLE write_picture /AllowNone/);
+    static void defineIOHandler(const char *format, const char *header, const char *flags, SIP_PYCALLABLE read_picture /AllowNone,TypeHint="Optional[Callable[[QPictureIO], None]]"/, SIP_PYCALLABLE write_picture /AllowNone,TypeHint="Optional[Callable[[QPictureIO], None]]"/);
 %MethodCode
         // Convert None to NULL.
         if (a3 == Py_None)
@@ -196,6 +192,3 @@ private:
 
 QDataStream &operator<<(QDataStream &in, const QPicture &p /Constrained/);
 QDataStream &operator>>(QDataStream &in, QPicture &p /Constrained/);
-%If (Qt_4_3_0 -)
-void qSwap(QPicture &value1, QPicture &value2);
-%End

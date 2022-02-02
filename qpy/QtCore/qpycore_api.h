@@ -1,7 +1,7 @@
 // This defines the API provided by this library.  It must not be explicitly
 // included by the library itself.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt4.
 // 
@@ -28,7 +28,7 @@
 #include <QVariant>
 
 #include "qpycore_namespace.h"
-#include "qpycore_shared.h"
+#include "qpycore_public_api.h"
 
 
 QT_BEGIN_NAMESPACE
@@ -86,8 +86,14 @@ PyObject *qpycore_qobject_getattr(QObject *qobj, PyObject *py_qobj,
 // Support for QObject.staticMetaObject %GetCode.
 PyObject *qpycore_qobject_staticmetaobject(PyObject *type_obj);
 
-// Support for emitting signals.
-bool qpycore_qobject_emit(QObject *qtx, const char *sig, PyObject *sigargs);
+// Support for signals/slots.
+PyObject *qpycore_qobject_connect(sipErrorState *estate, QObject *qtx,
+        PyObject *txObj, PyObject *sigObj, PyObject *rxObj, PyObject *slotObj,
+        int type);
+PyObject *qpycore_qobject_disconnect(sipErrorState *estate, QObject *qtx,
+        PyObject *sigObj, PyObject *rxObj, PyObject *slotObj);
+sipErrorState qpycore_qobject_emit(QObject *qtx, PyObject *sigObj,
+        PyObject *sigargs);
 
 #if QT_VERSION < 0x050000
 // Support for QAbstractEventDispatcher.setEventFilter().
@@ -104,6 +110,11 @@ QVariant *qpycore_qpynullvariant(PyObject *type);
 
 // Support for pyqt[Set]PickleProtocol().
 extern PyObject *qpycore_pickle_protocol;
+
+// Support for QObject's garbage collector code.
+int qpycore_clearSlotProxies(const QObject *transmitter);
+int qpycore_visitSlotProxies(const QObject *transmitter, visitproc visit,
+        void *arg);
 
 // Utilities.
 #if PY_MAJOR_VERSION >= 3

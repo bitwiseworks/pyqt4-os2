@@ -2,7 +2,7 @@
 //
 // This file is part of the QtGui Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt4.
 // 
@@ -82,15 +82,15 @@ public:
 %End
     QStringList families(QFontDatabase::WritingSystem writingSystem = QFontDatabase::Any) const;
     QStringList styles(const QString &family) const;
-    QList<int> pointSizes(const QString &family, const QString &style /DocValue="Py_v3:''"/ = QString());
+    QList<int> pointSizes(const QString &family, const QString &style = QString());
     QList<int> smoothSizes(const QString &family, const QString &style);
     QString styleString(const QFont &font);
     QString styleString(const QFontInfo &fontInfo);
     QFont font(const QString &family, const QString &style, int pointSize) const;
-    bool isBitmapScalable(const QString &family, const QString &style /DocValue="Py_v3:''"/ = QString()) const;
-    bool isSmoothlyScalable(const QString &family, const QString &style /DocValue="Py_v3:''"/ = QString()) const;
-    bool isScalable(const QString &family, const QString &style /DocValue="Py_v3:''"/ = QString()) const;
-    bool isFixedPitch(const QString &family, const QString &style /DocValue="Py_v3:''"/ = QString()) const;
+    bool isBitmapScalable(const QString &family, const QString &style = QString()) const;
+    bool isSmoothlyScalable(const QString &family, const QString &style = QString()) const;
+    bool isScalable(const QString &family, const QString &style = QString()) const;
+    bool isFixedPitch(const QString &family, const QString &style = QString()) const;
     bool italic(const QString &family, const QString &style) const;
     bool bold(const QString &family, const QString &style) const;
     int weight(const QString &family, const QString &style) const;
@@ -117,7 +117,7 @@ public:
 };
 
 // QList<QFontDatabase::WritingSystem> is implemented as a Python list.
-%MappedType QList<QFontDatabase::WritingSystem> /DocType="list-of-QFontDatabase.WritingSystem"/
+%MappedType QList<QFontDatabase::WritingSystem> /TypeHint="List[QFontDatabase.WritingSystem]", TypeHintValue="[]"/
 {
 %TypeHeaderCode
 #include <qfontdatabase.h>

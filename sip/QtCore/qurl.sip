@@ -2,7 +2,7 @@
 //
 // This file is part of the QtCore Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt4.
 // 
@@ -19,10 +19,6 @@
 // This file is provided AS IS with NO WARRANTY OF ANY KIND, INCLUDING THE
 // WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
-
-%ModuleCode
-#include <qurl.h>
-%End
 
 %If (Qt_5_0_0 -)
 // Template definition for QUrlTwoFlags.
@@ -145,7 +141,7 @@ public:
         }
 %End
 
-    SIP_PYOBJECT __repr__() const /DocType="str"/;
+    SIP_PYOBJECT __repr__() const /TypeHint="str"/;
 %MethodCode
         PyObject *uni = qpycore_PyObject_FromQString(sipCpp->toString());
         
@@ -167,7 +163,7 @@ public:
 
     enum UrlFormattingOption
     {
-        None,
+        None /PyName=None_/,
         RemoveScheme,
         RemovePassword,
         RemoveUserInfo,
@@ -188,7 +184,7 @@ public:
 
     enum FormattingOption
     {
-        None,
+        None /PyName=None_/,
         RemoveScheme,
         RemovePassword,
         RemoveUserInfo,
@@ -389,13 +385,13 @@ public:
     QString toString(QUrlTwoFlags<QUrl::UrlFormattingOption, QUrl::ComponentFormattingOption> options = QUrl::PrettyDecoded) const;
 %End
 %If (- Qt_5_0_0)
-    QString toString(QFlags<QUrl::FormattingOption> options = QUrl::None) const;
+    QString toString(QFlags<QUrl::FormattingOption> options /TypeHintValue="QUrl.None_"/ = QUrl::None) const;
 %End
 %If (Qt_5_0_0 -)
     QByteArray toEncoded(QUrlTwoFlags<QUrl::UrlFormattingOption, QUrl::ComponentFormattingOption> options = QUrl::FullyEncoded) const;
 %End
 %If (- Qt_5_0_0)
-    QByteArray toEncoded(QFlags<QUrl::FormattingOption> options = QUrl::None) const;
+    QByteArray toEncoded(QFlags<QUrl::FormattingOption> options /TypeHintValue="QUrl.None_"/ = QUrl::None) const;
 %End
 %If (Qt_5_0_0 -)
     static QUrl fromEncoded(const QByteArray &u, QUrl::ParsingMode mode = QUrl::TolerantMode);
@@ -564,9 +560,6 @@ QFlags<QUrl::ComponentFormattingOption> operator|(QUrl::ComponentFormattingOptio
 %End
 QDataStream &operator<<(QDataStream &, const QUrl & /Constrained/);
 QDataStream &operator>>(QDataStream &, QUrl & /Constrained/);
-%If (Qt_4_3_0 -)
-void qSwap(QUrl &value1, QUrl &value2);
-%End
 %If (Qt_5_0_0 -)
 QUrlTwoFlags<QUrl::UrlFormattingOption, QUrl::ComponentFormattingOption> operator|(QUrl::UrlFormattingOption f1, QUrlTwoFlags<QUrl::UrlFormattingOption, QUrl::ComponentFormattingOption> f2);
 %End

@@ -216,10 +216,10 @@ int main( int argc, char **argv )
             f.close();
         }
 
-        QString oldDir = QDir::currentPath();
-        QDir::setCurrent( QFileInfo(argv[i]).path() );
-
         if ( standardSyntax ) {
+            QString oldDir = QDir::currentPath();
+            QDir::setCurrent( QFileInfo(argv[i]).path() );
+
             fetchedTor = MetaTranslator();
             codecForTr.clear();
             codecForSource.clear();
@@ -273,6 +273,8 @@ int main( int argc, char **argv )
                          " project file '%s'\n",
                          argv[i] );
             }
+
+            QDir::setCurrent( oldDir );
         } else {
             if ( metTsFlag ) {
                 if ( QString(argv[i]).toLower().endsWith(".ts") ) {
@@ -293,15 +295,15 @@ int main( int argc, char **argv )
             } else {
                 QFileInfo fi(argv[i]);
         if ( fi.suffix() == "py" || fi.suffix() == "pyw" ) {
-            fetchtr_py(fi.fileName().toLatin1(), &fetchedTor,
+            fetchtr_py(fi.absoluteFilePath().toLatin1(), &fetchedTor,
                     defaultContext.toLatin1(), true, codecForSource, tr_func,
                     trUtf8_func, translate_func);
         } else {
-            fetchtr_ui( fi.fileName().toLatin1(), &fetchedTor, defaultContext.toLatin1(), true);
+            fetchtr_ui(fi.absoluteFilePath().toLatin1(), &fetchedTor,
+                    defaultContext.toLatin1(), true);
         }
             }
         }
-        QDir::setCurrent( oldDir );
     }
 
     if ( !standardSyntax )

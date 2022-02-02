@@ -8,7 +8,7 @@ tr.address { font-family: sans-serif }
 body { background: #ffffff; color: black; }
 </style></head><body><table border="0" cellpadding="0" cellspacing="0" width="100%"><tr /><td align="left" valign="top" width="32"><img align="left" border="0" height="32" src="images/rb-logo.png" width="32" /></td><td width="1">&#160;&#160;</td><td class="postheader" valign="center"><a href="index.html"><font color="#004faf">Home</font></a>&#160;&#183; <a href="classes.html"><font color="#004faf">All Classes</font></a>&#160;&#183; <a href="modules.html"><font color="#004faf">Modules</font></a></td></table><h1 align="center">QNetworkCookieJar Class Reference<br /><sup><sup>[<a href="qtnetwork.html">QtNetwork</a> module]</sup></sup></h1><p>The QNetworkCookieJar class implements a simple jar of <a href="qnetworkcookie.html">QNetworkCookie</a> objects <a href="#details">More...</a></p>
 
-<p>Inherits <a href="qobject.html">QObject</a>.</p><h3>Methods</h3><ul><li><div class="fn" /><b><a href="qnetworkcookiejar.html#QNetworkCookieJar">__init__</a></b> (<i>self</i>, QObject&#160;<i>parent</i>&#160;=&#160;None)</li><li><div class="fn" />list-of-QNetworkCookie <b><a href="qnetworkcookiejar.html#allCookies">allCookies</a></b> (<i>self</i>)</li><li><div class="fn" />list-of-QNetworkCookie <b><a href="qnetworkcookiejar.html#cookiesForUrl">cookiesForUrl</a></b> (<i>self</i>, QUrl&#160;<i>url</i>)</li><li><div class="fn" /><b><a href="qnetworkcookiejar.html#setAllCookies">setAllCookies</a></b> (<i>self</i>, list-of-QNetworkCookie&#160;<i>cookieList</i>)</li><li><div class="fn" />bool <b><a href="qnetworkcookiejar.html#setCookiesFromUrl">setCookiesFromUrl</a></b> (<i>self</i>, list-of-QNetworkCookie&#160;<i>cookieList</i>, QUrl&#160;<i>url</i>)</li></ul><a name="details" /><hr /><h2>Detailed Description</h2><p>The QNetworkCookieJar class implements a simple jar of <a href="qnetworkcookie.html">QNetworkCookie</a> objects</p>
+<p>Inherits <a href="qobject.html">QObject</a>.</p><h3>Methods</h3><ul><li><div class="fn" /><b><a href="qnetworkcookiejar.html#QNetworkCookieJar">__init__</a></b> (<i>self</i>, QObject&#160;<i>parent</i>&#160;=&#160;None)</li><li><div class="fn" />unknown-type <b><a href="qnetworkcookiejar.html#allCookies">allCookies</a></b> (<i>self</i>)</li><li><div class="fn" />unknown-type <b><a href="qnetworkcookiejar.html#cookiesForUrl">cookiesForUrl</a></b> (<i>self</i>, QUrl&#160;<i>url</i>)</li><li><div class="fn" /><b><a href="qnetworkcookiejar.html#setAllCookies">setAllCookies</a></b> (<i>self</i>, unknown-type&#160;<i>cookieList</i>)</li><li><div class="fn" />bool <b><a href="qnetworkcookiejar.html#setCookiesFromUrl">setCookiesFromUrl</a></b> (<i>self</i>, unknown-type&#160;<i>cookieList</i>, QUrl&#160;<i>url</i>)</li></ul><a name="details" /><hr /><h2>Detailed Description</h2><p>The QNetworkCookieJar class implements a simple jar of <a href="qnetworkcookie.html">QNetworkCookie</a> objects</p>
 <p>Cookies are small bits of information that stateless protocols
 like HTTP use to maintain some persistent information across
 requests.</p>
@@ -36,14 +36,14 @@ object and sets the parent object to be <i>parent</i>.</p>
 <p>The cookie jar is initialized to empty.</p>
 
 
-<h3 class="fn"><a name="allCookies" />list-of-QNetworkCookie QNetworkCookieJar.allCookies (<i>self</i>)</h3><p>Returns all cookies stored in this cookie jar. This function is
+<h3 class="fn"><a name="allCookies" />unknown-type QNetworkCookieJar.allCookies (<i>self</i>)</h3><p>Returns all cookies stored in this cookie jar. This function is
 suitable for derived classes to save cookies to disk, as well as to
 implement cookie expiration and other policies.</p>
 <p><b>See also</b> <a href="qnetworkcookiejar.html#setAllCookies">setAllCookies</a>() and
 <a href="qnetworkcookiejar.html#cookiesForUrl">cookiesForUrl</a>().</p>
 
 
-<h3 class="fn"><a name="cookiesForUrl" />list-of-QNetworkCookie QNetworkCookieJar.cookiesForUrl (<i>self</i>, <a href="qurl.html">QUrl</a>&#160;<i>url</i>)</h3><p>Returns the cookies to be added to when a request is sent to
+<h3 class="fn"><a name="cookiesForUrl" />unknown-type QNetworkCookieJar.cookiesForUrl (<i>self</i>, <a href="qurl.html">QUrl</a>&#160;<i>url</i>)</h3><p>Returns the cookies to be added to when a request is sent to
 <i>url</i>. This function is called by the default <a href="qnetworkaccessmanager.html#createRequest">QNetworkAccessManager.createRequest</a>(),
 which adds the cookies returned by this function to the request
 being sent.</p>
@@ -59,14 +59,14 @@ with your own algorithms, override cookiesForUrl().</p>
 and <a href="qnetworkaccessmanager.html#setCookieJar">QNetworkAccessManager.setCookieJar</a>().</p>
 
 
-<h3 class="fn"><a name="setAllCookies" />QNetworkCookieJar.setAllCookies (<i>self</i>, list-of-QNetworkCookie&#160;<i>cookieList</i>)</h3><p>Sets the internal list of cookies held by this cookie jar to be
+<h3 class="fn"><a name="setAllCookies" />QNetworkCookieJar.setAllCookies (<i>self</i>, unknown-type&#160;<i>cookieList</i>)</h3><p>Sets the internal list of cookies held by this cookie jar to be
 <i>cookieList</i>. This function is suitable for derived classes to
 implement loading cookies from permanent storage, or their own
 cookie acceptance policies by reimplementing <a href="qnetworkcookiejar.html#setCookiesFromUrl">setCookiesFromUrl</a>().</p>
 <p><b>See also</b> <a href="qnetworkcookiejar.html#allCookies">allCookies</a>() and <a href="qnetworkcookiejar.html#setCookiesFromUrl">setCookiesFromUrl</a>().</p>
 
 
-<h3 class="fn"><a name="setCookiesFromUrl" />bool QNetworkCookieJar.setCookiesFromUrl (<i>self</i>, list-of-QNetworkCookie&#160;<i>cookieList</i>, <a href="qurl.html">QUrl</a>&#160;<i>url</i>)</h3><p>Adds the cookies in the list <i>cookieList</i> to this cookie
+<h3 class="fn"><a name="setCookiesFromUrl" />bool QNetworkCookieJar.setCookiesFromUrl (<i>self</i>, unknown-type&#160;<i>cookieList</i>, <a href="qurl.html">QUrl</a>&#160;<i>url</i>)</h3><p>Adds the cookies in the list <i>cookieList</i> to this cookie
 jar. Default values for path and domain are taken from the
 <i>url</i> object.</p>
 <p>Returns true if one or more cookies are set for <i>url</i>,
@@ -82,4 +82,4 @@ does not have a maximum cookie jar size. Reimplement this function
 to discard older cookies to create room for new ones.</p>
 <p><b>See also</b> <a href="qnetworkcookiejar.html#cookiesForUrl">cookiesForUrl</a>() and
 <a href="qnetworkaccessmanager.html#setCookieJar">QNetworkAccessManager.setCookieJar</a>().</p>
-<address><hr /><div align="center"><table border="0" cellspacing="0" width="100%"><tr class="address"><td align="left" width="25%">PyQt&#160;4.11.4 for X11</td><td align="center" width="50%">Copyright &#169; <a href="http://www.riverbankcomputing.com">Riverbank&#160;Computing&#160;Ltd</a> and <a href="http://www.qt.io">The Qt Company</a> 2015</td><td align="right" width="25%">Qt&#160;4.8.7</td></tr></table></div></address></body></html>
+<address><hr /><div align="center"><table border="0" cellspacing="0" width="100%"><tr class="address"><td align="left" width="25%">PyQt&#160;4.12.3 for X11</td><td align="center" width="50%">Copyright &#169; <a href="http://www.riverbankcomputing.com">Riverbank&#160;Computing&#160;Ltd</a> and <a href="http://www.qt.io">The Qt Company</a> 2015</td><td align="right" width="25%">Qt&#160;4.8.7</td></tr></table></div></address></body></html>

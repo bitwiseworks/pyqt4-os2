@@ -2,7 +2,7 @@
 //
 // This file is part of the QtCore Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt4.
 // 
@@ -189,7 +189,7 @@ double readDouble() /ReleaseGIL/;
     Py_END_ALLOW_THREADS
 %End
 
-SIP_PYOBJECT readString() /ReleaseGIL,DocType="Py_v3:bytes;str"/;
+SIP_PYOBJECT readString() /ReleaseGIL,TypeHint="Py_v3:bytes;str"/;
 %MethodCode
     char *s;
 
@@ -399,7 +399,7 @@ void writeQVariantHash(const QVariantHash &qvarhash) /ReleaseGIL/;
 %End
 
 %End
-    SIP_PYOBJECT readBytes() /DocType="Py_v3:bytes;str",ReleaseGIL/;
+    SIP_PYOBJECT readBytes() /TypeHint="Py_v3:bytes;str",ReleaseGIL/;
 %MethodCode
         char *s;
         uint l;
@@ -415,7 +415,7 @@ void writeQVariantHash(const QVariantHash &qvarhash) /ReleaseGIL/;
             delete[] s;
 %End
 
-    SIP_PYOBJECT readRawData(int len) /DocType="Py_v3:bytes;str",ReleaseGIL/;
+    SIP_PYOBJECT readRawData(int len) /TypeHint="Py_v3:bytes;str",ReleaseGIL/;
 %MethodCode
         char *s = new char[a0];
         
@@ -431,8 +431,8 @@ void writeQVariantHash(const QVariantHash &qvarhash) /ReleaseGIL/;
         delete[] s;
 %End
 
-    QDataStream &writeBytes(const char * /Array/, uint len /ArraySize/) /ReleaseGIL/;
-    int writeRawData(const char * /Array/, int len /ArraySize/) /ReleaseGIL/;
+    QDataStream &writeBytes(const char * /Array, TypeHint="Py_v3:bytes;str"/, uint len /ArraySize/) /ReleaseGIL/;
+    int writeRawData(const char * /Array, TypeHint="Py_v3:bytes;str"/, int len /ArraySize/) /ReleaseGIL/;
 %If (Qt_4_6_0 -)
 
     enum FloatingPointPrecision

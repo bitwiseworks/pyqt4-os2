@@ -1,6 +1,6 @@
 // This is the implementation of the various Chimera helpers.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt4.
 // 
@@ -33,7 +33,7 @@ static bool to_QList_QObject(PyObject *obj, QList<QObject *>&cpp);
 
 
 // Convert a QVariant to a Python object.
-bool qpydeclarative_to_pyobject(const QVariant *varp, PyObject **objp)
+bool qpydeclarative_from_qvariant(const QVariant *varp, PyObject **objp)
 {
     // Check we handle the meta-type.
     if (varp->userType() != QList_QObject_metatype())

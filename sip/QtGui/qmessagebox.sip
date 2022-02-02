@@ -2,7 +2,7 @@
 //
 // This file is part of the QtGui Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt4.
 // 
@@ -19,10 +19,6 @@
 // This file is provided AS IS with NO WARRANTY OF ANY KIND, INCLUDING THE
 // WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
-
-%ModuleCode
-#include <qmessagebox.h>
-%End
 
 class QMessageBox : QDialog
 {
@@ -145,43 +141,43 @@ public:
 %End
     static int information(QWidget *parent, const QString &title, const QString &text, int button0, int button1 = 0, int button2 = 0) /ReleaseGIL/;
 %If (Qt_4_2_0 -)
-    static int information(QWidget *parent, const QString &title, const QString &text, const QString &button0Text, const QString &button1Text /DocValue="Py_v3:''"/ = QString(), const QString &button2Text /DocValue="Py_v3:''"/ = QString(), int defaultButtonNumber = 0, int escapeButtonNumber = -1) /ReleaseGIL/;
+    static int information(QWidget *parent, const QString &title, const QString &text, const QString &button0Text, const QString &button1Text = QString(), const QString &button2Text = QString(), int defaultButtonNumber = 0, int escapeButtonNumber = -1) /ReleaseGIL/;
 %End
 %If (- Qt_4_2_0)
-    static int information(QWidget *parent, const QString &title, const QString &text, const QString &button0Text /DocValue="Py_v3:''"/ = QString(), const QString &button1Text /DocValue="Py_v3:''"/ = QString(), const QString &button2Text /DocValue="Py_v3:''"/ = QString(), int defaultButtonNumber = 0, int escapeButtonNumber = -1) /ReleaseGIL/;
+    static int information(QWidget *parent, const QString &title, const QString &text, const QString &button0Text = QString(), const QString &button1Text = QString(), const QString &button2Text = QString(), int defaultButtonNumber = 0, int escapeButtonNumber = -1) /ReleaseGIL/;
 %End
 %If (Qt_4_2_0 -)
     static QMessageBox::StandardButton question(QWidget *parent, const QString &title, const QString &text, QMessageBox::StandardButtons buttons = QMessageBox::Ok, QMessageBox::StandardButton defaultButton = QMessageBox::NoButton) /ReleaseGIL/;
 %End
     static int question(QWidget *parent, const QString &title, const QString &text, int button0, int button1 = 0, int button2 = 0) /ReleaseGIL/;
 %If (Qt_4_2_0 -)
-    static int question(QWidget *parent, const QString &title, const QString &text, const QString &button0Text, const QString &button1Text /DocValue="Py_v3:''"/ = QString(), const QString &button2Text /DocValue="Py_v3:''"/ = QString(), int defaultButtonNumber = 0, int escapeButtonNumber = -1) /ReleaseGIL/;
+    static int question(QWidget *parent, const QString &title, const QString &text, const QString &button0Text, const QString &button1Text = QString(), const QString &button2Text = QString(), int defaultButtonNumber = 0, int escapeButtonNumber = -1) /ReleaseGIL/;
 %End
 %If (- Qt_4_2_0)
-    static int question(QWidget *parent, const QString &title, const QString &text, const QString &button0Text /DocValue="Py_v3:''"/ = QString(), const QString &button1Text /DocValue="Py_v3:''"/ = QString(), const QString &button2Text /DocValue="Py_v3:''"/ = QString(), int defaultButtonNumber = 0, int escapeButtonNumber = -1) /ReleaseGIL/;
+    static int question(QWidget *parent, const QString &title, const QString &text, const QString &button0Text = QString(), const QString &button1Text = QString(), const QString &button2Text = QString(), int defaultButtonNumber = 0, int escapeButtonNumber = -1) /ReleaseGIL/;
 %End
 %If (Qt_4_2_0 -)
     static QMessageBox::StandardButton warning(QWidget *parent, const QString &title, const QString &text, QMessageBox::StandardButtons buttons = QMessageBox::Ok, QMessageBox::StandardButton defaultButton = QMessageBox::NoButton) /ReleaseGIL/;
 %End
     static int warning(QWidget *parent, const QString &title, const QString &text, int button0, int button1, int button2 = 0) /ReleaseGIL/;
 %If (Qt_4_2_0 -)
-    static int warning(QWidget *parent, const QString &title, const QString &text, const QString &button0Text, const QString &button1Text /DocValue="Py_v3:''"/ = QString(), const QString &button2Text /DocValue="Py_v3:''"/ = QString(), int defaultButtonNumber = 0, int escapeButtonNumber = -1) /ReleaseGIL/;
+    static int warning(QWidget *parent, const QString &title, const QString &text, const QString &button0Text, const QString &button1Text = QString(), const QString &button2Text = QString(), int defaultButtonNumber = 0, int escapeButtonNumber = -1) /ReleaseGIL/;
 %End
 %If (- Qt_4_2_0)
-    static int warning(QWidget *parent, const QString &title, const QString &text, const QString &button0Text /DocValue="Py_v3:''"/ = QString(), const QString &button1Text /DocValue="Py_v3:''"/ = QString(), const QString &button2Text /DocValue="Py_v3:''"/ = QString(), int defaultButtonNumber = 0, int escapeButtonNumber = -1) /ReleaseGIL/;
+    static int warning(QWidget *parent, const QString &title, const QString &text, const QString &button0Text = QString(), const QString &button1Text = QString(), const QString &button2Text = QString(), int defaultButtonNumber = 0, int escapeButtonNumber = -1) /ReleaseGIL/;
 %End
 %If (Qt_4_2_0 -)
     static QMessageBox::StandardButton critical(QWidget *parent, const QString &title, const QString &text, QMessageBox::StandardButtons buttons = QMessageBox::Ok, QMessageBox::StandardButton defaultButton = QMessageBox::NoButton) /ReleaseGIL/;
 %End
     static int critical(QWidget *parent, const QString &title, const QString &text, int button0, int button1, int button2 = 0) /ReleaseGIL/;
 %If (Qt_4_2_0 -)
-    static int critical(QWidget *parent, const QString &title, const QString &text, const QString &button0Text, const QString &button1Text /DocValue="Py_v3:''"/ = QString(), const QString &button2Text /DocValue="Py_v3:''"/ = QString(), int defaultButtonNumber = 0, int escapeButtonNumber = -1) /ReleaseGIL/;
+    static int critical(QWidget *parent, const QString &title, const QString &text, const QString &button0Text, const QString &button1Text = QString(), const QString &button2Text = QString(), int defaultButtonNumber = 0, int escapeButtonNumber = -1) /ReleaseGIL/;
 %End
 %If (- Qt_4_2_0)
-    static int critical(QWidget *parent, const QString &title, const QString &text, const QString &button0Text /DocValue="Py_v3:''"/ = QString(), const QString &button1Text /DocValue="Py_v3:''"/ = QString(), const QString &button2Text /DocValue="Py_v3:''"/ = QString(), int defaultButtonNumber = 0, int escapeButtonNumber = -1) /ReleaseGIL/;
+    static int critical(QWidget *parent, const QString &title, const QString &text, const QString &button0Text = QString(), const QString &button1Text = QString(), const QString &button2Text = QString(), int defaultButtonNumber = 0, int escapeButtonNumber = -1) /ReleaseGIL/;
 %End
     static void about(QWidget *parent, const QString &caption, const QString &text) /ReleaseGIL/;
-    static void aboutQt(QWidget *parent, const QString &title /DocValue="Py_v3:''"/ = QString()) /ReleaseGIL/;
+    static void aboutQt(QWidget *parent, const QString &title = QString()) /ReleaseGIL/;
 %If (- Qt_5_0_0)
     virtual QSize sizeHint() const;
 %End
@@ -265,7 +261,41 @@ public:
     void open();
 %End
 %If (Qt_4_5_0 -)
-    void open(SIP_RXOBJ_CON receiver, SIP_SLOT_CON() member) [void (QObject *receiver, const char *member)];
+    void open(QObject *receiver, SIP_PYOBJECT member /TypeHint="QT_SLOT"/);
+%MethodCode
+        const char *slot = pyqt4_qtgui_get_slot(a1);
+        
+        if (slot)
+        {
+            Py_BEGIN_ALLOW_THREADS
+            sipCpp->open(a0, slot);
+            Py_END_ALLOW_THREADS
+        }
+        else
+        {
+            sipError = sipBadCallableArg(1, a1);
+        }
+%End
+
+%End
+%If (Qt_4_5_0 -)
+    void open(SIP_PYOBJECT slot /TypeHint="PYQT_SLOT"/);
+%MethodCode
+        QObject *receiver;
+        QByteArray slot_signature;
+        
+        if ((sipError = pyqt4_qtgui_get_connection_parts(a0, 0, "()", false, &receiver, slot_signature)) == sipErrorNone)
+        {
+            Py_BEGIN_ALLOW_THREADS
+            sipCpp->open(receiver, slot_signature.constData());
+            Py_END_ALLOW_THREADS
+        }
+        else if (sipError == sipErrorContinue)
+        {
+            sipError = sipBadCallableArg(0, a0);
+        }
+%End
+
 %End
 %If (Qt_4_5_0 -)
     QList<QAbstractButton*> buttons() const;

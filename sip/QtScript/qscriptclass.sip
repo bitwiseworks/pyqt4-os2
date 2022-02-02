@@ -2,7 +2,7 @@
 //
 // This file is part of the QtScript Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt4.
 // 
@@ -19,12 +19,6 @@
 // This file is provided AS IS with NO WARRANTY OF ANY KIND, INCLUDING THE
 // WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
-
-%If (Qt_4_4_0 -)
-%ModuleCode
-#include <qscriptclass.h>
-%End
-%End
 
 %If (Qt_4_4_0 -)
 
@@ -62,7 +56,7 @@ public:
     virtual QScriptValue prototype() const;
     virtual QString name() const;
     virtual bool supportsExtension(QScriptClass::Extension extension) const;
-    virtual QVariant extension(QScriptClass::Extension extension, const QVariant &argument /DocValue="Py_v3:None"/ = QVariant());
+    virtual QVariant extension(QScriptClass::Extension extension, const QVariant &argument = QVariant());
 
 private:
     QScriptClass(const QScriptClass &);

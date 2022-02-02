@@ -2,7 +2,7 @@
 //
 // This file is part of the QtNetwork Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt4.
 // 
@@ -19,10 +19,6 @@
 // This file is provided AS IS with NO WARRANTY OF ANY KIND, INCLUDING THE
 // WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
-
-%ModuleCode
-#include <qudpsocket.h>
-%End
 
 class QUdpSocket : QAbstractSocket
 {
@@ -61,7 +57,7 @@ public:
 %End
     bool hasPendingDatagrams() const;
     qint64 pendingDatagramSize() const;
-    SIP_PYOBJECT readDatagram(qint64 maxlen, QHostAddress *host /Out/ = 0, quint16 *port = 0) /DocType="Py_v3:bytes;str",ReleaseGIL/;
+    SIP_PYOBJECT readDatagram(qint64 maxlen, QHostAddress *host /Out/ = 0, quint16 *port = 0) /TypeHint="Py_v3:bytes;str",ReleaseGIL/;
 %MethodCode
         // Return the data read or None if there was an error.
         if (a0 < 0)
@@ -95,7 +91,7 @@ public:
         }
 %End
 
-    qint64 writeDatagram(const char *data /Array/, qint64 len /ArraySize/, const QHostAddress &host, quint16 port) /ReleaseGIL/;
+    qint64 writeDatagram(const char *data /Array, TypeHint="Py_v3:bytes;str"/, qint64 len /ArraySize/, const QHostAddress &host, quint16 port) /ReleaseGIL/;
     qint64 writeDatagram(const QByteArray &datagram, const QHostAddress &host, quint16 port) /ReleaseGIL/;
 %If (Qt_4_8_0 -)
     bool joinMulticastGroup(const QHostAddress &groupAddress);

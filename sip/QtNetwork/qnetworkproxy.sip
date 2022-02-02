@@ -2,7 +2,7 @@
 //
 // This file is part of the QtNetwork Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt4.
 // 
@@ -44,7 +44,7 @@ public:
     };
 
     QNetworkProxy();
-    QNetworkProxy(QNetworkProxy::ProxyType type, const QString &hostName /DocValue="Py_v3:''"/ = QString(), quint16 port = 0, const QString &user /DocValue="Py_v3:''"/ = QString(), const QString &password /DocValue="Py_v3:''"/ = QString());
+    QNetworkProxy(QNetworkProxy::ProxyType type, const QString &hostName = QString(), quint16 port = 0, const QString &user = QString(), const QString &password = QString());
     QNetworkProxy(const QNetworkProxy &other);
     ~QNetworkProxy();
     void setType(QNetworkProxy::ProxyType type);
@@ -134,16 +134,16 @@ public:
 
     QNetworkProxyQuery();
     QNetworkProxyQuery(const QUrl &requestUrl, QNetworkProxyQuery::QueryType type = QNetworkProxyQuery::UrlRequest);
-    QNetworkProxyQuery(const QString &hostname, int port, const QString &protocolTag /DocValue="Py_v3:''"/ = QString(), QNetworkProxyQuery::QueryType type = QNetworkProxyQuery::TcpSocket);
-    QNetworkProxyQuery(quint16 bindPort, const QString &protocolTag /DocValue="Py_v3:''"/ = QString(), QNetworkProxyQuery::QueryType type = QNetworkProxyQuery::TcpServer);
+    QNetworkProxyQuery(const QString &hostname, int port, const QString &protocolTag = QString(), QNetworkProxyQuery::QueryType type = QNetworkProxyQuery::TcpSocket);
+    QNetworkProxyQuery(quint16 bindPort, const QString &protocolTag = QString(), QNetworkProxyQuery::QueryType type = QNetworkProxyQuery::TcpServer);
 %If (Qt_4_8_0 -)
     QNetworkProxyQuery(const QNetworkConfiguration &networkConfiguration, const QUrl &requestUrl, QNetworkProxyQuery::QueryType queryType = QNetworkProxyQuery::UrlRequest);
 %End
 %If (Qt_4_8_0 -)
-    QNetworkProxyQuery(const QNetworkConfiguration &networkConfiguration, const QString &hostname, int port, const QString &protocolTag /DocValue="Py_v3:''"/ = QString(), QNetworkProxyQuery::QueryType type = QNetworkProxyQuery::TcpSocket);
+    QNetworkProxyQuery(const QNetworkConfiguration &networkConfiguration, const QString &hostname, int port, const QString &protocolTag = QString(), QNetworkProxyQuery::QueryType type = QNetworkProxyQuery::TcpSocket);
 %End
 %If (Qt_4_8_0 -)
-    QNetworkProxyQuery(const QNetworkConfiguration &networkConfiguration, quint16 bindPort, const QString &protocolTag /DocValue="Py_v3:''"/ = QString(), QNetworkProxyQuery::QueryType type = QNetworkProxyQuery::TcpServer);
+    QNetworkProxyQuery(const QNetworkConfiguration &networkConfiguration, quint16 bindPort, const QString &protocolTag = QString(), QNetworkProxyQuery::QueryType type = QNetworkProxyQuery::TcpServer);
 %End
     QNetworkProxyQuery(const QNetworkProxyQuery &other);
     ~QNetworkProxyQuery();

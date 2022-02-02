@@ -2,7 +2,7 @@
 //
 // This file is part of the QtDBus Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt4.
 // 
@@ -170,7 +170,7 @@ public:
 %End
 
     ~QDBusArgument();
-    SIP_PYOBJECT add(SIP_PYOBJECT arg, int id = QMetaType::Int) /DocType=""/;
+    SIP_PYOBJECT add(SIP_PYOBJECT arg, int id = QMetaType::Int) /TypeHint=""/;
 %MethodCode
         sipRes = qdbusargument_add(sipCpp, a0, a1);
 %End

@@ -2,7 +2,7 @@
 //
 // This file is part of the QtCore Python extension module.
 //
-// Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>
+// Copyright (c) 2018 Riverbank Computing Limited <info@riverbankcomputing.com>
 // 
 // This file is part of PyQt4.
 // 
@@ -20,12 +20,8 @@
 // WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
 
-%ModuleCode
-#include <qstringlist.h>
-%End
-
-// class QStringList /API=QString:2 -,DocType="list-of-str"/
-%MappedType QStringList /API=QString:2 -,DocType="list-of-str"/
+// class QStringList /API=QString:2 -, TypeHintIn="Sequence[str]", TypeHintOut="List[str]"/
+%MappedType QStringList /API=QString:2 -, TypeHintIn="Sequence[str]", TypeHintOut="List[str]", TypeHintValue="[]"/
 {
 %TypeHeaderCode
 #include <qstringlist.h>
@@ -45,7 +41,7 @@ return sipGetState(sipTransferObj);
 %End
 };
 
-class QStringList /API=QString: - 2/
+class QStringList /API=QString: - 2,TypeHintIn="Union[QStringList, Sequence[QString]]"/
 {
 %TypeHeaderCode
 #include <qstringlist.h>
@@ -122,11 +118,7 @@ public:
         
         len = sipCpp->count();
         
-        #if PY_VERSION_HEX >= 0x03020000
-        if (PySlice_GetIndicesEx(a0, len, &start, &stop, &step, &slicelength) < 0)
-        #else
-        if (PySlice_GetIndicesEx((PySliceObject *)a0, len, &start, &stop, &step, &slicelength) < 0)
-        #endif
+        if (sipConvertFromSliceObject(a0, len, &start, &stop, &step, &slicelength) < 0)
             sipIsErr = 1;
         else
         {
@@ -169,11 +161,7 @@ public:
         
         len = sipCpp->count();
         
-        #if PY_VERSION_HEX >= 0x03020000
-        if (PySlice_GetIndicesEx(a0, len, &start, &stop, &step, &slicelength) < 0)
-        #else
-        if (PySlice_GetIndicesEx((PySliceObject *)a0, len, &start, &stop, &step, &slicelength) < 0)
-        #endif
+        if (sipConvertFromSliceObject(a0, len, &start, &stop, &step, &slicelength) < 0)
             sipIsErr = 1;
         else
             for (i = 0; i < slicelength; ++i)
@@ -199,11 +187,7 @@ public:
         
         len = sipCpp->count();
         
-        #if PY_VERSION_HEX >= 0x03020000
-        if (PySlice_GetIndicesEx(a0, len, &start, &stop, &step, &slicelength) < 0)
-        #else
-        if (PySlice_GetIndicesEx((PySliceObject *)a0, len, &start, &stop, &step, &slicelength) < 0)
-        #endif
+        if (sipConvertFromSliceObject(a0, len, &start, &stop, &step, &slicelength) < 0)
             sipIsErr = 1;
         else
         {
