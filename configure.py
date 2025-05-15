@@ -2133,7 +2133,10 @@ int main(int argc, char **argv)
         sipconfig.error("%s failed to create %s. Make sure your Qt installation is correct." % (exe_file, out_file))
 
     # Read the directories.
-    f = open(out_file, "rU")
+    if sys.hexversion >= 0x03000000:
+        f = open(out_file, "r")
+    else:
+        f = open(out_file, "rU")
     lines = f.read().strip().split("\n")
     f.close()
 
