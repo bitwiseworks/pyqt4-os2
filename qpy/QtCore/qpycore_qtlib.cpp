@@ -127,7 +127,11 @@ PyObject *qtlib_invoke_slot(const sipSlot *slot, PyObject *sigargs,
 
     for (;;)
     {
+#if PY_VERSION_HEX < 0x03090000
         PyObject *resobj = PyEval_CallObject(sfunc, sa);
+#else
+        PyObject *resobj = PyObject_Call(sfunc, sa, (PyObject *)NULL);
+#endif
 
         if (resobj)
         {

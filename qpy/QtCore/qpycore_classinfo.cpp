@@ -36,7 +36,11 @@ PyObject *qpycore_ClassInfo(const char *name, const char *value)
 
     // We need the frame we were called from, not the current one.
     if (frame)
+#if PY_VERSION_HEX < 0x03090000
         frame = frame->f_back;
+#else
+        frame = PyFrame_GetBack(frame);
+#endif
 
     if (!frame)
     {

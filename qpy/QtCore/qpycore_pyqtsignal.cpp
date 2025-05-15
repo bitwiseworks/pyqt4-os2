@@ -658,7 +658,11 @@ PyObject *qpycore_call_signal_overload(qpycore_pyqtSignal *ps, PyObject *bound,
     if (!func)
         return 0;
 
+#if PY_VERSION_HEX < 0x03090000
     PyObject *result = PyCFunction_Call(func, args, kw);
+#else
+    PyObject *result = PyObject_Call(func, args, kw);
+#endif
 
     Py_DECREF(func);
 

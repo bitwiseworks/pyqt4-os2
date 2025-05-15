@@ -17,7 +17,6 @@
 // This file is provided AS IS with NO WARRANTY OF ANY KIND, INCLUDING THE
 // WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
-
 #include <Python.h>
 #include <string.h>
 
@@ -26,7 +25,6 @@
 #include <QVector>
 
 #include "qpycore_sip.h"
-
 
 // Work out if we should enable PEP 393 support.  This is complicated by the
 // broken LLVM that XCode v4 installs.
@@ -42,6 +40,32 @@
 #endif
 #endif
 
+#if PY_VERSION_HEX > 0x03090000
+static int
+as_read_buffer(PyObject *obj, const void **buffer, Py_ssize_t *buffer_len)
+{
+    Py_buffer view;
+
+    if (obj == NULL || buffer == NULL || buffer_len == NULL) {
+        return -1;
+    }
+    if (PyObject_GetBuffer(obj, &view, PyBUF_SIMPLE) != 0)
+        return -1;
+
+    *buffer = view.buf;
+    *buffer_len = view.len;
+    PyBuffer_Release(&view);
+    return 0;
+}
+
+static int
+PyObject_AsCharBuffer(PyObject *obj,
+                      const char **buffer,
+                      Py_ssize_t *buffer_len)
+{
+    return as_read_buffer(obj, (const void **)buffer, buffer_len);
+}
+#endif
 
 // Convert a QString to a Python Unicode object.
 PyObject *qpycore_PyObject_FromQString(const QString &qstr)
